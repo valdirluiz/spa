@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="411.0" stylesheets="/assets/bootstrap.css" fx:controller="br.ufsc.ine.aps.views.login.LoginViewController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextField fx:id="cpfField" layoutX="53.0" layoutY="61.0" prefHeight="34.0" prefWidth="308.0" promptText="CPF" />
+        <TextField fx:id="senhaField" layoutX="53.0" layoutY="120.0" prefHeight="34.0" prefWidth="308.0" promptText="Senha" />
+        <Button layoutX="48.0"  fx:id="loginButton" onAction="#handleLoginButtonAction" layoutY="172.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="315.0"  text="Efetuar Login">
+            <styleClass>
+                <String fx:value="btn-default" />
+                <String fx:value="btn-primary" />
+            </styleClass>
+        </Button>
+        <Label layoutX="178.0" layoutY="7.0" prefHeight="34.0" prefWidth="59.0" styleClass="h4" text="Login">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </children>
+</Pane>
