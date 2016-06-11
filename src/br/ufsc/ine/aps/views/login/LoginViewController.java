@@ -28,7 +28,7 @@ public class LoginViewController implements Initializable {
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
         System.out.println("CPF: "  + this.cpfField.getText());
-        System.out.println("SENHA: "  + this.cpfField.getText());
+        System.out.println("SENHA: "  + this.senhaField.getText());
     }
 
 

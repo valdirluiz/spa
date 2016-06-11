@@ -1,4 +1,4 @@
-package app;
+package br.ufsc.ine.aps.app;
 
 import br.ufsc.ine.aps.views.login.LoginViewController;
 import javafx.application.Application;
