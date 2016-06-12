@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 public class SQLiteConnection {
 
 
@@ -50,7 +49,7 @@ public class SQLiteConnection {
                 System.out.println();
             }
         } catch (Exception e){
-
+            System.out.print(e.getMessage());
         }
 
     }
