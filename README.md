@@ -11,7 +11,7 @@ Autores
 
 -----
 
-### Comando build com Mavem
+### Comandos Maven
 -----
 
 Gerar o jar com JavaFx
