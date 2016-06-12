@@ -1,4 +1,6 @@
 out/
 .idea
 .DS_Store
+target/
+spa.iml
 

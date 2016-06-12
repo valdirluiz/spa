@@ -11,4 +11,11 @@ Autores
 
 -----
 
+## Comandos Maven
+
+Gerar o jar com JavaFx
+
+```bash
+$ mvn jfx:jar
+```
 

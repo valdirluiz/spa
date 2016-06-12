@@ -20,6 +20,7 @@ public abstract class Pessoa implements Autenticavel{
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -32,14 +33,17 @@ public abstract class Pessoa implements Autenticavel{
         this.cpf = cpf;
     }
 
+    @Override
     public String getSenha() {
         return senha;
     }
 
+    @Override
     public void setSenha(String senha) {
         this.senha = senha;
     }
 
+    @Override
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -65,10 +69,12 @@ public abstract class Pessoa implements Autenticavel{
         this.email = email;
     }
 
+    @Override
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
 
+    @Override
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
