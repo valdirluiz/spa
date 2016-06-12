@@ -1,4 +1,4 @@
-CREATE TABLE clientes (
+CREATE TABLE pessoas (
   id int NOT NULL,
   cpf varchar(11) NOT NULL,
   email varchar(150),
@@ -6,5 +6,6 @@ CREATE TABLE clientes (
   senha varchar(32),
   telefone varchar(20),
   tipo_usuario int,
-  PRIMARY KEY (id)
+  data_cadastro date,
+  PRIMARY KEY (id, tipo_usuario)
 );
