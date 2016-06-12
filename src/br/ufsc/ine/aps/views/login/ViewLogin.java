@@ -2,12 +2,18 @@ package br.ufsc.ine.aps.views.login;
 
 
 import br.ufsc.ine.aps.controllers.login.Autenticador;
+import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 
 import java.net.URL;
@@ -24,6 +30,9 @@ public class ViewLogin implements Initializable {
     @FXML
     private PasswordField senhaField;
 
+    @FXML
+    private Pane loginPanel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.autenticador = Autenticador.getInstance();
@@ -36,11 +45,21 @@ public class ViewLogin implements Initializable {
             this.exibeNotificacao(notificacao.get());
         } else{
             this.abrirTelaPrincipal();
+            Stage loginStage = (Stage) this.loginPanel.getScene().getWindow();
+            loginStage.close();
         }
     }
 
     private void abrirTelaPrincipal(){
-        // TODO: 12/06/2016 implementar logica para abrir tela principal
+        try {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(ViewPrincipal.class.getResource("principal.fxml"));
+            stage.setTitle("Home");
+            stage.setScene(new Scene(root, 800, 600));
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void exibeNotificacao(String notificacao){

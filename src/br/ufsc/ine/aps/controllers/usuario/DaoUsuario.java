@@ -1,7 +1,7 @@
 package br.ufsc.ine.aps.controllers.usuario;
 
 
-import br.ufsc.ine.aps.bd.SQLiteConnection;
+import br.ufsc.ine.aps.utils.SQLiteConnection;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.*;
 
