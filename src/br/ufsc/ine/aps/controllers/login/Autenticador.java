@@ -1,6 +1,7 @@
 package br.ufsc.ine.aps.controllers.login;
 
 
+import br.com.caelum.stella.validation.CPFValidator;
 import br.ufsc.ine.aps.controllers.usuario.UsuarioController;
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Pessoa;
@@ -41,10 +42,12 @@ public class Autenticador {
     }
 
     private Optional<String> validaDados(String cpf, String senha) {
-        //TODO: validar cpf valido
+        CPFValidator cpfValidator = new CPFValidator();
         Optional<String> notificacao = Optional.empty();
         if(cpf == null || cpf.isEmpty()){
             notificacao = Optional.of("CPF não preenchido!");
+        } else if(!cpfValidator.invalidMessagesFor(cpf).isEmpty()){
+            notificacao = Optional.of("CPF inválido!");
         } else if(senha == null || senha.isEmpty()) {
             notificacao = Optional.of("Senha não preenchida!");
         }
