@@ -11,4 +11,11 @@ Autores
 
 -----
 
+### Comando build com Mavem
+-----
 
+Gerar o jar com JavaFx
+
+```bash
+$ mvn jfx:jar
+```
