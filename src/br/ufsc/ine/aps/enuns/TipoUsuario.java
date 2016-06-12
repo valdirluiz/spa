@@ -13,4 +13,26 @@ public enum TipoUsuario {
     private Integer id;
     private String descricao;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public static TipoUsuario  getById(Integer id){
+        switch (id){
+            case 1:
+                return CLIENTE;
+            case 2:
+                return ATENDENTE;
+            case 3:
+                return OPERADOR_SUPORTE;
+            case 4:
+                return GERENTE;
+            default:
+                return null;
+        }
+    }
 }
