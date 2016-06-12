@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LoginView implements Initializable {
+public class ViewLogin implements Initializable {
 
     private Autenticador autenticador;
 
@@ -35,8 +35,12 @@ public class LoginView implements Initializable {
         if(notificacao.isPresent()){
             this.exibeNotificacao(notificacao.get());
         } else{
-            //TODO: abrir tela principal
+            this.abrirTelaPrincipal();
         }
+    }
+
+    private void abrirTelaPrincipal(){
+        // TODO: 12/06/2016 implementar logica para abrir tela principal
     }
 
     private void exibeNotificacao(String notificacao){

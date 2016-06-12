@@ -5,10 +5,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="411.0" stylesheets="/br/ufsc/ine/aps/assets/bootstrap.css" fx:controller="br.ufsc.ine.aps.views.login.LoginView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="411.0" stylesheets="/br/ufsc/ine/aps/assets/bootstrap.css" fx:controller="br.ufsc.ine.aps.views.login.ViewLogin" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextField focusTraversable="false"  fx:id="cpfField" layoutX="53.0" layoutY="61.0" prefHeight="34.0" prefWidth="308.0" promptText="CPF" >
-            
+
         </TextField>
         <PasswordField fx:id="senhaField" focusTraversable="false" layoutX="53.0" layoutY="120.0" prefHeight="34.0" prefWidth="308.0" promptText="Senha"></PasswordField>
         <Button layoutX="48.0"   fx:id="loginButton" onAction="#handleLoginButtonAction" layoutY="172.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="315.0"  text="Efetuar Login">

@@ -2,15 +2,14 @@ package br.ufsc.ine.aps.controllers.login;
 
 
 import br.com.caelum.stella.validation.CPFValidator;
-import br.ufsc.ine.aps.controllers.usuario.UsuarioController;
+import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
 import br.ufsc.ine.aps.models.Autenticavel;
-import br.ufsc.ine.aps.models.Pessoa;
 
 import java.util.Optional;
 
 public class Autenticador {
 
-    private UsuarioController usuarioController;
+    private ControllerUsuario controllerUsuario;
     private Autenticavel usuarioLogado;
 
     private static Autenticador ourInstance = new Autenticador();
@@ -21,15 +20,16 @@ public class Autenticador {
 
 
     private Autenticador(){
-        this.usuarioController = new UsuarioController();
+        this.controllerUsuario = new ControllerUsuario();
     }
 
     public Optional<String> efetuarLogin(String cpf, String senha){
         Optional<String> notificacao = this.validaDados(cpf, senha);
         if(!notificacao.isPresent()){
-            Autenticavel usuario = usuarioController.findUsuario(cpf);
+            Autenticavel usuario = controllerUsuario.findUsuarioByCpf(cpf);
             if(usuario!=null){
-                if(!this.validaSenha(senha, usuario)){
+                boolean senhaValida = this.verificaSenha(senha, usuario);
+                if(!senhaValida){
                     notificacao = Optional.of("Senha invalida");
                 } else{
                     this.autenticaUsuario(usuario);
@@ -59,7 +59,7 @@ public class Autenticador {
         this.usuarioLogado = usuario;
     }
 
-    private boolean validaSenha(String senha, Autenticavel usuario){
+    private boolean verificaSenha(String senha, Autenticavel usuario){
         return senha.equals(usuario.getSenha());
     }
 
