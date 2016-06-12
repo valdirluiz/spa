@@ -24,19 +24,33 @@ public class Autenticador {
     }
 
     public Optional<String> efetuarLogin(String cpf, String senha){
-        Autenticavel usuario = usuarioController.findUsuario(cpf);
-        Optional<String> notificacao = Optional.empty();
-        if(usuario!=null){
-            if(!this.validaSenha(senha, usuario)){
-                notificacao = Optional.of("Senha invalida");
+        Optional<String> notificacao = this.validaDados(cpf, senha);
+        if(!notificacao.isPresent()){
+            Autenticavel usuario = usuarioController.findUsuario(cpf);
+            if(usuario!=null){
+                if(!this.validaSenha(senha, usuario)){
+                    notificacao = Optional.of("Senha invalida");
+                } else{
+                    this.autenticaUsuario(usuario);
+                }
             } else{
-                this.autenticaUsuario(usuario);
+                notificacao = Optional.of("Usuário inválido");
             }
-        } else{
-            notificacao = Optional.of("Usuário inválido");
         }
         return notificacao;
     }
+
+    private Optional<String> validaDados(String cpf, String senha) {
+        //TODO: validar cpf valido
+        Optional<String> notificacao = Optional.empty();
+        if(cpf == null || cpf.isEmpty()){
+            notificacao = Optional.of("CPF não preenchido!");
+        } else if(senha == null || senha.isEmpty()) {
+            notificacao = Optional.of("Senha não preenchida!");
+        }
+        return notificacao;
+    }
+
 
     private void autenticaUsuario(Autenticavel usuario) {
         this.usuarioLogado = usuario;
