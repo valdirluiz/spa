@@ -9,9 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <jdk.main>1.8</jdk.main>
-    </properties>
+
 
     <dependencies>
         <!-- http://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
@@ -47,6 +45,8 @@
                     <mainClass>br.ufsc.ine.aps.app.Main</mainClass>
                 </configuration>
             </plugin>
+
+
 
         </plugins>
     </build>
