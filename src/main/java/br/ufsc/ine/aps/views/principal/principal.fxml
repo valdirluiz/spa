@@ -25,7 +25,7 @@
                 <String fx:value="btn-info"/>
             </styleClass>
         </Button>
-        <Button layoutX="415.0" layoutY="37.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0"
+        <Button onAction="#handleCadastroProtocoloButtonAction" layoutX="415.0" layoutY="37.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0"
                 text="Cadastrar Protocolo">
             <styleClass>
                 <String fx:value="btn-default"/>
