@@ -46,6 +46,8 @@ public class SQLiteConnection {
 
                 System.out.println( "ID = " + id );
                 System.out.println( "NAME = " + nome );
+                System.out.println( "CPF = " + rs.getString("cpf") );
+                System.out.println( "SENHA = " + rs.getString("senha") );
                 System.out.println();
             }
         } catch (Exception e){

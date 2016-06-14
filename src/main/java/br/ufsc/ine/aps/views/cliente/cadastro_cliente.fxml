@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="622.0" styleClass="pane" stylesheets="/br/ufsc/ine/aps/assets/bootstrap.css" fx:controller="br.ufsc.ine.aps.views.cliente.ViewCliente" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="cpf" layoutX="36.0" layoutY="98.0" prefHeight="25.0" prefWidth="171.0" text="" promptText="CPF" />
+      <TextField fx:id="nome" layoutX="229.0" layoutY="98.0" prefHeight="25.0" prefWidth="171.0" text="" promptText="Nome" />
+      <TextField fx:id="telefone" layoutX="415.0" layoutY="98.0" prefHeight="25.0" prefWidth="171.0" text="" promptText="Telefone" />
+      <TextField fx:id="email" layoutX="36.0" layoutY="159.0" prefHeight="25.0" prefWidth="171.0" text="" promptText="Email" />
+      <Label layoutX="33.0" styleClass="h4" stylesheets="/br/ufsc/ine/aps/assets/bootstrap.css" text="Cadastro de cliente" />
+      <Button fx:id="salvarClienteButton" onAction="#handleSalvarClienteButtonAction" layoutX="508.0" layoutY="7.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="75.0" stylesheets="/br/ufsc/ine/aps/assets/bootstrap.css" text="Salvar">
+         <styleClass>
+            <String fx:value="btn-default" />
+            <String fx:value="btn-primary" />
+         </styleClass>
+      </Button>
+      <Separator layoutX="33.0" layoutY="69.0" prefHeight="2.0" prefWidth="550.0" />
+   </children>
+</Pane>
