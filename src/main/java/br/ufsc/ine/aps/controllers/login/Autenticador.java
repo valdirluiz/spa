@@ -18,7 +18,6 @@ public class Autenticador {
         return ourInstance;
     }
 
-
     private Autenticador(){
         this.controllerUsuario = new ControllerUsuario();
     }

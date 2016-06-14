@@ -1,5 +1,6 @@
 package br.ufsc.ine.aps.views.principal;
 
+import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,4 +38,19 @@ public class ViewPrincipal implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleClientesButtonAction(ActionEvent ev) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(ViewCliente.class.getResource("cadastro_cliente.fxml"));
+            stage.setTitle("Clientes");
+            stage.setScene(new Scene(root, 800, 500));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
