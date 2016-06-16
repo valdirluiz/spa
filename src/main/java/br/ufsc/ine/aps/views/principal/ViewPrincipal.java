@@ -1,10 +1,6 @@
 package br.ufsc.ine.aps.views.principal;
 
-<<<<<<< HEAD
-import br.ufsc.ine.aps.views.login.ViewLogin;
-=======
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
->>>>>>> 68a70d71dbcf705f5bc06796e3c078416975c461
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
