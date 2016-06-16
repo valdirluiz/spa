@@ -7,12 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -52,10 +54,16 @@ public class ViewLogin implements Initializable {
 
     private void abrirTelaPrincipal(){
         try {
+            Screen screen = Screen.getPrimary();
+            Rectangle2D janela = screen.getVisualBounds();
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(ViewPrincipal.class.getResource("principal.fxml"));
+            Parent root = FXMLLoader.load(ViewPrincipal.class.getResource("home.fxml"));
             stage.setTitle("Home");
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(new Scene(root));
+            stage.setX(janela.getMinX());
+            stage.setY(janela.getMinY());
+            stage.setWidth(janela.getWidth());
+            stage.setHeight(janela.getHeight());
             stage.show();
         } catch (Exception e){
             e.printStackTrace();
