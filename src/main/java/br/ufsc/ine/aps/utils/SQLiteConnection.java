@@ -10,7 +10,6 @@ public class SQLiteConnection {
 
     private Connection connection;
 
-
     private static SQLiteConnection ourInstance = new SQLiteConnection();
 
     public static SQLiteConnection getInstance() {

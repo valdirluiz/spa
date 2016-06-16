@@ -14,6 +14,7 @@ public abstract class Pessoa implements Autenticavel{
     private String telefone;
     private String email;
     private TipoUsuario tipoUsuario;
+    private boolean isCliente;
 
     @Override
     public Integer getId() {
@@ -84,4 +85,11 @@ public abstract class Pessoa implements Autenticavel{
         return null;
     }
 
+    public boolean isCliente() {
+        return isCliente;
+    }
+
+    public void setCliente(boolean cliente) {
+        isCliente = cliente;
+    }
 }
