@@ -1,13 +1,17 @@
 package br.ufsc.ine.aps.models;
 
+import br.ufsc.ine.aps.controllers.cliente.DaoCliente;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
 import java.util.Date;
 
 public class Cliente extends Pessoa {
 
     private Date dataDeCadastro;
+    private DaoCliente dao = new DaoCliente();
 
     public Cliente() {
+        this.setDataDeCadastro(new Date());
+        this.setTipoUsuario(TipoUsuario.CLIENTE);
     }
 
     public Cliente(int id, String cpf, String senha, String nome, String telefone, String email) {
@@ -37,4 +41,5 @@ public class Cliente extends Pessoa {
     public void setDataDeCadastro(Date dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
+
 }
