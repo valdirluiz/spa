@@ -1,5 +1,6 @@
 package br.ufsc.ine.aps.utils;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,10 +24,13 @@ public class SQLiteConnection {
 
     private void openConnection(){
         try {
+            String bd = new File("data.bd").getAbsolutePath();
+            System.out.println(bd);
             Class.forName("org.sqlite.JDBC");
-            this.connection =  DriverManager.getConnection("jdbc:sqlite:data.bd");
+            this.connection =  DriverManager.getConnection("jdbc:sqlite:" + bd);
+            System.out.println(connection.toString());
         } catch (Exception e){
-            System.out.print("Falha ao se conectar");
+            e.printStackTrace();
         }
     }
 
@@ -38,6 +42,7 @@ public class SQLiteConnection {
         try {
             SQLiteConnection sQLiteConnection = SQLiteConnection.getInstance();
             Connection connection = sQLiteConnection.getConnection();
+            System.out.println(connection.getSchema());
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM pessoas;" );
             while ( rs.next() ) {
@@ -49,7 +54,7 @@ public class SQLiteConnection {
                 System.out.println();
             }
         } catch (Exception e){
-            System.out.print(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
     }
