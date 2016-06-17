@@ -23,11 +23,8 @@ public class SQLiteConnection {
 
     private void openConnection(){
         try {
-            String bd = new File("data.bd").getAbsolutePath();
-            System.out.println(bd);
             Class.forName("org.sqlite.JDBC");
-            this.connection =  DriverManager.getConnection("jdbc:sqlite:" + bd);
-            System.out.println(connection.toString());
+            this.connection =  DriverManager.getConnection("jdbc:sqlite::resource:data.bd");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -41,7 +38,6 @@ public class SQLiteConnection {
         try {
             SQLiteConnection sQLiteConnection = SQLiteConnection.getInstance();
             Connection connection = sQLiteConnection.getConnection();
-            System.out.println(connection.getSchema());
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM pessoas;" );
             while ( rs.next() ) {
