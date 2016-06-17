@@ -6,6 +6,7 @@ CREATE TABLE pessoas (
   senha varchar(32),
   telefone varchar(20),
   tipo_usuario int,
+  is_cliente int,
   data_cadastro date,
-  PRIMARY KEY (id, tipo_usuario)
+  PRIMARY KEY (id, is_cliente)
 );

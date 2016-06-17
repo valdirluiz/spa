@@ -11,8 +11,8 @@
       prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button layoutX="25.0" layoutY="37.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0"
-                text="Cadastrar Cliente">
+        <Button fx:id="clientesButton" onAction="#handleClientesButtonAction" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="171.0"
+                text="Clientes">
             <styleClass>
                 <String fx:value="btn-default"/>
                 <String fx:value="btn-info"/>
