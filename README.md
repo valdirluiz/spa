@@ -16,6 +16,6 @@ Autores
 Gerar o jar com JavaFx
 
 ```bash
-$ mvn jfx:jar
+$ mvn clean package assembly:single
 ```
 
