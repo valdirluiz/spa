@@ -70,10 +70,6 @@
                 </configuration>
             </plugin>
 
-
-
-
-
         </plugins>
     </build>
 
