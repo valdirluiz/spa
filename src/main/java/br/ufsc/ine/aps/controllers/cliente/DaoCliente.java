@@ -50,7 +50,6 @@ public class DaoCliente {
             stmt.setInt(6, cliente.getTipoUsuario().getId());
             stmt.setBoolean(7, cliente.isCliente());
             stmt.setString(8, cliente.getDataDeCadastro().toString());
-
             stmt.executeUpdate();
             return true;
         } catch (Exception e) {
