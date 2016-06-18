@@ -46,21 +46,37 @@ public class ViewPrincipal implements Initializable {
     }
 
     @FXML
-    private void handleClientesButtonAction(ActionEvent ev) {
+    private void handleClientesConsultarAction(ActionEvent ev) {
         try {
             AnchorPane content = new AnchorPane();
-            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("list.fxml"));
+            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("listar.fxml"));
             content.getChildren().setAll(page);
 
             AnchorPane title = new AnchorPane();
-            Parent titleWrapper = FXMLLoader.load(ViewCliente.class.getResource("titulo.fxml"));
+            Parent titleWrapper = FXMLLoader.load(ViewCliente.class.getResource("_titulo.fxml"));
             title.getChildren().setAll(titleWrapper);
 
             this.atualizaConteudo(title, content);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    private void handleClientesCadastrarAction(ActionEvent ev) {
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("cadastrar.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewCliente.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void atualizaConteudo(AnchorPane title, AnchorPane conteudo) {
