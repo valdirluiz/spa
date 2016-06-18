@@ -1,27 +1,31 @@
 package br.ufsc.ine.aps.views.principal;
 
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
-
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
+
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
+import java.net.URL;
+
+import java.util.ResourceBundle;
 
 public class ViewPrincipal implements Initializable {
 
     @FXML
-    private AnchorPane conteudoDinamico;
+    private AnchorPane pageTitle;
+
+    @FXML
+    private AnchorPane pageContent;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,23 +48,32 @@ public class ViewPrincipal implements Initializable {
     @FXML
     private void handleClientesButtonAction(ActionEvent ev) {
         try {
-            AnchorPane pane = new AnchorPane();
-            Parent conteudoDaView =  FXMLLoader.load(ViewCliente.class.getResource("cadastro_cliente.fxml"));
-            pane.getChildren().setAll(conteudoDaView);
-            this.atualizaConteudo(pane);
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("list.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewCliente.class.getResource("titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    public void atualizaConteudo(AnchorPane title, AnchorPane conteudo) {
+        pageContent.getChildren().clear();
+        pageContent.getChildren().add(conteudo);
 
-    public  void atualizaConteudo(AnchorPane conteudo) {
-
-        conteudoDinamico.getChildren().clear();
-        conteudoDinamico.getChildren().add(conteudo);
+        pageTitle.getChildren().clear();
+        pageTitle.getChildren().add(title);
     }
 
-
+    public void atualizaConteudo(AnchorPane conteudo) {
+        pageContent.getChildren().clear();
+        pageContent.getChildren().add(conteudo);
+    }
 
 }
