@@ -1,6 +1,7 @@
 package br.ufsc.ine.aps.views.principal;
 
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
+
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,24 +41,26 @@ public class ViewPrincipal implements Initializable {
 
     }
 
-    public  void atualizaConteudo(AnchorPane conteudo) {
-        conteudoDinamico.getChildren().clear();
-        conteudoDinamico.getChildren().add(conteudo);
-
-    }
-
     @FXML
     private void handleClientesButtonAction(ActionEvent ev) {
-        Stage stage = new Stage();
-        Parent root = null;
         try {
-            root = FXMLLoader.load(ViewCliente.class.getResource("cadastro_cliente.fxml"));
-            stage.setTitle("Clientes");
-            stage.setScene(new Scene(root, 800, 500));
-            stage.show();
+            AnchorPane pane = new AnchorPane();
+            Parent conteudoDaView =  FXMLLoader.load(ViewCliente.class.getResource("cadastro_cliente.fxml"));
+            pane.getChildren().setAll(conteudoDaView);
+            this.atualizaConteudo(pane);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
+
+    public  void atualizaConteudo(AnchorPane conteudo) {
+
+        conteudoDinamico.getChildren().clear();
+        conteudoDinamico.getChildren().add(conteudo);
+    }
+
+
 
 }
