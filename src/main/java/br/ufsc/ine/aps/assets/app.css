@@ -6,7 +6,7 @@
   -fx-background-color: #ee6e73 !important; 
 }
 
- .footer-copyright {
+.footer-copyright {
     -fx-overflow: hidden;
     -fx-height: 50px;
     -fx-line-height: 50px;
@@ -16,9 +16,35 @@
 
 .menu-button {
 	-fx-background-color: transparent;
-	-fx-pref-height: 60  !important;
-	-fx-pref-width: 60  !important;
+	-fx-pref-height: 30  !important;
+	-fx-pref-width: 150  !important;
 	-fx-min-height: 36;
 	-fx-min-width: 36;
 	-fx-padding: 0;
+}
+
+.menu-label {
+    -fx-font-size: 16px !important;
+    -fx-text-fill: #555 !important;
+    -fx-font-weight: bold;
+    -fx-background-color: -swatch-toolbar !important;
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: -swatch-grey;
+}
+
+.menu-logo {
+    -fx-background-color: transparent;
+    -fx-pref-height: 30  !important;
+    -fx-pref-width: 150  !important;
+    -fx-min-height: 30;
+    -fx-min-width: 150;
+    -fx-padding: 0;
+    -fx-font-size: 24px !important;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ebebeb !important;
+}
+
+.menu-separador {
+    -fx-pref-height: 12  !important;
+    -fx-min-height: 12;
 }
