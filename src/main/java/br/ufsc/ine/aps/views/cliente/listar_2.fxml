@@ -13,7 +13,7 @@
             <children>
             <HBox  styleClass="card">
                <children>
-                      <TableView fx:id="tabelaClientes" prefHeight="340.0" prefWidth="710.0">
+                      <TableView fx:id="tabelaClientes">
                           <columns>
                               <TableColumn prefWidth="163.0" text="Nome">
                                   <cellValueFactory>
