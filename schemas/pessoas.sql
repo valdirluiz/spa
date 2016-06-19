@@ -9,3 +9,5 @@
   is_cliente int,
   data_cadastro date
  );
+
+ CREATE UNIQUE INDEX pessoas_id_tipo_usuario_uindex ON pessoas(id,tipo_usuario)

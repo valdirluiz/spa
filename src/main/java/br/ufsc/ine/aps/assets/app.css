@@ -52,3 +52,8 @@
 .delete-button{
     -fx-background-image: url("delete.png");
 }
+
+.button-success {
+    -fx-background-color: #009688 !important;
+    -fx-text-fill: #ebebeb !important;
+}

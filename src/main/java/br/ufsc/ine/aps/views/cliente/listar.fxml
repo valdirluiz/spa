@@ -39,9 +39,10 @@
                                       <PropertyValueFactory property="telefone" />
                                   </cellValueFactory>
                               </TableColumn>
-                        <TableColumn fx:id="columnExcluir" editable="false" sortable="false" text="Excluir" />
 
+                              <TableColumn fx:id="columnExcluir" editable="false" sortable="false" text="Excluir" />
 
+                              <TableColumn fx:id="columnEditar" editable="false" sortable="false" text="Editar" />
                           </columns>
                       </TableView>
                </children>

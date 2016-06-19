@@ -7,9 +7,11 @@ import java.io.InputStream;
  */
 public class Assets {
 
-
     public static InputStream deleteImage(){
         return Assets.class.getResourceAsStream("delete.png");
     }
 
+    public static InputStream editImage() {
+        return Assets.class.getResourceAsStream("edit.png");
+    }
 }

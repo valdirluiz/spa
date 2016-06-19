@@ -31,34 +31,46 @@ public class ViewClienteList implements Initializable {
     @FXML
     private TableColumn columnExcluir;
 
+    @FXML
+    private TableColumn columnEditar;
+
     private List<Cliente> clientes;
     private ObservableList clientesTabela;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ctrl = ControllerCliente.getInstance();
-        this.clientes = this.ctrl.findAll();
+        this.ctrl = ControllerCliente.getInstance();
+        this.ctrl.setViewList(this);
+        this.clientes = this.ctrl.buscarTodos();
         this.geraDadosParaTabela();
         this.insereBotaoExcluir();
+        this.insereBotaoEditar();
     }
 
-
     private void geraDadosParaTabela(){
-        this.clientes = this.ctrl.findAll();
+        this.clientes = this.ctrl.buscarTodos();
         tabelaClientes.getItems().clear();
-        clientesTabela =
-                FXCollections.observableArrayList(clientes);
+        clientesTabela = FXCollections.observableArrayList(clientes);
         tabelaClientes.setItems(clientesTabela);
         tabelaClientes.refresh();
     }
 
-
     private void insereBotaoExcluir(){
         columnExcluir.setCellFactory(
+            new Callback<TableColumn<Record, Boolean>, TableCell<Record, Boolean>>() {
+                @Override
+                public TableCell<Record, Boolean> call(TableColumn<Record, Boolean> p) {
+                    return new BotaoDeletar(ViewClienteList.this);
+                }
+            });
+    }
+
+    private void insereBotaoEditar(){
+        columnEditar.setCellFactory(
                 new Callback<TableColumn<Record, Boolean>, TableCell<Record, Boolean>>() {
                     @Override
                     public TableCell<Record, Boolean> call(TableColumn<Record, Boolean> p) {
-                        return new BotaoDeletar(ViewClienteList.this);
+                        return new BotaoEditar(ViewClienteList.this);
                     }
                 });
     }
@@ -70,11 +82,19 @@ public class ViewClienteList implements Initializable {
         alert.setContentText("Realmente deseja excluir o cliente " + cliente.getNome()   + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            this.ctrl.deletarCliente(cliente.getId());
+            this.ctrl.deletar(cliente.getId());
             geraDadosParaTabela();
         }
     }
 
+    public void mensagem(String title, String header, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
 
+        if (!title.isEmpty()) alert.setTitle(title);
+        if (!header.isEmpty()) alert.setHeaderText(header);
+        if (!message.isEmpty()) alert.setContentText(message);
+
+        alert.showAndWait();
+    }
 
 }
