@@ -1,7 +1,7 @@
 package br.ufsc.ine.aps.controllers.cliente;
 
 
-import br.ufsc.ine.aps.enuns.TipoUsuario;
+import br.ufsc.ine.aps.controllers.pessoa.PessoaDao;
 import br.ufsc.ine.aps.models.*;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
@@ -9,11 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoCliente {
+public class ClienteDao extends PessoaDao {
 
     private Connection bdConnection;
 
-    public DaoCliente(){
+    public ClienteDao(){
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
@@ -55,6 +55,8 @@ public class DaoCliente {
         return false;
     }
 
+
+
     public List<Cliente> findClientes(){
         List<Cliente> pessoas = new ArrayList<>();
         try {
@@ -79,11 +81,16 @@ public class DaoCliente {
     }
 
     public static void main(String[] args) {
-       DaoCliente dao  = new DaoCliente();
+       ClienteDao dao  = new ClienteDao();
        List<Cliente> pessoas = dao.findClientes();
+
        for(Pessoa pessoa : pessoas){
            System.out.println(pessoa.getNome());
        }
     }
 
+    @Override
+    public Connection getConnection() {
+        return this.bdConnection;
+    }
 }

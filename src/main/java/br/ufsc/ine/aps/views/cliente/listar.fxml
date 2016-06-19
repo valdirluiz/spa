@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.layout.*?>
-
-
 <?import javafx.geometry.Insets?>
-<AnchorPane stylesheets="@../../assets/material-fx-v0_3.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.cliente.ViewClienteList">
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.cliente.ViewClienteList">
     <children>
-        <StackPane   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <HBox  styleClass="card">
+            <HBox styleClass="card">
                <children>
                       <TableView fx:id="tabelaClientes" prefHeight="340.0" prefWidth="710.0">
                           <columns>
@@ -33,11 +34,13 @@
                                   </cellValueFactory>
                               </TableColumn>
 
-                              <TableColumn minWidth="9.0" prefWidth="184.0" text="Telefone">
+                              <TableColumn minWidth="9.0" prefWidth="140.0" text="Telefone">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="telefone" />
                                   </cellValueFactory>
                               </TableColumn>
+                        <TableColumn fx:id="columnExcluir" prefWidth="119.0" text="Excluir" />
+
 
                           </columns>
                       </TableView>

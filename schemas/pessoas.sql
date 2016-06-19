@@ -1,5 +1,5 @@
-CREATE TABLE pessoas (
-  id int NOT NULL,
+ CREATE TABLE pessoas (
+  id INTEGER PRIMARY KEY,
   cpf varchar(11) NOT NULL,
   email varchar(150),
   nome varchar(100),
@@ -7,6 +7,5 @@ CREATE TABLE pessoas (
   telefone varchar(20),
   tipo_usuario int,
   is_cliente int,
-  data_cadastro date,
-  PRIMARY KEY (id, is_cliente)
-);
+  data_cadastro date
+ );

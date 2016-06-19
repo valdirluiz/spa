@@ -48,3 +48,7 @@
     -fx-pref-height: 12  !important;
     -fx-min-height: 12;
 }
+
+.delete-button{
+    -fx-background-image: url("delete.png");
+}
