@@ -24,27 +24,23 @@ public class ViewCliente implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         this.ctrl = ControllerCliente.getInstance();
+        this.ctrl.setView(this);
     }
 
     @FXML
     public void handleAdicionarCliente() {
-        boolean result = this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
-        mensagemByResult(result);
+        this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
         resetForm();
     }
 
-    public void mensagemByResult(boolean result) {
-        if (result) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Cadastro de Cliente");
-            alert.setHeaderText("Cliente cadastrado com sucesso!");
-            alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Cadastro de Cliente");
-            alert.setHeaderText("Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.");
-            alert.showAndWait();
-        }
+    public void mensagem(String title, String header, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+
+        if (!title.isEmpty()) alert.setTitle(title);
+        if (!header.isEmpty()) alert.setHeaderText(header);
+        if (!message.isEmpty()) alert.setContentText(message);
+
+        alert.showAndWait();
     }
 
     public void resetForm() {

@@ -17,12 +17,38 @@ public class ClienteDao extends PessoaDao {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
-    public Cliente findByCPF(String cpf) {
+    public Cliente buscarCPF(String cpf) {
         ResultSet rs;
         PreparedStatement stmt = null;
         try {
             stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ? AND tipo_usuario = 1 AND is_cliente = 1");
             stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("senha"), rs.getString("nome"), rs.getString("telefone"), rs.getString("email"));
+            } else{
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    public Cliente buscarId(Integer id) {
+        ResultSet rs;
+        PreparedStatement stmt = null;
+        try {
+            stmt = this.bdConnection.prepareStatement("select * from pessoas where id = ?");
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(rs.next()){
                 return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("senha"), rs.getString("nome"), rs.getString("telefone"), rs.getString("email"));
@@ -72,9 +98,7 @@ public class ClienteDao extends PessoaDao {
         return false;
     }
 
-
-
-    public List<Cliente> findClientes(){
+    public List<Cliente> buscar(){
         List<Cliente> pessoas = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
@@ -110,7 +134,7 @@ public class ClienteDao extends PessoaDao {
 
     public static void main(String[] args) {
        ClienteDao dao  = new ClienteDao();
-       List<Cliente> pessoas = dao.findClientes();
+       List<Cliente> pessoas = dao.buscar();
 
        for(Pessoa pessoa : pessoas){
            System.out.println(pessoa.getNome());

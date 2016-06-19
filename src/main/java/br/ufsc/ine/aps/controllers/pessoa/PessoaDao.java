@@ -12,7 +12,7 @@ public abstract class PessoaDao {
         PreparedStatement stmt = null;
 
         try {
-            stmt  = this.getConnection().prepareStatement("delete from pessoas where id = ?");
+            stmt  = this.getConnection().prepareStatement("DELETE FROM pessoas WHERE id = ?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } finally {
