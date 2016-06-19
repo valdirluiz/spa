@@ -2,16 +2,12 @@ package br.ufsc.ine.aps.controllers.cliente;
 
 
 import br.ufsc.ine.aps.enuns.TipoUsuario;
-import br.ufsc.ine.aps.models.Atendente;
-import br.ufsc.ine.aps.models.Autenticavel;
-import br.ufsc.ine.aps.models.Cliente;
-import br.ufsc.ine.aps.models.Gerente;
+import br.ufsc.ine.aps.models.*;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DaoCliente {
 
@@ -57,6 +53,37 @@ public class DaoCliente {
         }
 
         return false;
+    }
+
+    public List<Cliente> findClientes(){
+        List<Cliente> pessoas = new ArrayList<>();
+        try {
+            Statement stmt = bdConnection.createStatement();
+            ResultSet rs = stmt.executeQuery( "select * from pessoas where tipo_usuario = 1;" );
+            while ( rs.next() ) {
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("id"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setTelefone(rs.getString("telefone"));
+                pessoas.add(cliente);
+            }
+            rs.close();
+            stmt.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage());
+        }
+        return pessoas;
+    }
+
+    public static void main(String[] args) {
+       DaoCliente dao  = new DaoCliente();
+       List<Cliente> pessoas = dao.findClientes();
+       for(Pessoa pessoa : pessoas){
+           System.out.println(pessoa.getNome());
+       }
     }
 
 }
