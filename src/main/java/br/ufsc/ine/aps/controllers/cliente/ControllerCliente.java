@@ -1,14 +1,12 @@
 package br.ufsc.ine.aps.controllers.cliente;
 
-import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.Cliente;
-import br.ufsc.ine.aps.models.Pessoa;
 
 import java.util.List;
 
 public class ControllerCliente {
 
-    private DaoCliente dao = new DaoCliente();
+    private ClienteDao dao = new ClienteDao();
 
     private static ControllerCliente instance = new ControllerCliente();
 
@@ -34,6 +32,15 @@ public class ControllerCliente {
         }
 
         return false;
+    }
+
+    public boolean deletarCliente(Integer id){
+        try {
+            this.dao.deletarPessoa(id);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public List<Cliente> findAll(){
