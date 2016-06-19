@@ -19,11 +19,11 @@ public class ClienteDao extends PessoaDao {
 
     public Cliente findByCPF(String cpf) {
         ResultSet rs;
-        PreparedStatement pstmt;
+        PreparedStatement stmt = null;
         try {
-            pstmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ?");
-            pstmt.setString(1, cpf);
-            rs = pstmt.executeQuery();
+            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ? AND tipo_usuario = 1 AND is_cliente = 1");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
             if(rs.next()){
                 return new Cliente(rs.getInt("id"), rs.getString("cpf"), rs.getString("senha"), rs.getString("nome"), rs.getString("telefone"), rs.getString("email"));
             } else{
@@ -31,13 +31,22 @@ public class ClienteDao extends PessoaDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
 
     public boolean cadastrar(Cliente cliente) {
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = bdConnection.prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = bdConnection.prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getEmail());
             stmt.setString(3, cliente.getNome());
@@ -50,6 +59,14 @@ public class ClienteDao extends PessoaDao {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return false;
@@ -59,9 +76,11 @@ public class ClienteDao extends PessoaDao {
 
     public List<Cliente> findClientes(){
         List<Cliente> pessoas = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            Statement stmt = bdConnection.createStatement();
-            ResultSet rs = stmt.executeQuery( "select * from pessoas where tipo_usuario = 1;" );
+            stmt = bdConnection.createStatement();
+            rs = stmt.executeQuery( "select * from pessoas where tipo_usuario = 1 AND is_cliente = 1;" );
             while ( rs.next() ) {
                 Cliente cliente = new Cliente();
                 cliente.setId(rs.getInt("id"));
@@ -72,10 +91,19 @@ public class ClienteDao extends PessoaDao {
                 cliente.setTelefone(rs.getString("telefone"));
                 pessoas.add(cliente);
             }
-            rs.close();
-            stmt.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return pessoas;
     }

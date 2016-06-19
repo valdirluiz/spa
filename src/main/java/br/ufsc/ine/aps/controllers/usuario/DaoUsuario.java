@@ -17,11 +17,11 @@ public class DaoUsuario {
 
     public Autenticavel findByCPF(String cpf){
         ResultSet rs;
-        PreparedStatement pstmt;
+        PreparedStatement stmt = null;
         try {
-            pstmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ?");
-            pstmt.setString(1, cpf);
-            rs = pstmt.executeQuery();
+            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ?");
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
             if(rs.next()){
                 return this.montaUsuario(rs);
             } else{
@@ -29,6 +29,14 @@ public class DaoUsuario {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
