@@ -40,9 +40,7 @@
                                   </cellValueFactory>
                               </TableColumn>
                         <TableColumn fx:id="columnExcluir" prefWidth="119.0" text="Excluir" />
-
-
-
+                              
 
                           </columns>
                       </TableView>
