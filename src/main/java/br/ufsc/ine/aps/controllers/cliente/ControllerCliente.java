@@ -1,5 +1,6 @@
 package br.ufsc.ine.aps.controllers.cliente;
 
+import br.com.caelum.stella.validation.CPFValidator;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
@@ -38,6 +39,7 @@ public class ControllerCliente {
     }
 
     public void adicionar(String cpf, String nome, String email, String telefone) {
+        CPFValidator cpfValidator = new CPFValidator();
         Cliente cliente = new Cliente();
         cliente.setCpf(cpf);
         cliente.setNome(nome);
@@ -46,20 +48,21 @@ public class ControllerCliente {
         cliente.setCliente(true);
         cliente.setSenha(nome);
 
-        boolean error = false;
-        if ( dao.buscarCPF(cpf) == null ) {
-            if (dao.cadastrar(cliente)) {
-                view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
-                return;
-            } else {
-                error = true;
-            }
+        if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
+            view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
+        } else if (!cpfValidator.invalidMessagesFor(cpf).isEmpty()) {
+            view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
         } else {
-            error = true;
-        }
-
-        if (error) {
-            view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+            if ( dao.buscarCPF(cpf) == null ) {
+                if (dao.cadastrar(cliente)) {
+                    view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+                    return;
+                } else {
+                    view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                }
+            } else {
+                view.mensagem("Cadastro de Cliente", "", "Este CPF já esta cadastrado.", Alert.AlertType.ERROR);
+            }
         }
     }
 
