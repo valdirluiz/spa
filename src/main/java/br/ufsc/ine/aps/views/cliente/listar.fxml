@@ -8,40 +8,41 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.cliente.ViewClienteList">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.cliente.ViewClienteList">
     <children>
         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
             <HBox styleClass="card">
                <children>
-                      <TableView fx:id="tabelaClientes" prefHeight="340.0" prefWidth="710.0">
+                      <TableView fx:id="tabelaClientes" minHeight="400.0">
                           <columns>
-                              <TableColumn prefWidth="163.0" text="Nome">
+                              <TableColumn prefWidth="200.0" text="Nome">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="nome" />
                                   </cellValueFactory>
                               </TableColumn>
 
-                              <TableColumn prefWidth="138.0" text="CPF">
+                              <TableColumn prefWidth="150.0" text="CPF">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="cpf" />
                                   </cellValueFactory>
                               </TableColumn>
 
-                              <TableColumn minWidth="7.0" prefWidth="155.0" text="Email">
+                              <TableColumn minWidth="7.0" prefWidth="250.0" text="Email">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="email" />
                                   </cellValueFactory>
                               </TableColumn>
 
-                              <TableColumn minWidth="9.0" prefWidth="140.0" text="Telefone">
+                              <TableColumn minWidth="9.0" prefWidth="150.0" text="Telefone">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="telefone" />
                                   </cellValueFactory>
                               </TableColumn>
-                        <TableColumn fx:id="columnExcluir" prefWidth="119.0" text="Excluir" />
 
+                              <TableColumn fx:id="columnExcluir" editable="false" sortable="false" text="Excluir" />
 
+                              <TableColumn fx:id="columnEditar" editable="false" sortable="false" text="Editar" />
                           </columns>
                       </TableView>
                </children>

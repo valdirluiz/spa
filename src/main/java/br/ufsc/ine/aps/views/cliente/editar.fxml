@@ -16,6 +16,8 @@
          <children>
             <VBox minWidth="600.0" spacing="5.0">
                <children>
+                  <Label prefHeight="18.0" styleClass="control-label" text="Código" />
+                  <TextField fx:id="id" text="" disabled="true" />
                   <Label prefHeight="18.0" styleClass="control-label" text="Nome" />
                   <TextField fx:id="nome" text="" />
                   <Label prefHeight="18.0" styleClass="control-label" text="CPF" />

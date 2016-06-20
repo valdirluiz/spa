@@ -1,41 +1,33 @@
-
 package br.ufsc.ine.aps.views.cliente;
 
 import br.ufsc.ine.aps.assets.Assets;
-import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.models.Cliente;
 import com.sun.prism.impl.Disposer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.util.Optional;
-
 /**
- * Created by Valdir Luiz on 19/06/2016.
+ * Created by rafaelignacio on 19/06/16.
  */
-public class BotaoDeletar  extends TableCell<Disposer.Record, Boolean> {
-
+public class BotaoEditar extends TableCell<Disposer.Record, Boolean> {
     private ViewClienteList view;
 
-    final Image imageDelete = new Image(Assets.deleteImage());
-    final Button cellButton = new Button("", new ImageView(imageDelete));
+    final Image imageEdit = new Image(Assets.editImage());
+    final Button cellButton = new Button("", new ImageView(imageEdit));
 
-    public BotaoDeletar(ViewClienteList view){
+    public BotaoEditar(ViewClienteList view){
         this.view = view;
 
         cellButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-                Cliente cliente  = (Cliente) BotaoDeletar.this.getTableView().getItems().get(BotaoDeletar.this.getIndex());
+                Cliente cliente  = (Cliente) BotaoEditar.this.getTableView().getItems().get(BotaoEditar.this.getIndex());
 
                 view.deletarCliente(cliente);
-
             }
         });
 
@@ -47,6 +39,4 @@ public class BotaoDeletar  extends TableCell<Disposer.Record, Boolean> {
         if(!empty){
             setGraphic(cellButton);
         }
-    }
-
-}
+    }}
