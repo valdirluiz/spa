@@ -69,18 +69,30 @@ public class ClienteDao extends PessoaDao {
         return null;
     }
 
-    public boolean cadastrar(Cliente cliente) {
+    public boolean salvar(Cliente cliente) {
         PreparedStatement stmt = null;
         try {
-            stmt = bdConnection.prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt.setString(1, cliente.getCpf());
-            stmt.setString(2, cliente.getEmail());
-            stmt.setString(3, cliente.getNome());
-            stmt.setString(4, cliente.getSenha());
-            stmt.setString(5, cliente.getTelefone());
-            stmt.setInt(6, cliente.getTipoUsuario().getId());
-            stmt.setBoolean(7, cliente.isCliente());
-            stmt.setString(8, cliente.getDataDeCadastro().toString());
+            if (cliente.getId() != 0) {
+                stmt = bdConnection.prepareStatement("UPDATE pessoas SET cpf = ?, email = ?, nome = ?, telefone = ? WHERE id = ?");
+            } else {
+                stmt = bdConnection.prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            }
+            if (cliente.getId() == 0) {
+                stmt.setString(1, cliente.getCpf());
+                stmt.setString(2, cliente.getEmail());
+                stmt.setString(3, cliente.getNome());
+                stmt.setString(4, cliente.getSenha());
+                stmt.setString(5, cliente.getTelefone());
+                stmt.setInt(6, cliente.getTipoUsuario().getId());
+                stmt.setBoolean(7, cliente.isCliente());
+                stmt.setString(8, cliente.getDataDeCadastro().toString());
+            } else {
+                stmt.setString(1, cliente.getCpf());
+                stmt.setString(2, cliente.getEmail());
+                stmt.setString(3, cliente.getNome());
+                stmt.setString(4, cliente.getTelefone());
+                stmt.setInt(5, cliente.getId());
+            }
             stmt.executeUpdate();
             return true;
         } catch (Exception e) {

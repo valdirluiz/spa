@@ -54,7 +54,7 @@ public class ControllerCliente {
             view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
         } else {
             if ( dao.buscarCPF(cpf) == null ) {
-                if (dao.cadastrar(cliente)) {
+                if (dao.salvar(cliente)) {
                     view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
                     return;
                 } else {
@@ -62,6 +62,37 @@ public class ControllerCliente {
                 }
             } else {
                 view.mensagem("Cadastro de Cliente", "", "Este CPF já esta cadastrado.", Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    public void atualizar(String id, String cpf, String nome, String email, String telefone) {
+        CPFValidator cpfValidator = new CPFValidator();
+
+        if (id.isEmpty()) {
+            view.mensagem("Cadastro de Cliente", "", "Ocorreu um problema na identificação do Id do cliente, favor tentar novamente.", Alert.AlertType.ERROR);
+        } else {
+            Cliente cliente = dao.buscarId(Integer.parseInt(id));
+            if (cliente != null) {
+                cliente.setCpf(cpf);
+                cliente.setNome(nome);
+                cliente.setEmail(email);
+                cliente.setTelefone(telefone);
+
+                if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
+                    view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
+                } else if (!cpfValidator.invalidMessagesFor(cpf).isEmpty()) {
+                    view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
+                } else {
+                    if (dao.salvar(cliente)) {
+                        view.mensagem("Cadastro de Cliente", "", "Cliente atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
+                        return;
+                    } else {
+                        view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao atualizar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                    }
+                }
+            } else {
+                view.mensagem("Cadastro de Cliente", "", "Cliente não encontrado.", Alert.AlertType.ERROR);
             }
         }
     }

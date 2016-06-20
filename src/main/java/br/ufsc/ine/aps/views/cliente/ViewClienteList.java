@@ -98,18 +98,14 @@ public class ViewClienteList implements Initializable {
     }
 
     public void abreTelaEdicao(Cliente cliente){
-
         try{
-
             AnchorPane content = new AnchorPane();
             FXMLLoader loader = new FXMLLoader();
-            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("cadastrar.fxml"));
+            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("editar.fxml"));
             ViewCliente controller =  loader.getController();
             controller.setToEdit(cliente);
             content.getChildren().setAll(page);
             this.viewPrincipal.atualizaConteudo(content);
-
-
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -2,12 +2,14 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.principal.ViewPrincipal">
@@ -38,8 +40,8 @@
                               </Menu>
                               <Menu mnemonicParsing="false" text="Funcionários">
                                  <items>
-                                    <MenuItem onAction="#handleFuncionariosListarAction" mnemonicParsing="false" text="Consultar" />
-                                    <MenuItem onAction="#handleFuncionariosCadastrarAction"  mnemonicParsing="false" text="Cadastrar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleFuncionariosListarAction" text="Consultar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleFuncionariosCadastrarAction" text="Cadastrar" />
                                  </items>
                               </Menu>
                            </menus>
@@ -76,6 +78,24 @@
                     </BorderPane>
                </children></AnchorPane>
          </center>
+         <bottom>
+            <AnchorPane prefHeight="50.0" styleClass="teal" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT">
+                           <padding>
+                              <Insets right="5.0" />
+                           </padding>
+                           <children>
+                              <Button mnemonicParsing="false" style="-fx-background-color: #e0f2f1; -fx-text-fill: #333333;" styleClass="button-flat" text="Notificações" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+         </bottom>
       </BorderPane>
    </children>
    <stylesheets>
