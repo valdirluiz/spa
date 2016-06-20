@@ -18,6 +18,9 @@ public class ViewCliente implements Initializable{
     private Cliente toEdit;
 
     @FXML
+    private TextField id;
+
+    @FXML
     private TextField cpf;
     @FXML
     private TextField nome;
@@ -35,12 +38,11 @@ public class ViewCliente implements Initializable{
 
     @FXML
     public void handleAdicionarCliente() {
-        if(toEdit==null){
+        if(toEdit == null){
             this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
             resetForm();
         } else{
-            //TODO: update
-            System.out.print("Atualizar");
+            this.ctrl.atualizar(id.getText(), cpf.getText(), nome.getText(), email.getText(), telefone.getText());
         }
 
 
@@ -66,11 +68,12 @@ public class ViewCliente implements Initializable{
     public void setToEdit(Cliente toEdit) {
         this.toEdit = toEdit;
         if (this.toEdit != null) {
-            this.cpf.setText(toEdit.getCpf());
+            this.id.setText(toEdit.getId().toString());
             this.nome.setText(toEdit.getNome());
+            this.cpf.setText(toEdit.getCpf());
             this.email.setText(toEdit.getEmail());
             this.telefone.setText(toEdit.getTelefone());
-
+            this.nome.requestFocus();
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Pessoa implements Autenticavel{
 
-    private Integer id;
+    private Integer id = 0;
     private String cpf;
     private String senha;
     private String nome;
