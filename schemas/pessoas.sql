@@ -1,3 +1,4 @@
+
  CREATE TABLE pessoas (
   id INTEGER PRIMARY KEY,
   cpf varchar(11) NOT NULL,
@@ -11,3 +12,4 @@
  );
 
  CREATE UNIQUE INDEX pessoas_id_tipo_usuario_uindex ON pessoas(id,tipo_usuario)
+

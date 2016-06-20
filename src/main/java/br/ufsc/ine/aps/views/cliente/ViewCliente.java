@@ -1,9 +1,11 @@
 package br.ufsc.ine.aps.views.cliente;
 
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
+import br.ufsc.ine.aps.models.Cliente;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -12,6 +14,8 @@ import java.util.ResourceBundle;
 public class ViewCliente implements Initializable{
 
     private ControllerCliente ctrl;
+
+    private Cliente toEdit;
 
     @FXML
     private TextField cpf;
@@ -22,6 +26,8 @@ public class ViewCliente implements Initializable{
     @FXML
     private TextField telefone;
 
+
+
     public void initialize(URL location, ResourceBundle resources) {
         this.ctrl = ControllerCliente.getInstance();
         this.ctrl.setView(this);
@@ -29,8 +35,15 @@ public class ViewCliente implements Initializable{
 
     @FXML
     public void handleAdicionarCliente() {
-        this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
-        resetForm();
+        if(toEdit==null){
+            this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
+            resetForm();
+        } else{
+            //TODO: update
+            System.out.print("Atualizar");
+        }
+
+
     }
 
     public void mensagem(String title, String header, String message, Alert.AlertType type) {
@@ -50,4 +63,14 @@ public class ViewCliente implements Initializable{
         this.telefone.clear();
     }
 
+    public void setToEdit(Cliente toEdit) {
+        this.toEdit = toEdit;
+        if (this.toEdit != null) {
+            this.cpf.setText(toEdit.getCpf());
+            this.nome.setText(toEdit.getNome());
+            this.email.setText(toEdit.getEmail());
+            this.telefone.setText(toEdit.getTelefone());
+
+        }
+    }
 }

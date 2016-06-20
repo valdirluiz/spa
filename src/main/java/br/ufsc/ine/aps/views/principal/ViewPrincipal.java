@@ -1,6 +1,8 @@
 package br.ufsc.ine.aps.views.principal;
 
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
+import br.ufsc.ine.aps.views.cliente.ViewClienteList;
+import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 
 import javafx.event.ActionEvent;
@@ -49,7 +51,10 @@ public class ViewPrincipal implements Initializable {
     private void handleClientesConsultarAction(ActionEvent ev) {
         try {
             AnchorPane content = new AnchorPane();
-            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("listar.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("listar.fxml"));
+            ViewClienteList controller =  loader.getController();
+            controller.setViewPrincipal(this);
             content.getChildren().setAll(page);
 
             AnchorPane title = new AnchorPane();
@@ -71,6 +76,40 @@ public class ViewPrincipal implements Initializable {
 
             AnchorPane title = new AnchorPane();
             Parent titleWrapper = FXMLLoader.load(ViewCliente.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleFuncionariosCadastrarAction(ActionEvent ev) {
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewFuncionario.class.getResource("cadastrar.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewFuncionario.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleFuncionariosListarAction(ActionEvent ev) {
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewFuncionario.class.getResource("listar.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewFuncionario.class.getResource("_titulo.fxml"));
             title.getChildren().setAll(titleWrapper);
 
             this.atualizaConteudo(title, content);

@@ -1,15 +1,16 @@
 package br.ufsc.ine.aps.views.cliente;
 
-
-
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.models.Cliente;
 
+import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 
 import java.net.URL;
@@ -19,11 +20,14 @@ import java.util.ResourceBundle;
 
 import com.sun.prism.impl.Disposer.Record;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class ViewClienteList implements Initializable {
 
     private ControllerCliente ctrl;
+
+    private ViewPrincipal viewPrincipal;
 
     @FXML
     private TableView<Cliente> tabelaClientes;
@@ -33,6 +37,12 @@ public class ViewClienteList implements Initializable {
 
     @FXML
     private TableColumn columnEditar;
+
+    @FXML
+    private AnchorPane pageContent;
+
+    @FXML
+    private AnchorPane pageTitle;
 
     private List<Cliente> clientes;
     private ObservableList clientesTabela;
@@ -87,6 +97,26 @@ public class ViewClienteList implements Initializable {
         }
     }
 
+    public void abreTelaEdicao(Cliente cliente){
+
+        try{
+
+            AnchorPane content = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("cadastrar.fxml"));
+            ViewCliente controller =  loader.getController();
+            controller.setToEdit(cliente);
+            content.getChildren().setAll(page);
+            this.viewPrincipal.atualizaConteudo(content);
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
     public void mensagem(String title, String header, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
 
@@ -97,4 +127,8 @@ public class ViewClienteList implements Initializable {
         alert.showAndWait();
     }
 
+    public void setViewPrincipal(ViewPrincipal viewPrincipal) {
+        this.viewPrincipal = viewPrincipal;
+    }
 }
+
