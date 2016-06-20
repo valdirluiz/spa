@@ -27,7 +27,7 @@ public class BotaoEditar extends TableCell<Disposer.Record, Boolean> {
             public void handle(ActionEvent event) {
                 Cliente cliente  = (Cliente) BotaoEditar.this.getTableView().getItems().get(BotaoEditar.this.getIndex());
 
-                view.deletarCliente(cliente);
+                view.abreTelaEdicao(cliente);
             }
         });
 

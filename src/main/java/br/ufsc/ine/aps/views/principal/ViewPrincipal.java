@@ -1,6 +1,7 @@
 package br.ufsc.ine.aps.views.principal;
 
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
+import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 
@@ -50,7 +51,10 @@ public class ViewPrincipal implements Initializable {
     private void handleClientesConsultarAction(ActionEvent ev) {
         try {
             AnchorPane content = new AnchorPane();
-            Parent page =  FXMLLoader.load(ViewCliente.class.getResource("listar.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("listar.fxml"));
+            ViewClienteList controller =  loader.getController();
+            controller.setViewPrincipal(this);
             content.getChildren().setAll(page);
 
             AnchorPane title = new AnchorPane();
