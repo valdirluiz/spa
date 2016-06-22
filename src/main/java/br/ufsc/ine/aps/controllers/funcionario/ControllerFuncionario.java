@@ -6,6 +6,8 @@ import br.ufsc.ine.aps.models.Atendente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
+import java.util.List;
+
 public class ControllerFuncionario {
 
     private static ControllerFuncionario ourInstance = new ControllerFuncionario();
@@ -41,6 +43,10 @@ public class ControllerFuncionario {
             throw new Exception(e);
         }
 
+    }
+
+    public List<Pessoa> buscaFuncionarios(){
+        return this.funcionarioDao.findAll();
     }
 }
 

@@ -8,47 +8,50 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewListFuncionario">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList">
     <children>
         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <HBox styleClass="card">
-               <children>
-                      <TableView fx:id="tabelaClientes" prefHeight="340.0" prefWidth="710.0">
-                          <columns>
-                              <TableColumn prefWidth="163.0" text="Nome">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="nome" />
-                                  </cellValueFactory>
-                              </TableColumn>
+                <HBox styleClass="card">
+                    <children>
+                        <TableView fx:id="tabelaFuncionarios" prefHeight="340.0" prefWidth="710.0">
+                            <columns>
+                                <TableColumn prefWidth="163.0" text="Nome">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="nome" />
+                                    </cellValueFactory>
+                                </TableColumn>
 
-                              <TableColumn prefWidth="138.0" text="CPF">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="cpf" />
-                                  </cellValueFactory>
-                              </TableColumn>
+                                <TableColumn prefWidth="138.0" text="CPF">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="cpf" />
+                                    </cellValueFactory>
+                                </TableColumn>
 
-                              <TableColumn minWidth="7.0" prefWidth="155.0" text="Email">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="email" />
-                                  </cellValueFactory>
-                              </TableColumn>
+                                <TableColumn minWidth="7.0" prefWidth="155.0" text="Email">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="email" />
+                                    </cellValueFactory>
+                                </TableColumn>
 
-                              <TableColumn minWidth="9.0" prefWidth="140.0" text="Telefone">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="telefone" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                        <TableColumn fx:id="columnExcluir" prefWidth="119.0" text="Excluir" />
+                                <TableColumn minWidth="9.0" prefWidth="140.0" text="Tipo">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="descTipo" />
+                                    </cellValueFactory>
+                                </TableColumn>
+
+                                <TableColumn fx:id="columnExcluir" editable="false" sortable="false" prefWidth="119.0" text="Excluir" />
+
+                                <TableColumn fx:id="colunaEditar" editable="false" sortable="false" text="Editar" />
 
 
-                          </columns>
-                      </TableView>
-               </children>
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </padding>
-            </HBox>
+                            </columns>
+                        </TableView>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
             </children>
         </StackPane>
     </children>

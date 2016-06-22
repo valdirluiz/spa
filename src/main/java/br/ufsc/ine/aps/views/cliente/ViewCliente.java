@@ -2,6 +2,7 @@ package br.ufsc.ine.aps.views.cliente;
 
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.models.Cliente;
+import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +15,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
 
     private ControllerCliente ctrl;
 
-    private Cliente toEdit;
+    private Pessoa toEdit;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +35,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
 
     }
 
-    public void setToEdit(Cliente toEdit) {
+    public void setToEdit(Pessoa toEdit) {
         this.toEdit = toEdit;
         if (this.toEdit != null) {
             this.nome.setText(toEdit.getNome());
