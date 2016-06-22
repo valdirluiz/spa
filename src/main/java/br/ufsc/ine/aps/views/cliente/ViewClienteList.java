@@ -134,5 +134,7 @@ public class ViewClienteList implements Initializable, ListPessoaView {
             geraDadosParaTabela();
         }
     }
+
+
 }
 
