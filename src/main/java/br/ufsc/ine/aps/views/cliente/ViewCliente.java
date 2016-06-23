@@ -34,7 +34,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     }
 
     @FXML
-    public void handleAdicionarCliente() {
+    public void salvarCliente() {
         if(toEdit == null){
             this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
             resetForm();
@@ -48,6 +48,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     public void setToEdit(Pessoa toEdit) {
         this.toEdit = toEdit;
         if (this.toEdit != null) {
+            this.id.setText(toEdit.getId().toString());
             this.nome.setText(toEdit.getNome());
             this.cpf.setText(toEdit.getCpf());
             this.email.setText(toEdit.getEmail());
