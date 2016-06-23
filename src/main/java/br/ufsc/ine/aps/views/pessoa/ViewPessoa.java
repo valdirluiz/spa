@@ -1,6 +1,7 @@
 package br.ufsc.ine.aps.views.pessoa;
 
 
+import br.ufsc.ine.aps.models.Pessoa;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;

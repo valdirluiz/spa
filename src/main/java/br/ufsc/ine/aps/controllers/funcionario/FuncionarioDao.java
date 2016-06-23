@@ -1,13 +1,16 @@
 package br.ufsc.ine.aps.controllers.funcionario;
 
 import br.ufsc.ine.aps.controllers.pessoa.PessoaDao;
+import br.ufsc.ine.aps.enuns.TipoUsuario;
+import br.ufsc.ine.aps.models.Atendente;
 import br.ufsc.ine.aps.models.Cliente;
+import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Valdir Luiz on 19/06/2016.
@@ -57,5 +60,47 @@ public class FuncionarioDao extends PessoaDao {
             }
         }
 
+    }
+
+
+    public List<Pessoa> findAll(){
+        List<Pessoa> pessoas = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = bdConnection.createStatement();
+            rs = stmt.executeQuery( "select * from pessoas where tipo_usuario in (2,3);" );
+            Pessoa pessoa = null;
+            while ( rs.next() ) {
+                TipoUsuario tipo = TipoUsuario.getById(rs.getInt("tipo_usuario"));
+                if(tipo.equals(TipoUsuario.ATENDENTE)){
+                    pessoa = new Atendente();
+                } else {
+                    pessoa = new Operador();
+                }
+                pessoa.setId(rs.getInt("id"));
+                pessoa.setCpf(rs.getString("cpf"));
+                pessoa.setEmail(rs.getString("email"));
+                pessoa.setNome(rs.getString("nome"));
+                pessoa.setSenha(rs.getString("senha"));
+                pessoa.setTelefone(rs.getString("telefone"));
+                pessoa.setTipoUsuario(tipo);
+                pessoas.add(pessoa);
+            }
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return pessoas;
     }
 }
