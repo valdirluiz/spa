@@ -3,6 +3,7 @@ package br.ufsc.ine.aps.views.principal;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
+import br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 
 import javafx.event.ActionEvent;
@@ -105,7 +106,10 @@ public class ViewPrincipal implements Initializable {
     private void handleFuncionariosListarAction(ActionEvent ev) {
         try {
             AnchorPane content = new AnchorPane();
-            Parent page =  FXMLLoader.load(ViewFuncionario.class.getResource("listar.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("listar.fxml"));
+            ViewFuncionarioList controller =  loader.getController();
+            controller.setViewPrincipal(this);
             content.getChildren().setAll(page);
 
             AnchorPane title = new AnchorPane();

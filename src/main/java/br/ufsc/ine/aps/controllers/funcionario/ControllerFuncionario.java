@@ -53,6 +53,22 @@ public class ControllerFuncionario {
     public void deletarPessoa(Pessoa pessoa) throws SQLException {
         this.funcionarioDao.deletarPessoa(pessoa.getId());
     }
+
+    public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
+        Pessoa pessoa = null;
+        if(tipo.equals(TipoUsuario.ATENDENTE)){
+            pessoa = new Atendente();
+        } else{
+            pessoa = new Operador();
+        }
+        pessoa.setId(id);
+        pessoa.setNome(nome);
+        pessoa.setCpf(cpf);
+        pessoa.setEmail(email);
+        pessoa.setTelefone(telefone);
+        pessoa.setTipoUsuario(tipo);
+        this.funcionarioDao.update(pessoa);
+    }
 }
 
 

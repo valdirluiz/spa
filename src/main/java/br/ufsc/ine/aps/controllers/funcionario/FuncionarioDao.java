@@ -103,4 +103,16 @@ public class FuncionarioDao extends PessoaDao {
         }
         return pessoas;
     }
+
+    public void update(Pessoa pessoa) throws SQLException {
+        PreparedStatement stmt = bdConnection.prepareStatement("UPDATE pessoas SET cpf = ?, email = ?, nome = ?, telefone = ?, tipo_usuario = ? WHERE id = ?");
+        stmt.setString(1, pessoa.getCpf());
+        stmt.setString(2, pessoa.getEmail());
+        stmt.setString(3, pessoa.getNome());
+        stmt.setString(4, pessoa.getTelefone());
+        stmt.setInt(5, pessoa.getTipoUsuario().getId());
+        stmt.setInt(6, pessoa.getId());
+        stmt.executeUpdate();
+        stmt.close();
+    }
 }

@@ -3,15 +3,20 @@ package br.ufsc.ine.aps.views.funcionario;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
+import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
 import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
 import br.ufsc.ine.aps.views.pessoa.ListPessoaView;
+import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import com.sun.prism.impl.Disposer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -23,6 +28,8 @@ import java.util.ResourceBundle;
 public class ViewFuncionarioList implements Initializable, ListPessoaView {
 
     private ControllerFuncionario controllerFuncionario;
+
+    private ViewPrincipal viewPrincipal;
 
     @FXML
     private TableView<Cliente> tabelaFuncionarios;
@@ -93,6 +100,17 @@ public class ViewFuncionarioList implements Initializable, ListPessoaView {
 
     @Override
     public void abreTelaEdicao(Pessoa pessoa) {
+        try{
+            AnchorPane content = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("cadastrar.fxml"));
+            ViewFuncionario controller =  loader.getController();
+            controller.setToEdit(pessoa);
+            content.getChildren().setAll(page);
+            this.viewPrincipal.atualizaConteudo(content);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -104,5 +122,9 @@ public class ViewFuncionarioList implements Initializable, ListPessoaView {
         if (!message.isEmpty()) alert.setContentText(message);
 
         alert.showAndWait();
+    }
+
+    public void setViewPrincipal(ViewPrincipal viewPrincipal) {
+        this.viewPrincipal = viewPrincipal;
     }
 }
