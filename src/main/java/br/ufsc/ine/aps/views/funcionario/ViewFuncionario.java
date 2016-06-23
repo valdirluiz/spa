@@ -3,6 +3,7 @@ package br.ufsc.ine.aps.views.funcionario;
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
+import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +17,10 @@ import java.util.ResourceBundle;
 
 public class ViewFuncionario extends ViewPessoa implements Initializable {
 
-    @FXML //  fx:id="fruitCombo"
+    @FXML
     private ComboBox<String> tipoFuncionario;
+
+    private Pessoa toEdit;
 
     private ControllerFuncionario controllerFuncionario;
 
@@ -37,11 +40,28 @@ public class ViewFuncionario extends ViewPessoa implements Initializable {
         }
 
         try {
-            this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
-            super.mensagem("Cadastro de Funcionário", "", "Funcionário cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+            if(toEdit==null) {
+                this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
+                super.mensagem("Cadastro de Funcionário", "", "Funcionário cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+            } else{
+                this.controllerFuncionario.atualizar(toEdit.getId(), super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
+                super.mensagem("Cadastro de Funcionário", "", "Funcionário atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
+            }
         } catch (Exception e){
             super.mensagem("Cadastro de Funcionário", "", "Ocorreu um erro ao salvar o funcionário, entre em contato com o suporte.", Alert.AlertType.ERROR);
         }
 
+    }
+
+    public void setToEdit(Pessoa toEdit) {
+        this.toEdit = toEdit;
+        if (this.toEdit != null) {
+            this.nome.setText(toEdit.getNome());
+            this.cpf.setText(toEdit.getCpf());
+            this.email.setText(toEdit.getEmail());
+            this.tipoFuncionario.setValue(toEdit.getDescTipo());
+            this.telefone.setText(toEdit.getTelefone());
+            this.nome.requestFocus();
+        }
     }
 }

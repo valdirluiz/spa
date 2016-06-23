@@ -103,4 +103,8 @@ public class FuncionarioDao extends PessoaDao {
         }
         return pessoas;
     }
+
+    public void atualizarPessoa(Pessoa pessoa){
+
+    }
 }
