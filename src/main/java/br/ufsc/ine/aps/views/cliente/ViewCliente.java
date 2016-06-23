@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 
 import java.net.URL;
@@ -14,9 +15,18 @@ import java.util.ResourceBundle;
 public class ViewCliente extends ViewPessoa implements Initializable{
 
     private ControllerCliente ctrl;
-
     private Pessoa toEdit;
 
+    @FXML
+    private TextField id;
+    @FXML
+    private TextField cpf;
+    @FXML
+    private TextField nome;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField telefone;
 
     public void initialize(URL location, ResourceBundle resources) {
         this.ctrl = ControllerCliente.getInstance();
@@ -24,7 +34,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     }
 
     @FXML
-    public void handleAdicionarCliente() {
+    public void salvarCliente() {
         if(toEdit == null){
             this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
             resetForm();
@@ -38,6 +48,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     public void setToEdit(Pessoa toEdit) {
         this.toEdit = toEdit;
         if (this.toEdit != null) {
+            this.id.setText(toEdit.getId().toString());
             this.nome.setText(toEdit.getNome());
             this.cpf.setText(toEdit.getCpf());
             this.email.setText(toEdit.getEmail());

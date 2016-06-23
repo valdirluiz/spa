@@ -1,13 +1,11 @@
 package br.ufsc.ine.aps.models;
 
-import br.ufsc.ine.aps.controllers.cliente.ClienteDao;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
 import java.util.Date;
 
 public class Cliente extends Pessoa {
 
     private Date dataDeCadastro;
-    private ClienteDao dao = new ClienteDao();
 
     public Cliente() {
         this.setDataDeCadastro(new Date());
