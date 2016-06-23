@@ -54,7 +54,7 @@ public class ControllerFuncionario {
         this.funcionarioDao.deletarPessoa(pessoa.getId());
     }
 
-    public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) {
+    public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
         Pessoa pessoa = null;
         if(tipo.equals(TipoUsuario.ATENDENTE)){
             pessoa = new Atendente();
@@ -67,7 +67,7 @@ public class ControllerFuncionario {
         pessoa.setEmail(email);
         pessoa.setTelefone(telefone);
         pessoa.setTipoUsuario(tipo);
-        //this.funcionarioDao.update(pessoa);
+        this.funcionarioDao.update(pessoa);
     }
 }
 
