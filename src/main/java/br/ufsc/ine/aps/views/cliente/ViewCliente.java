@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 public class ViewCliente implements Initializable{
 
     private ControllerCliente ctrl;
-
     private Cliente toEdit;
 
     @FXML
