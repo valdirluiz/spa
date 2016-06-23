@@ -3,6 +3,10 @@ package br.ufsc.ine.aps.views.cliente;
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.models.Cliente;
 
+import br.ufsc.ine.aps.models.Pessoa;
+import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
+import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
+import br.ufsc.ine.aps.views.pessoa.ListPessoaView;
 import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +27,7 @@ import com.sun.prism.impl.Disposer.Record;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
-public class ViewClienteList implements Initializable {
+public class ViewClienteList implements Initializable, ListPessoaView {
 
     private ControllerCliente ctrl;
 
@@ -51,7 +55,6 @@ public class ViewClienteList implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.ctrl = ControllerCliente.getInstance();
         this.ctrl.setViewList(this);
-        this.clientes = this.ctrl.buscarTodos();
         this.geraDadosParaTabela();
         this.insereBotaoExcluir();
         this.insereBotaoEditar();
@@ -85,33 +88,9 @@ public class ViewClienteList implements Initializable {
                 });
     }
 
-    public void deletarCliente(Cliente cliente) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar");
-        alert.setHeaderText("Atenção");
-        alert.setContentText("Realmente deseja excluir o cliente " + cliente.getNome()   + "?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            this.ctrl.deletar(cliente.getId());
-            geraDadosParaTabela();
-        }
-    }
-
-    public void abreTelaEdicao(Cliente cliente){
-        try{
-            AnchorPane content = new AnchorPane();
-            FXMLLoader loader = new FXMLLoader();
-            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("editar.fxml"));
-            ViewCliente controller =  loader.getController();
-            controller.setToEdit(cliente);
-            content.getChildren().setAll(page);
-            this.viewPrincipal.atualizaConteudo(content);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
 
 
-    }
+
 
     public void mensagem(String title, String header, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
@@ -126,5 +105,36 @@ public class ViewClienteList implements Initializable {
     public void setViewPrincipal(ViewPrincipal viewPrincipal) {
         this.viewPrincipal = viewPrincipal;
     }
+
+    @Override
+    public void abreTelaEdicao(Pessoa cliente){
+        try{
+            AnchorPane content = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewCliente.class.getResourceAsStream("editar.fxml"));
+            ViewCliente controller =  loader.getController();
+            controller.setToEdit(cliente);
+            content.getChildren().setAll(page);
+            this.viewPrincipal.atualizaConteudo(content);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deletarPessoa(Pessoa pessoa) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar");
+        alert.setHeaderText("Atenção");
+        alert.setContentText("Realmente deseja excluir o cliente " + pessoa.getNome()   + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            this.ctrl.deletar(pessoa.getId());
+            geraDadosParaTabela();
+        }
+    }
+
+
 }
 

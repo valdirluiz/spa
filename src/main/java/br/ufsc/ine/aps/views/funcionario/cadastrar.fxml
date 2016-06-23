@@ -3,14 +3,14 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.collections.*?>
 
 <AnchorPane stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewFuncionario">
    <children>
@@ -27,12 +27,14 @@
                   <Label prefHeight="18.0" styleClass="control-label" text="Email" />
                   <TextField fx:id="email" text="" />
                   <Label text="Perfil" />
-                  <SplitMenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="579.0" text="Selecione um perfil">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Atendente" />
-                      <MenuItem mnemonicParsing="false"  text="Operador de suporte" />
-                    </items>
-                  </SplitMenuButton>
+                  <ComboBox fx:id="tipoFuncionario" prefHeight="42.0" prefWidth="583.0" promptText="Selecione" >
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Atendente" />
+                           <String fx:value="Operador" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
                   <HBox alignment="TOP_RIGHT">
                      <children>
                         <Label style="-fx-text-fill: red; -fx-font-size: 12;" text="Todos os campos são obrigatórios" />
@@ -40,7 +42,7 @@
                   </HBox>
                   <HBox alignment="TOP_RIGHT">
                      <children>
-                        <Button fx:id="salvarClienteButton" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Salvar" textAlignment="CENTER">
+                        <Button onAction="#handleAdicionarFuncionario" mnemonicParsing="false" prefHeight="34.0" prefWidth="100.0" text="Salvar" textAlignment="CENTER">
                            <styleClass>
                               <String fx:value="button-flat" />
                               <String fx:value="button-success" />

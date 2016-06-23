@@ -92,4 +92,8 @@ public abstract class Pessoa implements Autenticavel{
     public void setCliente(boolean cliente) {
         isCliente = cliente;
     }
+
+    public String getDescTipo(){
+        return this.tipoUsuario.getDescricao();
+    }
 }
