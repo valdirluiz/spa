@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 
 import java.net.URL;
@@ -18,7 +19,6 @@ public class ViewCliente extends ViewPessoa implements Initializable{
 
     @FXML
     private TextField id;
-
     @FXML
     private TextField cpf;
     @FXML
