@@ -14,9 +14,19 @@ import java.util.ResourceBundle;
 public class ViewCliente extends ViewPessoa implements Initializable{
 
     private ControllerCliente ctrl;
-
     private Pessoa toEdit;
 
+    @FXML
+    private TextField id;
+
+    @FXML
+    private TextField cpf;
+    @FXML
+    private TextField nome;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField telefone;
 
     public void initialize(URL location, ResourceBundle resources) {
         this.ctrl = ControllerCliente.getInstance();
