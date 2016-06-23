@@ -1,5 +1,6 @@
 package br.ufsc.ine.aps.views.funcionario;
 
+import br.com.caelum.stella.validation.CPFValidator;
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
@@ -31,26 +32,43 @@ public class ViewFuncionario extends ViewPessoa implements Initializable {
 
     @FXML
     public void handleAdicionarFuncionario() {
-        SingleSelectionModel<String> selectionModel = tipoFuncionario.getSelectionModel();
-        TipoUsuario tipo = null;
-        if(selectionModel.getSelectedItem().equals("Atendente")){
-            tipo = TipoUsuario.ATENDENTE;
-        } else{
-            tipo = TipoUsuario.OPERADOR_SUPORTE;
-        }
-
-        try {
-            if(toEdit==null) {
-                this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
-                super.mensagem("Cadastro de Funcionário", "", "Funcionário cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+        boolean dadosValidos = this.validaDados();
+        if(dadosValidos){
+            SingleSelectionModel<String> selectionModel = tipoFuncionario.getSelectionModel();
+            TipoUsuario tipo = null;
+            if(selectionModel.getSelectedItem().equals("Atendente")){
+                tipo = TipoUsuario.ATENDENTE;
             } else{
-                this.controllerFuncionario.atualizar(toEdit.getId(), super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
-                super.mensagem("Cadastro de Funcionário", "", "Funcionário atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
+                tipo = TipoUsuario.OPERADOR_SUPORTE;
             }
-        } catch (Exception e){
-            super.mensagem("Cadastro de Funcionário", "", "Ocorreu um erro ao salvar o funcionário, entre em contato com o suporte.", Alert.AlertType.ERROR);
+
+            try {
+                if(toEdit==null) {
+                    this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
+                    super.mensagem("Cadastro de Funcionário", "", "Funcionário cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+                } else{
+                    this.controllerFuncionario.atualizar(toEdit.getId(), super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
+                    super.mensagem("Cadastro de Funcionário", "", "Funcionário atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
+                }
+            } catch (Exception e){
+                super.mensagem("Cadastro de Funcionário", "", "Ocorreu um erro ao salvar o funcionário, entre em contato com o suporte.", Alert.AlertType.ERROR);
+            }
         }
 
+
+    }
+
+    private boolean validaDados() {
+        boolean validou = true;
+        CPFValidator cpfValidator = new CPFValidator();
+        if(this.nome.getText().isEmpty() || this.telefone.getId().isEmpty() || this.email.getText().isEmpty() || this.tipoFuncionario.getValue()==null || this.cpf.getText().isEmpty()) {
+            mensagem("Cadastro de Cliente", "", "Todos os campos são obrigatórios.", Alert.AlertType.ERROR);
+            validou = false;
+        } else  if(!cpfValidator.invalidMessagesFor(this.cpf.getText()).isEmpty()){
+            mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
+            validou = false;
+        }
+        return validou;
     }
 
     public void setToEdit(Pessoa toEdit) {
