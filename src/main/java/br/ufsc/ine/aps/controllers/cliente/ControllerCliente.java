@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ControllerCliente {
 
-    private ClienteDao dao = new ClienteDao();
+    private DaoCliente dao = new DaoCliente();
     private ViewCliente view;
     private ViewClienteList viewList;
 
@@ -38,39 +38,34 @@ public class ControllerCliente {
         this.viewList = viewList;
     }
 
-    public void adicionar(String cpf, String nome, String email, String telefone) {
-        Cliente cliente = new Cliente();
-        cliente.setCpf(cpf);
-        cliente.setNome(nome);
-        cliente.setEmail(email);
-        cliente.setTelefone(telefone);
-        cliente.setCliente(true);
-        cliente.setSenha(nome);
+    public String adicionar(String cpf, String nome, String email, String telefone) {
+        Cliente cliente = new Cliente(cpf, nome, email, telefone, nome);
 
         if (validaAtributos(cliente)) {
             if (validaCPF(cliente.getCpf())) {
                 if (clienteExiste(cliente.getCpf())) {
-                    view.mensagem("Cadastro de Cliente", "", "Este CPF já esta cadastrado.", Alert.AlertType.ERROR);
+                    return "Este CPF já esta cadastrado.";
                 } else {
                     if (dao.salvar(cliente)) {
-                        view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.NONE);
+                        return null;
                     } else {
-                        view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                        return "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.";
                     }
                 }
             } else {
-                view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
+                return "CPF inválido.";
             }
         } else {
-            view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
+            return "Todos campos são obrigatórios.";
         }
+
     }
 
-    public void atualizar(String id, String cpf, String nome, String email, String telefone) {
+    public String atualizar(String id, String cpf, String nome, String email, String telefone) {
         CPFValidator cpfValidator = new CPFValidator();
 
         if (id.isEmpty()) {
-            view.mensagem("Cadastro de Cliente", "", "Ocorreu um problema na identificação do Id do cliente, favor tentar novamente.", Alert.AlertType.ERROR);
+            return "Ocorreu um problema na identificação do Id do cliente, favor tentar novamente.";
         } else {
             Cliente cliente = dao.buscarId(Integer.parseInt(id));
             if (cliente != null) {
@@ -80,19 +75,18 @@ public class ControllerCliente {
                 cliente.setTelefone(telefone);
 
                 if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
-                    view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
+                    return "Todos campos são obrigatórios.";
                 } else if (!cpfValidator.invalidMessagesFor(cpf).isEmpty()) {
-                    view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
+                    return "CPF inválido.";
                 } else {
                     if (dao.salvar(cliente)) {
-                        view.mensagem("Cadastro de Cliente", "", "Cliente atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
-                        return;
+                        return null;
                     } else {
-                        view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao atualizar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                        return "Ocorreu um erro ao atualizar o cliente, entre em contato com o suporte.";
                     }
                 }
             } else {
-                view.mensagem("Cadastro de Cliente", "", "Cliente não encontrado.", Alert.AlertType.ERROR);
+                return "Cliente não encontrado.";
             }
         }
     }
