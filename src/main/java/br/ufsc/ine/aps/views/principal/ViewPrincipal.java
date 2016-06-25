@@ -32,18 +32,17 @@ public class ViewPrincipal implements Initializable {
 
     @FXML
     private AnchorPane pageTitle;
-
     @FXML
     private AnchorPane pageContent;
-
     @FXML
     private Menu menuFuncionarios;
-
     @FXML
     private Menu menuClientes;
-
+    @FXML
+    private Menu menuProtocolos;
     @FXML
     private MenuItem menuCadProtocolo;
+
 
     private Autenticavel usuarioLogado;
 
@@ -52,6 +51,7 @@ public class ViewPrincipal implements Initializable {
         this.usuarioLogado = Autenticador.getInstance().getUsuarioLogado();
         this.showMenuFuncionarios();
         this.showMenuClientes();
+        this.showMenuProtocolos();
         this.showMenuCadastrarProtocolo();
     }
 
@@ -174,7 +174,13 @@ public class ViewPrincipal implements Initializable {
 
     private void showMenuCadastrarProtocolo() {
         this.menuCadProtocolo.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
-                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE));
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE));
+    }
+
+    private void showMenuProtocolos() {
+        this.menuProtocolos.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.CLIENTE));
     }
 
 }

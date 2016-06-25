@@ -27,7 +27,7 @@
                      <children>
                         <MenuBar prefHeight="50.0">
                            <menus>
-                              <Menu mnemonicParsing="false" text="Protocolos">
+                              <Menu fx:id="menuProtocolos" mnemonicParsing="false" text="Protocolos">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Consultar" />
                                     <MenuItem fx:id="menuCadProtocolo" mnemonicParsing="false" onAction="#handleCadastroProtocoloButtonAction" text="Cadastrar" />
