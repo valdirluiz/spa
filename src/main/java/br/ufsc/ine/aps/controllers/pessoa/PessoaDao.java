@@ -1,21 +1,16 @@
 package br.ufsc.ine.aps.controllers.pessoa;
 
-
-
 import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.Atendente;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 
 public abstract class PessoaDao {
 
@@ -27,7 +22,16 @@ public abstract class PessoaDao {
     }
 
     public void save(Pessoa pessoa) throws Exception{
-        PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro, gerente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        setDadosPessoa(pessoa, stmt);
+        this.setDadosCliente(pessoa, stmt);
+        this.setDadosOperador(pessoa, stmt);
+
+        stmt.executeUpdate();
+        stmt.close();
+    }
+
+    private void setDadosPessoa(Pessoa pessoa, PreparedStatement stmt) throws SQLException {
         stmt.setString(1, pessoa.getCpf());
         stmt.setString(2, pessoa.getEmail());
         stmt.setString(3, pessoa.getNome());
@@ -35,13 +39,23 @@ public abstract class PessoaDao {
         stmt.setString(5, pessoa.getTelefone());
         stmt.setInt(6, pessoa.getTipoUsuario().getId());
         stmt.setBoolean(7, pessoa.isCliente());
-        if(pessoa.getTipoUsuario().equals(TipoUsuario.CLIENTE)){
+    }
+
+    private void setDadosOperador(Pessoa pessoa, PreparedStatement stmt) throws SQLException {
+        if(pessoa instanceof Operador){
+            Operador operador = (Operador) pessoa;
+            stmt.setInt(9,operador.getGerente().getId());
+        } else{
+            stmt.setNull(9,1);
+        }
+    }
+
+    private void setDadosCliente(Pessoa pessoa, PreparedStatement stmt) throws SQLException {
+        if(pessoa instanceof Cliente){
             stmt.setString(8,new Date().toString());
         } else{
             stmt.setNull(8,1);
         }
-        stmt.executeUpdate();
-        stmt.close();
     }
 
     public void update(Pessoa pessoa) throws Exception {
