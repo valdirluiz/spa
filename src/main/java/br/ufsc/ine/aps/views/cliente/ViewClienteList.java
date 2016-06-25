@@ -88,6 +88,15 @@ public class ViewClienteList implements Initializable, ViewPessoaList {
                 });
     }
 
+    public void mensagem(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.NONE, null, ButtonType.CLOSE);
+
+        alert.setTitle("Remoção de Clientes");
+        if (!mensagem.isEmpty()) alert.setContentText(mensagem);
+
+        alert.showAndWait();
+    }
+
     public void setViewPrincipal(ViewPrincipal viewPrincipal) {
         this.viewPrincipal = viewPrincipal;
     }

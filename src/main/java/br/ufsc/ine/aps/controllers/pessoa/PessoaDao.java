@@ -22,10 +22,10 @@ public abstract class PessoaDao {
     }
 
     public void save(Pessoa pessoa) throws Exception{
-        PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro, gerente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         setDadosPessoa(pessoa, stmt);
         this.setDadosCliente(pessoa, stmt);
-        this.setDadosOperador(pessoa, stmt);
+//        this.setDadosOperador(pessoa, stmt);
 
         stmt.executeUpdate();
         stmt.close();
@@ -69,7 +69,6 @@ public abstract class PessoaDao {
         stmt.executeUpdate();
         stmt.close();
     }
-
 
     private  void setTipos(PreparedStatement preparedStatement, Object... values) throws SQLException {
         for (int i = 0; i < values.length; i++) {
@@ -137,7 +136,6 @@ public abstract class PessoaDao {
         return existe;
 
     }
-
 
     public abstract Connection getConnection();
 
