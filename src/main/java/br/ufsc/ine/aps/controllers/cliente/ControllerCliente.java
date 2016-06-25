@@ -36,8 +36,8 @@ public class ControllerCliente {
         this.viewList = viewList;
     }
 
-    public String adicionar(String cpf, String nome, String email, String telefone) {
-        Cliente cliente = new Cliente(cpf, nome, email, telefone, nome);
+    public String adicionar(String cpf, String senha, String nome, String email, String telefone) {
+        Cliente cliente = new Cliente(cpf, senha, email, telefone, nome);
 
         if (validaAtributos(cliente)) {
             if (validaCPF(cliente.getCpf())) {

@@ -57,8 +57,9 @@ public class ViewFuncionario extends ViewPessoa implements Initializable {
     }
 
     private void salva(TipoUsuario tipo) throws Exception {
-        this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
+        this.controllerFuncionario.salvar(super.cpf.getText(), super.senha.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
         super.mensagem("Cadastro de Funcionário", "Funcionário cadastrado com sucesso!");
+        super.resetForm();
     }
 
     private TipoUsuario defineTipo() {
