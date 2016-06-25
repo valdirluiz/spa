@@ -6,7 +6,7 @@ import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
 import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
-import br.ufsc.ine.aps.views.pessoa.ListPessoaView;
+import br.ufsc.ine.aps.views.pessoa.ViewPessoaList;
 import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +27,7 @@ import com.sun.prism.impl.Disposer.Record;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
-public class ViewClienteList implements Initializable, ListPessoaView {
+public class ViewClienteList implements Initializable, ViewPessoaList {
 
     private ControllerCliente ctrl;
 

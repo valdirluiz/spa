@@ -3,10 +3,9 @@ package br.ufsc.ine.aps.views.funcionario;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
-import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
 import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
-import br.ufsc.ine.aps.views.pessoa.ListPessoaView;
+import br.ufsc.ine.aps.views.pessoa.ViewPessoaList;
 import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import com.sun.prism.impl.Disposer;
 import javafx.collections.FXCollections;
@@ -25,7 +24,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class ViewFuncionarioList implements Initializable, ListPessoaView {
+public class ViewFuncionarioList implements Initializable, ViewPessoaList {
 
     private ControllerFuncionario controllerFuncionario;
 

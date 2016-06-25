@@ -6,21 +6,19 @@ import br.ufsc.ine.aps.models.*;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
-public class FuncionarioDao extends PessoaDao {
+public class DaoFuncionario extends PessoaDao {
 
     private Connection bdConnection;
 
-    private static FuncionarioDao ourInstance = new FuncionarioDao();
+    private static DaoFuncionario ourInstance = new DaoFuncionario();
 
-    public static FuncionarioDao getInstance() {
+    public static DaoFuncionario getInstance() {
         return ourInstance;
     }
 
-    private FuncionarioDao() {
+    private DaoFuncionario() {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 

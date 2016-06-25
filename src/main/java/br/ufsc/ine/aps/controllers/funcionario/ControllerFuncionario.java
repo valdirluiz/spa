@@ -4,7 +4,6 @@ import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.exceptions.CpfJaCadastrado;
 import br.ufsc.ine.aps.models.Atendente;
 
-import br.ufsc.ine.aps.models.Gerente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
@@ -19,23 +18,23 @@ public class ControllerFuncionario {
         return ourInstance;
     }
 
-    private FuncionarioDao funcionarioDao;
+    private DaoFuncionario daoFuncionario;
 
     private ControllerFuncionario() {
-        this.funcionarioDao = FuncionarioDao.getInstance();
+        this.daoFuncionario = DaoFuncionario.getInstance();
     }
 
     public void salvar(String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
-        if (this.funcionarioDao.existeCpf(cpf, tipo)){
+        if (this.daoFuncionario.existeCpf(cpf, tipo)){
             throw new CpfJaCadastrado();
         }
         try {
             if (tipo.equals(TipoUsuario.ATENDENTE)) {
                 Atendente atendente = buildAtendente(cpf, nome, email, telefone, tipo);
-                this.funcionarioDao.save(atendente);
+                this.daoFuncionario.save(atendente);
             } else {
                 Operador operador = this.buildOperador(cpf, nome, email, telefone, tipo);
-                this.funcionarioDao.save(operador);
+                this.daoFuncionario.save(operador);
             }
         }catch (Exception e){
             throw new Exception(e);
@@ -61,7 +60,6 @@ public class ControllerFuncionario {
         pessoa.setTelefone(telefone);
         pessoa.setTipoUsuario(tipo);
         pessoa.setCliente(false);
-        pessoa.setGerente(this.funcionarioDao.findGerente());
         return pessoa;
     }
 
@@ -69,11 +67,11 @@ public class ControllerFuncionario {
         List<Integer> tipos = new ArrayList<>();
         tipos.add(TipoUsuario.ATENDENTE.getId());
         tipos.add(TipoUsuario.OPERADOR_SUPORTE.getId());
-        return this.funcionarioDao.findByTipos(tipos);
+        return this.daoFuncionario.findByTipos(tipos);
     }
 
     public void deletarPessoa(Pessoa pessoa) throws Exception {
-        this.funcionarioDao.delete(pessoa.getId());
+        this.daoFuncionario.delete(pessoa.getId());
     }
 
     public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
@@ -89,7 +87,7 @@ public class ControllerFuncionario {
         pessoa.setEmail(email);
         pessoa.setTelefone(telefone);
         pessoa.setTipoUsuario(tipo);
-        this.funcionarioDao.update(pessoa);
+        this.daoFuncionario.update(pessoa);
     }
 
 

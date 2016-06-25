@@ -1,5 +1,7 @@
 package br.ufsc.ine.aps.views.principal;
 
+import br.ufsc.ine.aps.controllers.login.Autenticador;
+import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
@@ -30,9 +32,11 @@ public class ViewPrincipal implements Initializable {
     @FXML
     private AnchorPane pageContent;
 
+    private Autenticavel usuarioLogado;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.usuarioLogado = Autenticador.getInstance().getUsuarioLogado();
     }
 
     @FXML
