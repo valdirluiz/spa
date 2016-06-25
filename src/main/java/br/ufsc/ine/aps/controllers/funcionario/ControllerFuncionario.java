@@ -1,12 +1,14 @@
 package br.ufsc.ine.aps.controllers.funcionario;
 
 import br.ufsc.ine.aps.enuns.TipoUsuario;
+import br.ufsc.ine.aps.exceptions.CpfJaCadastrado;
 import br.ufsc.ine.aps.models.Atendente;
 
+import br.ufsc.ine.aps.models.Gerente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerFuncionario {
@@ -24,34 +26,54 @@ public class ControllerFuncionario {
     }
 
     public void salvar(String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
+        if (this.funcionarioDao.existeCpf(cpf, tipo)){
+            throw new CpfJaCadastrado();
+        }
         try {
-            Pessoa pessoa = null;
-
             if (tipo.equals(TipoUsuario.ATENDENTE)) {
-                pessoa = new Atendente();
+                Atendente atendente = buildAtendente(cpf, nome, email, telefone, tipo);
+                this.funcionarioDao.save(atendente);
             } else {
-                pessoa = new Operador();
+                Operador operador = this.buildOperador(cpf, nome, email, telefone, tipo);
+                this.funcionarioDao.save(operador);
             }
-
-            pessoa.setCpf(cpf);
-            pessoa.setEmail(email);
-            pessoa.setNome(nome);
-            pessoa.setTelefone(telefone);
-            pessoa.setTipoUsuario(tipo);
-            this.funcionarioDao.cadastrar(pessoa);
-
         }catch (Exception e){
             throw new Exception(e);
         }
+    }
 
+    private Atendente buildAtendente(String cpf, String nome, String email, String telefone, TipoUsuario tipo) {
+        Atendente pessoa = new Atendente();
+        pessoa.setCpf(cpf);
+        pessoa.setEmail(email);
+        pessoa.setNome(nome);
+        pessoa.setTelefone(telefone);
+        pessoa.setTipoUsuario(tipo);
+        pessoa.setCliente(false);
+        return pessoa;
+    }
+
+    private Operador buildOperador(String cpf, String nome, String email, String telefone, TipoUsuario tipo) {
+        Operador pessoa = new Operador();
+        pessoa.setCpf(cpf);
+        pessoa.setEmail(email);
+        pessoa.setNome(nome);
+        pessoa.setTelefone(telefone);
+        pessoa.setTipoUsuario(tipo);
+        pessoa.setCliente(false);
+        pessoa.setGerente(this.funcionarioDao.findGerente());
+        return pessoa;
     }
 
     public List<Pessoa> buscaFuncionarios(){
-        return this.funcionarioDao.findAll();
+        List<Integer> tipos = new ArrayList<>();
+        tipos.add(TipoUsuario.ATENDENTE.getId());
+        tipos.add(TipoUsuario.OPERADOR_SUPORTE.getId());
+        return this.funcionarioDao.findByTipos(tipos);
     }
 
-    public void deletarPessoa(Pessoa pessoa) throws SQLException {
-        this.funcionarioDao.deletarPessoa(pessoa.getId());
+    public void deletarPessoa(Pessoa pessoa) throws Exception {
+        this.funcionarioDao.delete(pessoa.getId());
     }
 
     public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
@@ -69,6 +91,12 @@ public class ControllerFuncionario {
         pessoa.setTipoUsuario(tipo);
         this.funcionarioDao.update(pessoa);
     }
+
+
+
+
+
+
 }
 
 

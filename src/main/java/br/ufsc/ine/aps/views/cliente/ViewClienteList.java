@@ -88,20 +88,6 @@ public class ViewClienteList implements Initializable, ListPessoaView {
                 });
     }
 
-
-
-
-
-    public void mensagem(String title, String header, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-
-        if (!title.isEmpty()) alert.setTitle(title);
-        if (!header.isEmpty()) alert.setHeaderText(header);
-        if (!message.isEmpty()) alert.setContentText(message);
-
-        alert.showAndWait();
-    }
-
     public void setViewPrincipal(ViewPrincipal viewPrincipal) {
         this.viewPrincipal = viewPrincipal;
     }

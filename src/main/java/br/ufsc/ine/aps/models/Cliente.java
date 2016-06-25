@@ -12,6 +12,17 @@ public class Cliente extends Pessoa {
         this.setTipoUsuario(TipoUsuario.CLIENTE);
     }
 
+    public Cliente(String cpf, String senha, String email, String telefone, String nome) {
+        this.setCpf(cpf);
+        this.setSenha(senha);
+        this.setNome(nome);
+        this.setTelefone(telefone);
+        this.setEmail(email);
+        this.setDataDeCadastro(new Date());
+        this.setTipoUsuario(TipoUsuario.CLIENTE);
+        this.setCliente(true);
+    }
+
     public Cliente(int id, String cpf, String senha, String nome, String telefone, String email) {
         this.setId(id);
         this.setCpf(cpf);
