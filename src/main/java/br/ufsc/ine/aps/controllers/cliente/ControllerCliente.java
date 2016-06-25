@@ -39,7 +39,6 @@ public class ControllerCliente {
     }
 
     public void adicionar(String cpf, String nome, String email, String telefone) {
-        CPFValidator cpfValidator = new CPFValidator();
         Cliente cliente = new Cliente();
         cliente.setCpf(cpf);
         cliente.setNome(nome);
@@ -48,21 +47,22 @@ public class ControllerCliente {
         cliente.setCliente(true);
         cliente.setSenha(nome);
 
-        if (cpf.isEmpty() || nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
-            view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
-        } else if (!cpfValidator.invalidMessagesFor(cpf).isEmpty()) {
-            view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
-        } else {
-            if ( dao.buscarCPF(cpf) == null ) {
-                if (dao.salvar(cliente)) {
-                    view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
-                    return;
+        if (validaAtributos(cliente)) {
+            if (validaCPF(cliente.getCpf())) {
+                if (clienteExiste(cliente.getCpf())) {
+                    view.mensagem("Cadastro de Cliente", "", "Este CPF já esta cadastrado.", Alert.AlertType.ERROR);
                 } else {
-                    view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                    if (dao.salvar(cliente)) {
+                        view.mensagem("Cadastro de Cliente", "", "Cliente cadastrado com sucesso!", Alert.AlertType.NONE);
+                    } else {
+                        view.mensagem("Cadastro de Cliente", "", "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.", Alert.AlertType.ERROR);
+                    }
                 }
             } else {
-                view.mensagem("Cadastro de Cliente", "", "Este CPF já esta cadastrado.", Alert.AlertType.ERROR);
+                view.mensagem("Cadastro de Cliente", "", "CPF inválido.", Alert.AlertType.ERROR);
             }
+        } else {
+            view.mensagem("Cadastro de Cliente", "", "Todos campos são obrigatórios.", Alert.AlertType.ERROR);
         }
     }
 
@@ -110,4 +110,16 @@ public class ControllerCliente {
         return this.dao.buscar();
     }
 
+    public boolean validaAtributos(Cliente cliente) {
+        return (!cliente.getCpf().isEmpty() && !cliente.getNome().isEmpty() && !cliente.getEmail().isEmpty() && !cliente.getTelefone().isEmpty());
+    }
+
+    public boolean validaCPF(String cpf) {
+        CPFValidator cpfValidator = new CPFValidator();
+        return cpfValidator.invalidMessagesFor(cpf).isEmpty();
+    }
+
+    public boolean clienteExiste(String cpf) {
+        return (dao.buscarCPF(cpf) != null);
+    }
 }
