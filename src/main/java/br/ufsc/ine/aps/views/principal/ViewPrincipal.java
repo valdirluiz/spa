@@ -16,8 +16,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.Menu;
+
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -37,21 +39,36 @@ public class ViewPrincipal implements Initializable {
     @FXML
     private Menu menuFuncionarios;
 
+    @FXML
+    private Menu menuClientes;
+
+    @FXML
+    private MenuItem menuCadProtocolo;
+
     private Autenticavel usuarioLogado;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.usuarioLogado = Autenticador.getInstance().getUsuarioLogado();
         this.showMenuFuncionarios();
+        this.showMenuClientes();
+        this.showMenuCadastrarProtocolo();
     }
+
+
 
     @FXML
     private void handleCadastroProtocoloButtonAction(ActionEvent event) {
         try {
-            AnchorPane pane = new AnchorPane();
-            Parent conteudoDaView =  FXMLLoader.load(ViewProtocolo.class.getResource("protocolo.fxml"));
-            pane.getChildren().setAll(conteudoDaView);
-            this.atualizaConteudo(pane);
+            AnchorPane content = new AnchorPane();
+            Parent conteudoDaView =  FXMLLoader.load(ViewProtocolo.class.getResource("cadastrar.fxml"));
+            content.getChildren().setAll(conteudoDaView);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewProtocolo.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,6 +165,16 @@ public class ViewPrincipal implements Initializable {
 
     private void showMenuFuncionarios(){
         this.menuFuncionarios.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE));
+    }
+
+    private void showMenuClientes(){
+        this.menuClientes.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE) );
+    }
+
+    private void showMenuCadastrarProtocolo() {
+        this.menuCadProtocolo.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE));
     }
 
 }

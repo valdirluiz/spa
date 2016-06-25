@@ -30,9 +30,10 @@
                               <Menu mnemonicParsing="false" text="Protocolos">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Consultar" />
+                                    <MenuItem fx:id="menuCadProtocolo" mnemonicParsing="false" onAction="#handleCadastroProtocoloButtonAction" text="Cadastrar" />
                                  </items>
                               </Menu>
-                              <Menu  mnemonicParsing="false" styleClass="menu-item" text="Clientes">
+                              <Menu fx:id="menuClientes"  mnemonicParsing="false" styleClass="menu-item" text="Clientes">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#handleClientesConsultarAction" text="Consultar" />
                                     <MenuItem mnemonicParsing="false" onAction="#handleClientesCadastrarAction" text="Cadastrar" />

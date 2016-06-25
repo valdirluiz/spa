@@ -10,9 +10,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/**
- * Created by rafaelignacio on 19/06/16.
- */
 public class BotaoEditar extends TableCell<Disposer.Record, Boolean> {
 
     private ViewPessoaList view;
