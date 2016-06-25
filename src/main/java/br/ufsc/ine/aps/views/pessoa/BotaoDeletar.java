@@ -2,7 +2,6 @@
 package br.ufsc.ine.aps.views.pessoa;
 
 import br.ufsc.ine.aps.assets.Assets;
-import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import com.sun.prism.impl.Disposer;
 import javafx.event.ActionEvent;
@@ -15,12 +14,12 @@ import javafx.scene.image.ImageView;
 
 public class BotaoDeletar  extends TableCell<Disposer.Record, Boolean> {
 
-    private ListPessoaView view;
+    private ViewPessoaList view;
 
     final Image imageDelete = new Image(Assets.deleteImage());
     final Button cellButton = new Button("", new ImageView(imageDelete));
 
-    public BotaoDeletar(ListPessoaView view){
+    public BotaoDeletar(ViewPessoaList view){
         this.view = view;
 
         cellButton.setOnAction(new EventHandler<ActionEvent>(){
