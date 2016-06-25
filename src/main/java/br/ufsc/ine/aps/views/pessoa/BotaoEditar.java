@@ -1,9 +1,7 @@
 package br.ufsc.ine.aps.views.pessoa;
 
 import br.ufsc.ine.aps.assets.Assets;
-import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
-import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import com.sun.prism.impl.Disposer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,17 +10,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-/**
- * Created by rafaelignacio on 19/06/16.
- */
 public class BotaoEditar extends TableCell<Disposer.Record, Boolean> {
 
-    private ListPessoaView view;
+    private ViewPessoaList view;
 
     final Image imageEdit = new Image(Assets.editImage());
     final Button cellButton = new Button("", new ImageView(imageEdit));
 
-    public BotaoEditar(ListPessoaView view){
+    public BotaoEditar(ViewPessoaList view){
         this.view = view;
 
         cellButton.setOnAction(new EventHandler<ActionEvent>(){

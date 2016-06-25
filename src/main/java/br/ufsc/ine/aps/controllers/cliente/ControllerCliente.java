@@ -11,7 +11,7 @@ import java.util.List;
 public class ControllerCliente {
 
     private DaoCliente dao = new DaoCliente();
-    private ViewCliente view;
+   // private ViewCliente view;
     private ViewClienteList viewList;
 
     private static ControllerCliente instance = new ControllerCliente();
@@ -22,12 +22,10 @@ public class ControllerCliente {
         return instance;
     }
 
-    public ViewCliente getView() {
-        return view;
-    }
+
 
     public void setView(ViewCliente view) {
-        this.view = view;
+        //this.view = view;
     }
 
     public ViewClienteList getViewList() {
@@ -91,12 +89,12 @@ public class ControllerCliente {
         }
     }
 
-    public void deletar(Integer id){
+    public void deletar(Integer id) throws Exception {
         try {
             dao.delete(id);
-            viewList.mensagem("", "", "Teste", Alert.AlertType.INFORMATION);
         } catch (Exception e){
             e.printStackTrace();
+            throw new Exception(e);
         }
     }
 

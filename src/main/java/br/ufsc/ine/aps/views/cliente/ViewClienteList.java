@@ -6,7 +6,7 @@ import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
 import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
-import br.ufsc.ine.aps.views.pessoa.ListPessoaView;
+import br.ufsc.ine.aps.views.pessoa.ViewPessoaList;
 import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +27,7 @@ import com.sun.prism.impl.Disposer.Record;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
-public class ViewClienteList implements Initializable, ListPessoaView {
+public class ViewClienteList implements Initializable, ViewPessoaList {
 
     private ControllerCliente ctrl;
 
@@ -116,11 +116,26 @@ public class ViewClienteList implements Initializable, ListPessoaView {
         alert.setContentText("Realmente deseja excluir o cliente " + pessoa.getNome()   + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            this.ctrl.deletar(pessoa.getId());
-            geraDadosParaTabela();
+            try {
+                this.ctrl.deletar(pessoa.getId());
+                geraDadosParaTabela();
+                this.mensagem("Confirmação", "Confirmação", "Cliente deletado com sucesso!", Alert.AlertType.CONFIRMATION);
+            } catch (Exception e){
+                this.mensagem("Alerta", "Alerta", "Falha ao deletar cliente", Alert.AlertType.ERROR);
+            }
+
         }
     }
 
+    public void mensagem(String title, String header, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+
+        if (!title.isEmpty()) alert.setTitle(title);
+        if (!header.isEmpty()) alert.setHeaderText(header);
+        if (!message.isEmpty()) alert.setContentText(message);
+
+        alert.showAndWait();
+    }
 
 }
 
