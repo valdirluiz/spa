@@ -52,7 +52,7 @@ public class DaoUsuario {
         } else if(tipoUsuario.equals(TipoUsuario.GERENTE)){
             autenticavel = new Gerente();
         } else if(tipoUsuario.equals(TipoUsuario.OPERADOR_SUPORTE)){
-
+            autenticavel = new Operador();
         }
 
         Integer id  = rs.getInt("id");
