@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.collections.*?>
 
-<?import javafx.scene.control.PasswordField?>
 <AnchorPane stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewFuncionario">
    <children>
       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,8 +22,6 @@
                   <TextField fx:id="nome" text="" />
                   <Label prefHeight="18.0" styleClass="control-label" text="CPF" />
                   <TextField fx:id="cpf" text="" />
-                  <Label prefHeight="18.0" styleClass="control-label" text="Senha" />
-                  <PasswordField fx:id="senha" text="" />
                   <Label prefHeight="18.0" styleClass="control-label" text="Telefone" />
                   <TextField fx:id="telefone" text="" />
                   <Label prefHeight="18.0" styleClass="control-label" text="Email" />

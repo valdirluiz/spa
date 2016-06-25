@@ -24,16 +24,16 @@ public class ControllerFuncionario {
         this.daoFuncionario = DaoFuncionario.getInstance();
     }
 
-    public void salvar(String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
+    public void salvar(String cpf, String senha, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
         if (this.daoFuncionario.existeCpf(cpf, tipo)){
             throw new CpfJaCadastrado();
         }
         try {
             if (tipo.equals(TipoUsuario.ATENDENTE)) {
-                Atendente atendente = buildAtendente(cpf, nome, email, telefone, tipo);
+                Atendente atendente = buildAtendente(cpf, senha, nome, email, telefone, tipo);
                 this.daoFuncionario.save(atendente);
             } else {
-                Operador operador = this.buildOperador(cpf, nome, email, telefone, tipo);
+                Operador operador = this.buildOperador(cpf, senha, nome, email, telefone, tipo);
                 this.daoFuncionario.save(operador);
             }
         }catch (Exception e){
@@ -41,22 +41,24 @@ public class ControllerFuncionario {
         }
     }
 
-    private Atendente buildAtendente(String cpf, String nome, String email, String telefone, TipoUsuario tipo) {
+    private Atendente buildAtendente(String cpf, String senha, String nome, String email, String telefone, TipoUsuario tipo) {
         Atendente pessoa = new Atendente();
         pessoa.setCpf(cpf);
         pessoa.setEmail(email);
         pessoa.setNome(nome);
+        pessoa.setSenha(senha);
         pessoa.setTelefone(telefone);
         pessoa.setTipoUsuario(tipo);
         pessoa.setCliente(false);
         return pessoa;
     }
 
-    private Operador buildOperador(String cpf, String nome, String email, String telefone, TipoUsuario tipo) {
+    private Operador buildOperador(String cpf, String senha, String nome, String email, String telefone, TipoUsuario tipo) {
         Operador pessoa = new Operador();
         pessoa.setCpf(cpf);
         pessoa.setEmail(email);
         pessoa.setNome(nome);
+        pessoa.setSenha(senha);
         pessoa.setTelefone(telefone);
         pessoa.setTipoUsuario(tipo);
         pessoa.setCliente(false);

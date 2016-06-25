@@ -102,7 +102,7 @@ public class ViewFuncionarioList implements Initializable, ViewPessoaList {
         try{
             AnchorPane content = new AnchorPane();
             FXMLLoader loader = new FXMLLoader();
-            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("cadastrar.fxml"));
+            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("editar.fxml"));
             ViewFuncionario controller =  loader.getController();
             controller.setToEdit(pessoa);
             content.getChildren().setAll(page);

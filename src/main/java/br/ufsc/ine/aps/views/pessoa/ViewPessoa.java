@@ -5,6 +5,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public abstract  class ViewPessoa {
@@ -13,6 +14,8 @@ public abstract  class ViewPessoa {
     protected TextField cpf;
     @FXML
     protected TextField nome;
+    @FXML
+    protected PasswordField senha;
     @FXML
     protected TextField email;
     @FXML
@@ -42,6 +45,7 @@ public abstract  class ViewPessoa {
         this.nome.clear();
         this.email.clear();
         this.telefone.clear();
+        this.senha.clear();
     }
 
 
