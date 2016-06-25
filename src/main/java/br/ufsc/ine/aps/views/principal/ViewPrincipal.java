@@ -169,7 +169,7 @@ public class ViewPrincipal implements Initializable {
 
     private void showMenuClientes(){
         this.menuClientes.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
-                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE) );
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE) || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE) );
     }
 
     private void showMenuCadastrarProtocolo() {
