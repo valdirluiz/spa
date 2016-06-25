@@ -92,6 +92,7 @@ public class ControllerCliente {
     public void deletar(Integer id) throws Exception {
         try {
             dao.delete(id);
+            viewList.mensagem("Removido com sucesso!");
         } catch (Exception e){
             e.printStackTrace();
             throw new Exception(e);
