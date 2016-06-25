@@ -85,7 +85,7 @@ public abstract class Pessoa implements Autenticavel{
         return null;
     }
 
-    public boolean isCliente() {
+    public Boolean isCliente() {
         return isCliente;
     }
 
