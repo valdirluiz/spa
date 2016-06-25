@@ -116,11 +116,26 @@ public class ViewClienteList implements Initializable, ViewPessoaList {
         alert.setContentText("Realmente deseja excluir o cliente " + pessoa.getNome()   + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            this.ctrl.deletar(pessoa.getId());
-            geraDadosParaTabela();
+            try {
+                this.ctrl.deletar(pessoa.getId());
+                geraDadosParaTabela();
+                this.mensagem("Confirmação", "Confirmação", "Cliente deletado com sucesso!", Alert.AlertType.CONFIRMATION);
+            } catch (Exception e){
+                this.mensagem("Alerta", "Alerta", "Falha ao deletar cliente", Alert.AlertType.ERROR);
+            }
+
         }
     }
 
+    public void mensagem(String title, String header, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+
+        if (!title.isEmpty()) alert.setTitle(title);
+        if (!header.isEmpty()) alert.setHeaderText(header);
+        if (!message.isEmpty()) alert.setContentText(message);
+
+        alert.showAndWait();
+    }
 
 }
 

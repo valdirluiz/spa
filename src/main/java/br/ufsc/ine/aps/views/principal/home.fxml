@@ -38,7 +38,7 @@
                                     <MenuItem mnemonicParsing="false" onAction="#handleClientesCadastrarAction" text="Cadastrar" />
                                  </items>
                               </Menu>
-                              <Menu mnemonicParsing="false" text="Funcionários">
+                              <Menu fx:id="menuFuncionarios" mnemonicParsing="false" text="Funcionários">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#handleFuncionariosListarAction" text="Consultar" />
                                     <MenuItem mnemonicParsing="false" onAction="#handleFuncionariosCadastrarAction" text="Cadastrar" />

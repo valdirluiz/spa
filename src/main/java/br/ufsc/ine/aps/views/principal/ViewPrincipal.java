@@ -1,6 +1,7 @@
 package br.ufsc.ine.aps.views.principal;
 
 import br.ufsc.ine.aps.controllers.login.Autenticador;
+import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -32,11 +34,15 @@ public class ViewPrincipal implements Initializable {
     @FXML
     private AnchorPane pageContent;
 
+    @FXML
+    private Menu menuFuncionarios;
+
     private Autenticavel usuarioLogado;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.usuarioLogado = Autenticador.getInstance().getUsuarioLogado();
+        this.showMenuFuncionarios();
     }
 
     @FXML
@@ -137,6 +143,11 @@ public class ViewPrincipal implements Initializable {
     public void atualizaConteudo(AnchorPane conteudo) {
         pageContent.getChildren().clear();
         pageContent.getChildren().add(conteudo);
+    }
+
+
+    private void showMenuFuncionarios(){
+        this.menuFuncionarios.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE));
     }
 
 }

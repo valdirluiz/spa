@@ -91,12 +91,12 @@ public class ControllerCliente {
         }
     }
 
-    public void deletar(Integer id){
+    public void deletar(Integer id) throws Exception {
         try {
             dao.delete(id);
-            viewList.mensagem("", "", "Teste", Alert.AlertType.INFORMATION);
         } catch (Exception e){
             e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
