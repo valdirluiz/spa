@@ -53,12 +53,12 @@ public class ViewFuncionario extends ViewPessoa implements Initializable {
 
     private void atualiza(TipoUsuario tipo) throws Exception {
         this.controllerFuncionario.atualizar(toEdit.getId(), super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
-        super.mensagem("Cadastro de Funcionário", "", "Funcionário atualizado com sucesso!", Alert.AlertType.CONFIRMATION);
+        super.mensagem("Cadastro de Funcionário", "Funcionário atualizado com sucesso!");
     }
 
     private void salva(TipoUsuario tipo) throws Exception {
         this.controllerFuncionario.salvar(super.cpf.getText(), super.nome.getText(), super.email.getText(), super.telefone.getText(), tipo);
-        super.mensagem("Cadastro de Funcionário", "", "Funcionário cadastrado com sucesso!", Alert.AlertType.CONFIRMATION);
+        super.mensagem("Cadastro de Funcionário", "Funcionário cadastrado com sucesso!");
     }
 
     private TipoUsuario defineTipo() {
