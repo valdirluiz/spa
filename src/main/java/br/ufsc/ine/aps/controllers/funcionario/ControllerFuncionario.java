@@ -1,12 +1,13 @@
 package br.ufsc.ine.aps.controllers.funcionario;
 
 import br.ufsc.ine.aps.enuns.TipoUsuario;
+import br.ufsc.ine.aps.exceptions.CpfJaCadastrado;
 import br.ufsc.ine.aps.models.Atendente;
 
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerFuncionario {
@@ -24,34 +25,37 @@ public class ControllerFuncionario {
     }
 
     public void salvar(String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
+        if (existeFuncionarioComCpf(cpf)){
+            throw new CpfJaCadastrado();
+        }
         try {
             Pessoa pessoa = null;
-
             if (tipo.equals(TipoUsuario.ATENDENTE)) {
                 pessoa = new Atendente();
             } else {
                 pessoa = new Operador();
             }
-
             pessoa.setCpf(cpf);
             pessoa.setEmail(email);
             pessoa.setNome(nome);
             pessoa.setTelefone(telefone);
             pessoa.setTipoUsuario(tipo);
-            this.funcionarioDao.cadastrar(pessoa);
-
+            pessoa.setCliente(false);
+            this.funcionarioDao.save(pessoa);
         }catch (Exception e){
             throw new Exception(e);
         }
-
     }
 
     public List<Pessoa> buscaFuncionarios(){
-        return this.funcionarioDao.findAll();
+        List<Integer> tipos = new ArrayList<>();
+        tipos.add(TipoUsuario.ATENDENTE.getId());
+        tipos.add(TipoUsuario.OPERADOR_SUPORTE.getId());
+        return this.funcionarioDao.findByTipos(tipos);
     }
 
-    public void deletarPessoa(Pessoa pessoa) throws SQLException {
-        this.funcionarioDao.deletarPessoa(pessoa.getId());
+    public void deletarPessoa(Pessoa pessoa) throws Exception {
+        this.funcionarioDao.delete(pessoa.getId());
     }
 
     public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
@@ -69,6 +73,18 @@ public class ControllerFuncionario {
         pessoa.setTipoUsuario(tipo);
         this.funcionarioDao.update(pessoa);
     }
+
+
+    public boolean existeFuncionarioComCpf(String cpf){
+        boolean atentende = this.funcionarioDao.existeCpf(cpf, TipoUsuario.ATENDENTE);
+        boolean operador = this.funcionarioDao.existeCpf(cpf, TipoUsuario.OPERADOR_SUPORTE);
+        if(atentende || operador){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
 }
 
 

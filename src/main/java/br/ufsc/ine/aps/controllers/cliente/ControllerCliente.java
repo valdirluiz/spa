@@ -99,7 +99,7 @@ public class ControllerCliente {
 
     public void deletar(Integer id){
         try {
-            dao.deletarPessoa(id);
+            dao.delete(id);
             viewList.mensagem("", "", "Teste", Alert.AlertType.INFORMATION);
         } catch (Exception e){
             e.printStackTrace();
