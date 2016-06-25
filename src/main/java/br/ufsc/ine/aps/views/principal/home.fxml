@@ -30,6 +30,7 @@
                               <Menu mnemonicParsing="false" text="Protocolos">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Consultar" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleCadastroProtocoloButtonAction" text="Cadastrar" />
                                  </items>
                               </Menu>
                               <Menu mnemonicParsing="false" styleClass="menu-item" text="Clientes">
