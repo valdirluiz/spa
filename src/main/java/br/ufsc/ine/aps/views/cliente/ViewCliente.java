@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 
@@ -35,14 +36,24 @@ public class ViewCliente extends ViewPessoa implements Initializable{
 
     @FXML
     public void salvarCliente() {
+        String retorno = null;
+        String[] tipoRetorno = {null, null};
         if(toEdit == null){
-            this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
-            resetForm();
+            tipoRetorno[0] = "Cadastro de Clientes";
+            tipoRetorno[1] = "Cliente cadastrado com sucesso!";
+            retorno = this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
+            if (retorno == null) resetForm();
         } else{
-            this.ctrl.atualizar(toEdit.getId().toString(), cpf.getText(), nome.getText(), email.getText(), telefone.getText());
+            tipoRetorno[0] = "Alteração de Clientes";
+            tipoRetorno[1] = "Cliente alterado com sucesso!";
+            retorno = this.ctrl.atualizar(toEdit.getId().toString(), cpf.getText(), nome.getText(), email.getText(), telefone.getText());
         }
 
-
+        if (retorno == null) {
+            this.mensagem(tipoRetorno[0], "", tipoRetorno[1], Alert.AlertType.NONE);
+        } else {
+            this.mensagem(tipoRetorno[0], "", retorno, Alert.AlertType.ERROR);
+        }
     }
 
     public void setToEdit(Pessoa toEdit) {
