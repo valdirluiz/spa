@@ -25,8 +25,6 @@ public abstract class PessoaDao {
         PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         setDadosPessoa(pessoa, stmt);
         this.setDadosCliente(pessoa, stmt);
-//        this.setDadosOperador(pessoa, stmt);
-
         stmt.executeUpdate();
         stmt.close();
     }
@@ -41,14 +39,6 @@ public abstract class PessoaDao {
         stmt.setBoolean(7, pessoa.isCliente());
     }
 
-    private void setDadosOperador(Pessoa pessoa, PreparedStatement stmt) throws SQLException {
-        if(pessoa instanceof Operador){
-            Operador operador = (Operador) pessoa;
-            stmt.setInt(9,operador.getGerente().getId());
-        } else{
-            stmt.setNull(9,1);
-        }
-    }
 
     private void setDadosCliente(Pessoa pessoa, PreparedStatement stmt) throws SQLException {
         if(pessoa instanceof Cliente){
