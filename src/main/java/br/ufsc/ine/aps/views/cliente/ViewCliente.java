@@ -50,7 +50,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
         }
 
         if (retorno == null) {
-            this.mensagem(tipoRetorno[0], "", tipoRetorno[1], Alert.AlertType.NONE);
+            this.mensagem(tipoRetorno[0], tipoRetorno[1]);
         } else {
             this.mensagem(tipoRetorno[0], "", retorno, Alert.AlertType.ERROR);
         }
