@@ -1,6 +1,6 @@
 package br.ufsc.ine.aps.models;
 
-public class Notificaao {
+public class Notificacoes {
 
     private Integer id;
     private boolean visualizado;

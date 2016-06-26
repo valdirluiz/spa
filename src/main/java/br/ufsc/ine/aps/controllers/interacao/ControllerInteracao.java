@@ -29,13 +29,17 @@ public class ControllerInteracao {
     }
 
     public void addInteracao(Protocolo protocolo, TipoInteracao tipoInteracao){
-        Autenticavel usuarioLogado = autenticador.getUsuarioLogado();
-        String mensagem = this.geraMensagem(usuarioLogado, tipoInteracao, protocolo);
-        Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao);
-        interacao = this.daoInteracao.save(interacao);
-        List<Autenticavel> usuariosNotificados = this.controllerNotificacao.defineUsuarios(protocolo, usuarioLogado);
-        for(Autenticavel usuario : usuariosNotificados){
-            this.controllerNotificacao.geraNotificacao(interacao, usuario);
+        try{
+            Autenticavel usuarioLogado = autenticador.getUsuarioLogado();
+            String mensagem = this.geraMensagem(usuarioLogado, tipoInteracao, protocolo);
+            Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao);
+            interacao = this.daoInteracao.save(interacao);
+            List<Autenticavel> usuariosNotificados = this.controllerNotificacao.defineUsuarios(protocolo, usuarioLogado);
+            for(Autenticavel usuario : usuariosNotificados){
+                this.controllerNotificacao.geraNotificacao(interacao, usuario);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

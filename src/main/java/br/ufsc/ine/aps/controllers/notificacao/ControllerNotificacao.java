@@ -2,7 +2,7 @@ package br.ufsc.ine.aps.controllers.notificacao;
 
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Interacao;
-import br.ufsc.ine.aps.models.Notificaao;
+import br.ufsc.ine.aps.models.Notificacoes;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class ControllerNotificacao {
     }
 
     public void geraNotificacao(Interacao interacao, Autenticavel usuarioNotificado){
-        Notificaao notificaao = new Notificaao();
+        Notificacoes notificaao = new Notificacoes();
         notificaao.setUsuario(usuarioNotificado);
         notificaao.setVisualizado(false);
         notificaao.setInteracao(interacao);
