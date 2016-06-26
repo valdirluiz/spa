@@ -11,8 +11,7 @@
   data_cadastro date
  );
 
-CREATE UNIQUE INDEX pessoas_id_tipo_usuario_uindex ON pessoas(id,tipo_usuario);
-alter table add gerente INTEGER ;
+CREATE UNIQUE INDEX pessoas_id_tipo_usuario_uindex ON pessoas(id, is_cliente);
 
-insert into pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente) VALUES ('663.527.824-93', 'gerente@email.com', 'Gerente', '123', '5555', 4, 0);
+INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente) VALUES ('663.527.824-93', 'gerente@email.com', 'Gerente', '123', '5555', 4, 0);
 
