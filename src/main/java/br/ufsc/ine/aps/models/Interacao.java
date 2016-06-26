@@ -10,16 +10,12 @@ public class Interacao {
     private Integer id;
     private Date data = new Date();
     private String mensagem;
-    private Autenticavel responsavel;
+    private Autenticavel usuario;
     private TipoInteracao tipo;
     private Protocolo protocolo;
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Date getData() {
@@ -38,12 +34,12 @@ public class Interacao {
         this.mensagem = mensagem;
     }
 
-    public Autenticavel getResponsavel() {
-        return responsavel;
+    public Autenticavel getUsuario() {
+        return usuario;
     }
 
-    public void setResponsavel(Autenticavel responsavel) {
-        this.responsavel = responsavel;
+    public void setUsuario(Autenticavel usuario) {
+        this.usuario = usuario;
     }
 
     public TipoInteracao getTipo() {
