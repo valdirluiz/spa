@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList">
     <children>
         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox styleClass="card">
                     <children>
-                        <TableView fx:id="tabelaFuncionarios" prefHeight="340.0" prefWidth="710.0">
+                        <TableView fx:id="tabelaFuncionarios">
                             <columns>
                                 <TableColumn prefWidth="163.0" text="Nome">
                                     <cellValueFactory>
@@ -34,13 +34,13 @@
                                     </cellValueFactory>
                                 </TableColumn>
 
-                                <TableColumn minWidth="9.0" prefWidth="140.0" text="Tipo">
+                                <TableColumn minWidth="9.0" prefWidth="170.0" text="Tipo">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="descTipo" />
                                     </cellValueFactory>
                                 </TableColumn>
 
-                                <TableColumn fx:id="columnExcluir" editable="false" sortable="false" prefWidth="119.0" text="Excluir" />
+                                <TableColumn fx:id="columnExcluir" editable="false" sortable="false" text="Excluir" />
 
                                 <TableColumn fx:id="colunaEditar" editable="false" sortable="false" text="Editar" />
 

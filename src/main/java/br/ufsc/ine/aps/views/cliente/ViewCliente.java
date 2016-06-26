@@ -7,6 +7,7 @@ import br.ufsc.ine.aps.views.pessoa.ViewPessoa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 
@@ -25,6 +26,8 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     @FXML
     private TextField nome;
     @FXML
+    private PasswordField senha;
+    @FXML
     private TextField email;
     @FXML
     private TextField telefone;
@@ -41,7 +44,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
         if(toEdit == null){
             tipoRetorno[0] = "Cadastro de Clientes";
             tipoRetorno[1] = "Cliente cadastrado com sucesso!";
-            retorno = this.ctrl.adicionar(cpf.getText(), nome.getText(), email.getText(), telefone.getText());
+            retorno = this.ctrl.adicionar(cpf.getText(), senha.getText(), nome.getText(), email.getText(), telefone.getText());
             if (retorno == null) resetForm();
         } else{
             tipoRetorno[0] = "Alteração de Clientes";
@@ -50,7 +53,7 @@ public class ViewCliente extends ViewPessoa implements Initializable{
         }
 
         if (retorno == null) {
-            this.mensagem(tipoRetorno[0], "", tipoRetorno[1], Alert.AlertType.NONE);
+            this.mensagem(tipoRetorno[0], tipoRetorno[1]);
         } else {
             this.mensagem(tipoRetorno[0], "", retorno, Alert.AlertType.ERROR);
         }

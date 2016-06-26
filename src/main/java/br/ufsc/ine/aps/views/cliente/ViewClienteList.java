@@ -128,9 +128,9 @@ public class ViewClienteList implements Initializable, ViewPessoaList {
             try {
                 this.ctrl.deletar(pessoa.getId());
                 geraDadosParaTabela();
-                this.mensagem("Confirmação", "Confirmação", "Cliente deletado com sucesso!", Alert.AlertType.CONFIRMATION);
+                this.mensagem("Cliente deletado com sucesso!");
             } catch (Exception e){
-                this.mensagem("Alerta", "Alerta", "Falha ao deletar cliente", Alert.AlertType.ERROR);
+                this.mensagem("Remoção de Cliente", "Alerta", "Falha ao deletar cliente", Alert.AlertType.ERROR);
             }
 
         }

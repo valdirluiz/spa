@@ -15,12 +15,13 @@ public class DaoUsuario {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
-    public Autenticavel findByCPF(String cpf){
+    public Autenticavel findByCPFAndFlCliente(String cpf, Boolean flCliente){
         ResultSet rs;
         PreparedStatement stmt = null;
         try {
-            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ?");
+            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ? and is_cliente = ?");
             stmt.setString(1, cpf);
+            stmt.setInt(2, flCliente ? 1 : 0);
             rs = stmt.executeQuery();
             if(rs.next()){
                 return this.montaUsuario(rs);
@@ -52,7 +53,7 @@ public class DaoUsuario {
         } else if(tipoUsuario.equals(TipoUsuario.GERENTE)){
             autenticavel = new Gerente();
         } else if(tipoUsuario.equals(TipoUsuario.OPERADOR_SUPORTE)){
-
+            autenticavel = new Operador();
         }
 
         Integer id  = rs.getInt("id");

@@ -36,8 +36,8 @@ public class ControllerCliente {
         this.viewList = viewList;
     }
 
-    public String adicionar(String cpf, String nome, String email, String telefone) {
-        Cliente cliente = new Cliente(cpf, nome, email, telefone, nome);
+    public String adicionar(String cpf, String senha, String nome, String email, String telefone) {
+        Cliente cliente = new Cliente(cpf, senha, email, telefone, nome);
 
         if (validaAtributos(cliente)) {
             if (validaCPF(cliente.getCpf())) {
@@ -92,7 +92,6 @@ public class ControllerCliente {
     public void deletar(Integer id) throws Exception {
         try {
             dao.delete(id);
-            viewList.mensagem("Removido com sucesso!");
         } catch (Exception e){
             e.printStackTrace();
             throw new Exception(e);
