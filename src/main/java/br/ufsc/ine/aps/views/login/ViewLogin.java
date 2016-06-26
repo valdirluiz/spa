@@ -26,16 +26,12 @@ import java.util.ResourceBundle;
 public class ViewLogin implements Initializable {
 
     private Autenticador autenticador;
-
     @FXML
     private TextField cpfField;
-
     @FXML
     private PasswordField senhaField;
-
     @FXML
     private ComboBox<String> perfil;
-
     @FXML
     private Pane loginPanel;
 
@@ -47,7 +43,8 @@ public class ViewLogin implements Initializable {
     @FXML
     private void efetuarLogin(ActionEvent event) {
         String perfil = this.perfil.getSelectionModel().getSelectedItem();
-        Optional<String> notificacao = this.autenticador.efetuarLogin(this.cpfField.getText(), this.senhaField.getText(), perfil);
+        Optional<String> notificacao = this.autenticador.
+                                                efetuarLogin(this.cpfField.getText(), this.senhaField.getText(), perfil);
         if(notificacao.isPresent()){
             this.exibeNotificacao(notificacao.get());
         } else{
@@ -74,7 +71,6 @@ public class ViewLogin implements Initializable {
             e.printStackTrace();
         }
     }
-
     private void exibeNotificacao(String notificacao){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Erro");
@@ -83,7 +79,4 @@ public class ViewLogin implements Initializable {
         alert.showAndWait();
 
     }
-
-
-
 }
