@@ -33,7 +33,7 @@
                                     <MenuItem fx:id="menuCadProtocolo" mnemonicParsing="false" onAction="#handleCadastroProtocoloButtonAction" text="Cadastrar" />
                                  </items>
                               </Menu>
-                              <Menu fx:id="menuClientes"  mnemonicParsing="false" styleClass="menu-item" text="Clientes">
+                              <Menu fx:id="menuClientes" mnemonicParsing="false" styleClass="menu-item" text="Clientes">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#handleClientesConsultarAction" text="Consultar" />
                                     <MenuItem mnemonicParsing="false" onAction="#handleClientesCadastrarAction" text="Cadastrar" />
@@ -82,18 +82,29 @@
          <bottom>
             <AnchorPane prefHeight="50.0" styleClass="teal" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox alignment="CENTER_RIGHT">
-                           <padding>
-                              <Insets right="5.0" />
-                           </padding>
+                  <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <left>
+                        <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER_LEFT">
+                           <children>
+                              <Label fx:id="infoUsuarioNome" style="-fx-text-fill: #DDD;" text="Nenhum usuário logado" />
+                              <Label fx:id="infoUsuarioTipo" style="-fx-text-fill: #DDD;" text="">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin></Label>
+                           </children>
+                        </HBox>
+                     </left>
+                     <right>
+                        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER_RIGHT">
                            <children>
                               <Button mnemonicParsing="false" style="-fx-background-color: #e0f2f1; -fx-text-fill: #333333;" styleClass="button-flat" text="Notificações" />
                            </children>
                         </HBox>
-                     </children>
-                  </StackPane>
+                     </right>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </BorderPane>
                </children>
             </AnchorPane>
          </bottom>
