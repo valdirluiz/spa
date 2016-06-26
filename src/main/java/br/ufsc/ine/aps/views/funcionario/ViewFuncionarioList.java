@@ -89,7 +89,7 @@ public class ViewFuncionarioList implements Initializable, ViewPessoaList {
         if (result.get() == ButtonType.OK) {
             try {
                 this.controllerFuncionario.deletarPessoa(pessoa);
-                this.mensagem("Confirmação", "Confirmação", "Funcionário deletado com sucesso!", Alert.AlertType.CONFIRMATION);
+                this.mensagem("Funcionário deletado com sucesso!");
                 this.geraDadosParaTabela();
             } catch (Exception e) {
                 this.mensagem("Alerta", "Alerta", "Falha ao deletar funcionário", Alert.AlertType.ERROR);
@@ -102,7 +102,7 @@ public class ViewFuncionarioList implements Initializable, ViewPessoaList {
         try{
             AnchorPane content = new AnchorPane();
             FXMLLoader loader = new FXMLLoader();
-            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("cadastrar.fxml"));
+            Parent page =  loader.load(ViewFuncionario.class.getResourceAsStream("editar.fxml"));
             ViewFuncionario controller =  loader.getController();
             controller.setToEdit(pessoa);
             content.getChildren().setAll(page);
@@ -119,6 +119,15 @@ public class ViewFuncionarioList implements Initializable, ViewPessoaList {
         if (!title.isEmpty()) alert.setTitle(title);
         if (!header.isEmpty()) alert.setHeaderText(header);
         if (!message.isEmpty()) alert.setContentText(message);
+
+        alert.showAndWait();
+    }
+
+    public void mensagem(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.NONE, null, ButtonType.CLOSE);
+
+        alert.setTitle("Remoção de Funcionários");
+        if (!mensagem.isEmpty()) alert.setContentText(mensagem);
 
         alert.showAndWait();
     }
