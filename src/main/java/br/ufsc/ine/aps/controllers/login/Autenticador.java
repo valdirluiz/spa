@@ -22,10 +22,10 @@ public class Autenticador {
         this.controllerUsuario = new ControllerUsuario();
     }
 
-    public Optional<String> efetuarLogin(String cpf, String senha){
+    public Optional<String> efetuarLogin(String cpf, String senha, String perfil){
         Optional<String> notificacao = this.validaDados(cpf, senha);
         if(!notificacao.isPresent()){
-            Autenticavel usuario = controllerUsuario.findUsuarioByCpf(cpf);
+            Autenticavel usuario = controllerUsuario.findUsuarioByCpfAndPerfil(cpf, perfil);
             if(usuario!=null){
                 boolean senhaValida = this.verificaSenha(senha, usuario);
                 if(!senhaValida){

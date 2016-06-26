@@ -11,6 +11,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -33,6 +34,9 @@ public class ViewLogin implements Initializable {
     private PasswordField senhaField;
 
     @FXML
+    private ComboBox<String> perfil;
+
+    @FXML
     private Pane loginPanel;
 
     @Override
@@ -41,8 +45,9 @@ public class ViewLogin implements Initializable {
     }
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        Optional<String> notificacao = this.autenticador.efetuarLogin(this.cpfField.getText(), this.senhaField.getText());
+    private void efetuarLogin(ActionEvent event) {
+        String perfil = this.perfil.getSelectionModel().getSelectedItem();
+        Optional<String> notificacao = this.autenticador.efetuarLogin(this.cpfField.getText(), this.senhaField.getText(), perfil);
         if(notificacao.isPresent()){
             this.exibeNotificacao(notificacao.get());
         } else{
