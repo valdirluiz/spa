@@ -15,7 +15,7 @@ public class DaoUsuario {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
-    public Autenticavel findByCPF(String cpf, Boolean flCliente){
+    public Autenticavel findByCPFAndFlCliente(String cpf, Boolean flCliente){
         ResultSet rs;
         PreparedStatement stmt = null;
         try {

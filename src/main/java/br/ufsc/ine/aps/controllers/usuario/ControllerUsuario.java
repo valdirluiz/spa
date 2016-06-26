@@ -13,6 +13,6 @@ public class ControllerUsuario {
     }
 
     public Autenticavel findUsuarioByCpfAndPerfil(String cpf, String perfil){
-        return this.daoUsuario.findByCPF(cpf, perfil.equals("Cliente"));
+        return this.daoUsuario.findByCPFAndFlCliente(cpf, perfil.equals("Cliente"));
     }
 }
