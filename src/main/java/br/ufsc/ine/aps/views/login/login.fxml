@@ -35,19 +35,19 @@
                 <Font size="18.0" />
             </font>
         </Label>
-      <ComboBox fx:id="perfil" layoutX="53.0" layoutY="174.0" prefHeight="25.0" prefWidth="308.0">
+        <ComboBox fx:id="perfil" layoutX="53.0" layoutY="174.0" prefHeight="25.0" prefWidth="308.0">
 
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Cliente" />
-                  <String fx:value="Interno" />
-              </FXCollections>
-          </items>
-          <value>
-              <String fx:value="Cliente" />
-          </value>
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Cliente" />
+                    <String fx:value="Interno" />
+                </FXCollections>
+            </items>
+            <value>
+                <String fx:value="Cliente" />
+            </value>
 
-      </ComboBox>
-      <Label layoutX="101.0" layoutY="199.0" prefHeight="34.0" prefWidth="0.0" />
+        </ComboBox>
+        <Label layoutX="101.0" layoutY="199.0" prefHeight="34.0" prefWidth="0.0" />
     </children>
 </Pane>
