@@ -31,7 +31,7 @@
               </FXCollections>
           </items>
           <value>
-              <String fx:value="Cliente" />
+              <String fx:value="Interno" />
           </value>
 
       </ComboBox>

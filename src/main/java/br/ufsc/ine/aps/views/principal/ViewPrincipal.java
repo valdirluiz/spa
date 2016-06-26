@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 
 import javafx.scene.control.MenuItem;
@@ -42,7 +43,10 @@ public class ViewPrincipal implements Initializable {
     private Menu menuProtocolos;
     @FXML
     private MenuItem menuCadProtocolo;
-
+    @FXML
+    private Label infoUsuarioNome;
+    @FXML
+    private Label infoUsuarioTipo;
 
     private Autenticavel usuarioLogado;
 
@@ -53,6 +57,8 @@ public class ViewPrincipal implements Initializable {
         this.showMenuClientes();
         this.showMenuProtocolos();
         this.showMenuCadastrarProtocolo();
+        this.infoUsuarioNome.setText("Usuário: " + usuarioLogado.getNome());
+        this.infoUsuarioTipo.setText("Tipo de Acesso: " + usuarioLogado.getTipoUsuario().getDescricao());
     }
 
 
