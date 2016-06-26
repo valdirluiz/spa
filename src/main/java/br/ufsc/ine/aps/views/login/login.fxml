@@ -10,26 +10,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="loginPanel" maxHeight="-Infinity" maxWidth="-Infinity"
-      minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="317.0" prefWidth="450.0"
-      style="-fx-background-color: #FFF;"
-      stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css"
-      xmlns="http://javafx.com/javafx/8.0.91"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="br.ufsc.ine.aps.views.login.ViewLogin">
-
+<Pane fx:id="loginPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="450.0" style="-fx-background-color: #FFF;" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.login.ViewLogin">
     <children>
-        <TextField fx:id="cpfField" focusTraversable="false" layoutX="53.0"
-                   layoutY="61.0" prefHeight="34.0" prefWidth="308.0"
-                   promptText="CPF" text="663.527.824-93">
+        <TextField fx:id="cpfField" focusTraversable="false" layoutX="53.0" layoutY="61.0" prefHeight="34.0" prefWidth="308.0" promptText="CPF" text="663.527.824-93">
+
         </TextField>
-        <PasswordField fx:id="senhaField" focusTraversable="false" layoutX="53.0" layoutY="125.0"
-                       prefHeight="34.0" prefWidth="308.0" promptText="Senha" text="123" />
-        <Button fx:id="loginButton" layoutX="50.0" layoutY="233.0" mnemonicParsing="false"
-                onAction="#efetuarLogin" prefHeight="34.0" prefWidth="315.0"
-                style="-fx-background-color: #009688; -fx-text-fill: #eaeaea;"
-                styleClass="button-flat" text="Efetuar Login" />
+        <PasswordField fx:id="senhaField" focusTraversable="false" layoutX="53.0" layoutY="125.0" prefHeight="34.0" prefWidth="308.0" promptText="Senha" text="123" />
+        <Button fx:id="loginButton" layoutX="50.0" layoutY="233.0" mnemonicParsing="false" onAction="#efetuarLogin" prefHeight="34.0" prefWidth="315.0" style="-fx-background-color: #009688; -fx-text-fill: #eaeaea;" styleClass="button-flat" text="Efetuar Login" />
         <Label layoutX="178.0" layoutY="7.0" prefHeight="34.0" prefWidth="59.0" styleClass="h4" text="Login">
             <font>
                 <Font size="18.0" />
@@ -44,7 +31,7 @@
                 </FXCollections>
             </items>
             <value>
-                <String fx:value="Cliente" />
+                <String fx:value="Interno" />
             </value>
 
         </ComboBox>

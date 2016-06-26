@@ -36,11 +36,15 @@ public class ControllerNotificacao {
     }
 
     public void geraNotificacao(Interacao interacao, Autenticavel usuarioNotificado){
-        Notificacoes notificaao = new Notificacoes();
-        notificaao.setUsuario(usuarioNotificado);
-        notificaao.setVisualizado(false);
-        notificaao.setInteracao(interacao);
-        this.daoNotificacao.save(notificaao);
+        try {
+            Notificacoes notificaao = new Notificacoes();
+            notificaao.setUsuario(usuarioNotificado);
+            notificaao.setVisualizado(false);
+            notificaao.setInteracao(interacao);
+            this.daoNotificacao.save(notificaao);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
