@@ -57,7 +57,7 @@
                         </ComboBox>
 
                         <Label text="Descrição" styleClass="control-label" prefHeight="18.0" />
-                        <TextArea fx:id="descricao" />
+                        <TextArea fx:id="descricao" prefRowCount="10" prefHeight="50.0" wrapText="true"/>
 
                         <HBox alignment="TOP_RIGHT">
                             <children>
@@ -87,29 +87,3 @@
         <String fx:value="content-background" />
     </styleClass>
 </AnchorPane>
-
-
-
-<!--<Pane maxHeight="-Infinity" stylesheets="/br/ufsc/ine/aps/assets/material-fx-v0_3.css" maxWidth="-Infinity"-->
-      <!--minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="600.0" styleClass="pane"-->
-      <!--xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
-<!--<children>-->
-        <!--<Label layoutX="14.0" layoutY="14.0" styleClass="h4" text="Solicitar protocolo"/>-->
-        <!--<Button layoutX="455.0" layoutY="22.0" mnemonicParsing="false" text="Enviar Solicitação">-->
-            <!--<styleClass>-->
-                <!--<String fx:value="btn-default"/>-->
-                <!--<String fx:value="btn-primary"/>-->
-            <!--</styleClass>-->
-        <!--</Button>-->
-        <!--<Separator layoutX="14.0" layoutY="80.0" prefHeight="1.0" prefWidth="572.0"/>-->
-        <!--<TextField layoutX="13.0" layoutY="101.0" prefHeight="34.0" prefWidth="256.0"-->
-                   <!--promptText="Informe o CPF do cliente"/>-->
-        <!--<TextField editable="false" layoutX="330.0" layoutY="101.0" prefHeight="34.0" prefWidth="256.0"-->
-                   <!--promptText="Nome do cliente"/>-->
-        <!--<Label layoutX="331.0" layoutY="136.0" prefHeight="17.0" prefWidth="233.0" styleClass="small"-->
-               <!--text="Preencha o cpf para buscar o nome"/>-->
-        <!--<ComboBox layoutX="14.0" layoutY="182.0" prefHeight="30.0" prefWidth="256.0" promptText="Area"/>-->
-        <!--<ComboBox layoutX="331.0" layoutY="182.0" prefHeight="30.0" prefWidth="256.0" promptText="Categoria"/>-->
-        <!--<TextArea layoutX="16.0" layoutY="244.0" prefHeight="156.0" prefWidth="572.0" promptText="Mensagem Livre"/>-->
-    <!--</children>-->
-<!--</Pane>-->

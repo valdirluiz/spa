@@ -7,9 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Created by Valdir Luiz on 18/06/2016.
- */
 public class Exemplo  extends Application {
 
     @Override

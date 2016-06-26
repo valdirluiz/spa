@@ -15,12 +15,13 @@ public class DaoUsuario {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
-    public Autenticavel findByCPF(String cpf){
+    public Autenticavel findByCPFAndFlCliente(String cpf, Boolean flCliente){
         ResultSet rs;
         PreparedStatement stmt = null;
         try {
-            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ?");
+            stmt = this.bdConnection.prepareStatement("select * from pessoas where cpf = ? and is_cliente = ?");
             stmt.setString(1, cpf);
+            stmt.setInt(2, flCliente ? 1 : 0);
             rs = stmt.executeQuery();
             if(rs.next()){
                 return this.montaUsuario(rs);
