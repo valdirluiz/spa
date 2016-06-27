@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -32,6 +33,12 @@ public class ViewProtocolo extends AnchorPane implements Initializable {
     @FXML
     private TextField nomeCliente;
 
+    @FXML
+    private ComboBox<String> categoria;
+
+    @FXML
+    private ComboBox<String> area;
+
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,6 +47,10 @@ public class ViewProtocolo extends AnchorPane implements Initializable {
 
     }
 
+    @FXML
+    private void enviarSolicitacao(Event event){
+
+    }
 
 
     @FXML

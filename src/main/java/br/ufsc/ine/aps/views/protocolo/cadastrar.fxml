@@ -40,8 +40,8 @@
                         <ComboBox fx:id="area" prefHeight="42.0" prefWidth="583.0" promptText="Selecione" >
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="1" />
-                                    <String fx:value="2" />
+                                    <String fx:value="Software" />
+                                    <String fx:value="Hardware" />
                                 </FXCollections>
                             </items>
                         </ComboBox>
@@ -50,8 +50,9 @@
                         <ComboBox fx:id="categoria" prefHeight="42.0" prefWidth="583.0" promptText="Selecione" >
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="1" />
-                                    <String fx:value="2" />
+                                    <String fx:value="Sugestão" />
+                                    <String fx:value="Reclamação" />
+                                    <String fx:value="Dúvida" />
                                 </FXCollections>
                             </items>
                         </ComboBox>
@@ -61,7 +62,7 @@
 
                         <HBox alignment="TOP_RIGHT">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="150.0" text="Enviar Solicitação" textAlignment="CENTER">
+                                <Button onAction="#enviarSolicitacao" mnemonicParsing="false" prefHeight="34.0" prefWidth="150.0" text="Enviar Solicitação" textAlignment="CENTER">
                                     <styleClass>
                                         <String fx:value="button-flat" />
                                         <String fx:value="button-success" />
