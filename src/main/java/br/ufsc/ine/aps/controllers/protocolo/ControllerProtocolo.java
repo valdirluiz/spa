@@ -11,7 +11,6 @@ import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class ControllerProtocolo {
@@ -66,6 +65,7 @@ public class ControllerProtocolo {
         Integer qtSemelhantes = this.daoProtocolo.findSemelhantes(protocolo);
         if(qtSemelhantes>=3){
             responsavel = this.controllerFuncionario.findGerenteDisponivel();
+            //TODO: setar flag para protocolo só ser visivel para atendimento de gerente caso nao tenha gerente disponivel
         } else{
             responsavel = this.controllerFuncionario.findOperadorDisponivel();
         }
