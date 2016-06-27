@@ -7,6 +7,7 @@ import br.ufsc.ine.aps.utils.SQLiteConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Created by Valdir Luiz on 26/06/2016.
@@ -15,6 +16,7 @@ public class DaoProtocolo {
 
 
     private static final String SQL_INSERT = "INSERT INTO protocolos (dataCriacao, mensagemLivre, status, area, categoria, idCliente, idResponsavel ) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
 
     private Connection bdConnection;
 
@@ -29,8 +31,20 @@ public class DaoProtocolo {
     }
 
     public Integer findAbertosByCliente(Cliente cliente){
-        //TODO: implementar
-        return 0;
+        Integer count =null;
+        try {
+
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_EM_ABERTO);
+            stmt.setInt(1, cliente.getId());
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                count = rs.getInt("total_aberto");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     public Protocolo salvar(Protocolo protocolo) throws Exception {
