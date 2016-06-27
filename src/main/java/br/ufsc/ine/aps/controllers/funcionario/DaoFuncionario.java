@@ -42,6 +42,16 @@ public class DaoFuncionario extends PessoaDao {
     }
 
 
+    public Gerente findGerenteDisponivel(){
+        //TODO: implementar
+        return null;
+    }
+
+    public Gerente findOperadorDisponivel(){
+        //TODO: implementar
+        return null;
+    }
+
     @Override
     public Connection getConnection() {
         return this.bdConnection;

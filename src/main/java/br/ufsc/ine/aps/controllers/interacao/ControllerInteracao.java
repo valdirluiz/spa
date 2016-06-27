@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.controllers.notificacao.ControllerNotificacao;
 import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Interacao;
+import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ControllerInteracao {
         try{
             Autenticavel usuarioLogado = autenticador.getUsuarioLogado();
             String mensagem = this.geraMensagem(usuarioLogado, tipoInteracao, protocolo);
-            Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao);
+            Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao, protocolo);
             interacao = this.daoInteracao.save(interacao);
             List<Autenticavel> usuariosNotificados = this.controllerNotificacao.defineUsuarios(protocolo, usuarioLogado);
             for(Autenticavel usuario : usuariosNotificados){
@@ -43,11 +44,14 @@ public class ControllerInteracao {
         }
     }
 
-    private Interacao geraInteracao(Autenticavel usuarioLogado, String mensagem, TipoInteracao tipo) {
+
+
+    private Interacao geraInteracao(Autenticavel usuarioLogado, String mensagem, TipoInteracao tipo, Protocolo protocolo) {
         Interacao interacao  = new Interacao();
         interacao.setUsuario(usuarioLogado);
         interacao.setMensagem(mensagem);
         interacao.setTipo(tipo);
+        interacao.setProtocolo(protocolo);
         return interacao;
     }
 
@@ -62,6 +66,7 @@ public class ControllerInteracao {
         builder.append(protocolo.getId());
         return builder.toString();
     }
+
 
 
 }

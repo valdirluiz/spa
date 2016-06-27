@@ -6,11 +6,12 @@ import br.ufsc.ine.aps.enuns.Categoria;
 import br.ufsc.ine.aps.enuns.Status;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class Protocolo {
 
     private Integer id;
-    private Calendar dataCriacao;
+    private Date dataCriacao;
     private Calendar dataFimExecucao;
     private Calendar dataInicioExecucao;
     private String feedback;
@@ -23,7 +24,7 @@ public class Protocolo {
     private Area area;
     private Cliente cliente;
     private Atendente atendente;
-    private Operador operador;
+    private Pessoa responsavel;
 
     public Integer getId() {
         return id;
@@ -33,11 +34,11 @@ public class Protocolo {
         this.id = id;
     }
 
-    public Calendar getDataCriacao() {
+    public Date getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Calendar dataCriacao) {
+    public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -137,62 +138,11 @@ public class Protocolo {
         this.atendente = atendente;
     }
 
-    public Operador getOperador() {
-        return operador;
+    public Pessoa getResponsavel() {
+        return responsavel;
     }
 
-    public void setOperador(Operador operador) {
-        this.operador = operador;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Protocolo protocolo = (Protocolo) o;
-
-        if (id != null ? !id.equals(protocolo.id) : protocolo.id != null) return false;
-        if (dataCriacao != null ? !dataCriacao.equals(protocolo.dataCriacao) : protocolo.dataCriacao != null)
-            return false;
-        if (dataFimExecucao != null ? !dataFimExecucao.equals(protocolo.dataFimExecucao) : protocolo.dataFimExecucao != null)
-            return false;
-        if (dataInicioExecucao != null ? !dataInicioExecucao.equals(protocolo.dataInicioExecucao) : protocolo.dataInicioExecucao != null)
-            return false;
-        if (feedback != null ? !feedback.equals(protocolo.feedback) : protocolo.feedback != null) return false;
-        if (identificador != null ? !identificador.equals(protocolo.identificador) : protocolo.identificador != null)
-            return false;
-        if (mensagemLivre != null ? !mensagemLivre.equals(protocolo.mensagemLivre) : protocolo.mensagemLivre != null)
-            return false;
-        if (movivoCancelamento != null ? !movivoCancelamento.equals(protocolo.movivoCancelamento) : protocolo.movivoCancelamento != null)
-            return false;
-        if (resposta != null ? !resposta.equals(protocolo.resposta) : protocolo.resposta != null) return false;
-        if (status != protocolo.status) return false;
-        if (categoria != protocolo.categoria) return false;
-        if (area != protocolo.area) return false;
-        if (cliente != null ? !cliente.equals(protocolo.cliente) : protocolo.cliente != null) return false;
-        if (atendente != null ? !atendente.equals(protocolo.atendente) : protocolo.atendente != null) return false;
-        return operador != null ? operador.equals(protocolo.operador) : protocolo.operador == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (dataCriacao != null ? dataCriacao.hashCode() : 0);
-        result = 31 * result + (dataFimExecucao != null ? dataFimExecucao.hashCode() : 0);
-        result = 31 * result + (dataInicioExecucao != null ? dataInicioExecucao.hashCode() : 0);
-        result = 31 * result + (feedback != null ? feedback.hashCode() : 0);
-        result = 31 * result + (identificador != null ? identificador.hashCode() : 0);
-        result = 31 * result + (mensagemLivre != null ? mensagemLivre.hashCode() : 0);
-        result = 31 * result + (movivoCancelamento != null ? movivoCancelamento.hashCode() : 0);
-        result = 31 * result + (resposta != null ? resposta.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (categoria != null ? categoria.hashCode() : 0);
-        result = 31 * result + (area != null ? area.hashCode() : 0);
-        result = 31 * result + (cliente != null ? cliente.hashCode() : 0);
-        result = 31 * result + (atendente != null ? atendente.hashCode() : 0);
-        result = 31 * result + (operador != null ? operador.hashCode() : 0);
-        return result;
+    public void setResponsavel(Pessoa responsavel) {
+        this.responsavel = responsavel;
     }
 }

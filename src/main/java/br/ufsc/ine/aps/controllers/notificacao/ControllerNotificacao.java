@@ -26,9 +26,10 @@ public class ControllerNotificacao {
 
     public List<Autenticavel> defineUsuarios(Protocolo protocolo, Autenticavel usuarioLogado){
         List<Autenticavel> usuarios = new ArrayList<>();
-        usuarios.add(protocolo.getOperador());
+        if(protocolo.getResponsavel()!=null){
+            usuarios.add(protocolo.getResponsavel());
+        }
         usuarios.add(protocolo.getCliente());
-        usuarios.add(protocolo.getAtendente());
         return usuarios.stream()
                         .filter(u -> !u.getId().equals(usuarioLogado.getId()))
                         .collect(Collectors.toList());
