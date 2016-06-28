@@ -18,6 +18,10 @@ public class Interacao {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Date getData() {
         return data;
     }

@@ -114,4 +114,8 @@ public class ControllerCliente {
     public boolean clienteExiste(String cpf) {
         return (dao.buscarCPF(cpf) != null);
     }
+
+    public Cliente findByCpf(String cpf){
+        return dao.buscarCPF(cpf);
+    }
 }

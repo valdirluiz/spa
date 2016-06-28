@@ -12,11 +12,9 @@ CREATE TABLE protocolos (
   area INTEGER NOT NULL,
   categoria INTEGER NOT NULL,
   idCliente INTEGER NOT NULL,
-  idAtendente INTEGER NOT NULL,
-  idOperador INTEGER NULL,
+  idResponsavel INTEGER NULL,
   FOREIGN KEY(idCliente) REFERENCES pessoas(id),
-  FOREIGN KEY(idAtendente) REFERENCES pessoas(id),
-  FOREIGN KEY(idOperador) REFERENCES pessoas(id)
+  FOREIGN KEY(idResponsavel) REFERENCES pessoas(id)
  );
 
- CREATE UNIQUE INDEX protocolos_identificador_index ON protocolos(identificador);
+CREATE UNIQUE INDEX protocolos_identificador_index ON protocolos(identificador);

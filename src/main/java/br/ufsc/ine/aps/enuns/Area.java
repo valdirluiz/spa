@@ -21,4 +21,15 @@ public enum Area {
     public String getDescricao() {
         return descricao;
     }
+
+    public static Area findByDescricao(String area){
+        switch (area){
+            case "Software":
+                return SOFTWARE;
+            case "Hardware":
+                return HARDWARE;
+            default:
+                return null;
+        }
+    }
 }

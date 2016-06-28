@@ -4,6 +4,7 @@ import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.exceptions.CpfJaCadastrado;
 import br.ufsc.ine.aps.models.Atendente;
 
+import br.ufsc.ine.aps.models.Gerente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
@@ -93,10 +94,15 @@ public class ControllerFuncionario {
     }
 
 
+    public Pessoa findGerenteDisponivel() {
+        //TODO: implementar
+        return null;
+    }
 
-
-
-
+    public Pessoa findOperadorDisponivel() {
+        //TODO: implementar
+        return null;
+    }
 }
 
 

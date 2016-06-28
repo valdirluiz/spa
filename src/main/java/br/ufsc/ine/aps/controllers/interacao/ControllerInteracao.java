@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.controllers.notificacao.ControllerNotificacao;
 import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Interacao;
+import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.List;
@@ -29,21 +30,28 @@ public class ControllerInteracao {
     }
 
     public void addInteracao(Protocolo protocolo, TipoInteracao tipoInteracao){
-        Autenticavel usuarioLogado = autenticador.getUsuarioLogado();
-        String mensagem = this.geraMensagem(usuarioLogado, tipoInteracao, protocolo);
-        Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao);
-        interacao = this.daoInteracao.save(interacao);
-        List<Autenticavel> usuariosNotificados = this.controllerNotificacao.defineUsuarios(protocolo, usuarioLogado);
-        for(Autenticavel usuario : usuariosNotificados){
-            this.controllerNotificacao.geraNotificacao(interacao, usuario);
+        try{
+            Autenticavel usuarioLogado = autenticador.getUsuarioLogado();
+            String mensagem = this.geraMensagem(usuarioLogado, tipoInteracao, protocolo);
+            Interacao interacao = this.geraInteracao(usuarioLogado, mensagem, tipoInteracao, protocolo);
+            interacao = this.daoInteracao.save(interacao);
+            List<Autenticavel> usuariosNotificados = this.controllerNotificacao.defineUsuarios(protocolo, usuarioLogado);
+            for(Autenticavel usuario : usuariosNotificados){
+                this.controllerNotificacao.geraNotificacao(interacao, usuario);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
-    private Interacao geraInteracao(Autenticavel usuarioLogado, String mensagem, TipoInteracao tipo) {
+
+
+    private Interacao geraInteracao(Autenticavel usuarioLogado, String mensagem, TipoInteracao tipo, Protocolo protocolo) {
         Interacao interacao  = new Interacao();
         interacao.setUsuario(usuarioLogado);
         interacao.setMensagem(mensagem);
         interacao.setTipo(tipo);
+        interacao.setProtocolo(protocolo);
         return interacao;
     }
 
@@ -58,6 +66,7 @@ public class ControllerInteracao {
         builder.append(protocolo.getId());
         return builder.toString();
     }
+
 
 
 }
