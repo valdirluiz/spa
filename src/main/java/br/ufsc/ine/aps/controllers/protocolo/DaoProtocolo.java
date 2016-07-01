@@ -16,8 +16,9 @@ public class DaoProtocolo {
 
 
     private static final String SQL_INSERT = "INSERT INTO protocolos (dataCriacao, mensagemLivre, status, area, categoria, idCliente, idResponsavel ) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    private static final String SQL_UPDATE_IDENTIFICADOR = "update protocolos set identificador = ? where id = ? ;";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
-    private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos where status  in (4, 5) and idCliente = ? and categoria = ? and area = ?";
+    private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
 
     private Connection bdConnection;
 
@@ -70,7 +71,20 @@ public class DaoProtocolo {
         } else {
             throw new Exception("Falha ao salvar interação");
         }
+        stmt.close();
         return protocolo;
+    }
+
+    public void savarIdentificador(Protocolo protocolo){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_UPDATE_IDENTIFICADOR);
+            stmt.setString(1, protocolo.getIdentificador());
+            stmt.setInt(2, protocolo.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Integer findSemelhantes(Protocolo protocolo) {
