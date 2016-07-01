@@ -42,10 +42,7 @@ public class DaoFuncionario extends PessoaDao {
     }
 
 
-    public Gerente findGerenteDisponivel(){
-        //TODO: implementar
-        return null;
-    }
+
 
     public Gerente findOperadorDisponivel(){
         //TODO: implementar

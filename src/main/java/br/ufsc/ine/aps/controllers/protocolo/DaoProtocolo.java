@@ -17,6 +17,7 @@ public class DaoProtocolo {
 
     private static final String SQL_INSERT = "INSERT INTO protocolos (dataCriacao, mensagemLivre, status, area, categoria, idCliente, idResponsavel ) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
+    private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos where status  in (4, 5) and idCliente = ? and categoria = ? and area = ?" ;
 
     private Connection bdConnection;
 
@@ -73,8 +74,22 @@ public class DaoProtocolo {
     }
 
     public Integer findSemelhantes(Protocolo protocolo) {
-        //TODO: implementar
-        return 0;
+        Integer count =null;
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_SEMELHANTES);
+            stmt.setInt(1 , protocolo.getCliente().getId());
+            stmt.setInt(2 , protocolo.getCategoria().getId());
+            stmt.setInt(3 , protocolo.getArea().getId());
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                count = rs.getInt("semelhantes");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     public void atualizar(Protocolo protocolo) {
