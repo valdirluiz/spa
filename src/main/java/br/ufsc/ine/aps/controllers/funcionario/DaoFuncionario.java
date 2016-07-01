@@ -6,9 +6,12 @@ import br.ufsc.ine.aps.models.*;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
 import java.sql.*;
+import java.util.Optional;
 
 
 public class DaoFuncionario extends PessoaDao {
+
+    private static final String FIND_OPERADOR_LIVRE = "select pessoas.id as id_responsavel from pessoas where not exists (select * from protocolos where protocolos.idResponsavel is not null and status not in (4, 5) and  protocolos.idResponsavel =  id_responsavel ) and tipo_usuario = 3 limit 1";
 
     private Connection bdConnection;
 
@@ -44,9 +47,21 @@ public class DaoFuncionario extends PessoaDao {
 
 
 
-    public Gerente findOperadorDisponivel(){
-        //TODO: implementar
-        return null;
+    public Operador findOperadorDisponivel(){
+        Operador operador = null;
+        try {
+
+            PreparedStatement stmt = this.bdConnection.prepareStatement(FIND_OPERADOR_LIVRE);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                operador = new Operador();
+                operador.setId(rs.getInt("id_responsavel"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return operador;
     }
 
     @Override

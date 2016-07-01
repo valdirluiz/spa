@@ -7,7 +7,7 @@ import br.ufsc.ine.aps.utils.SQLiteConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+
 
 /**
  * Created by Valdir Luiz on 26/06/2016.
@@ -17,7 +17,7 @@ public class DaoProtocolo {
 
     private static final String SQL_INSERT = "INSERT INTO protocolos (dataCriacao, mensagemLivre, status, area, categoria, idCliente, idResponsavel ) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
-    private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos where status  in (4, 5) and idCliente = ? and categoria = ? and area = ?" ;
+    private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos where status  in (4, 5) and idCliente = ? and categoria = ? and area = ?";
 
     private Connection bdConnection;
 
@@ -31,17 +31,17 @@ public class DaoProtocolo {
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
     }
 
-    public Integer findAbertosByCliente(Cliente cliente){
-        Integer count =null;
+    public Integer findAbertosByCliente(Cliente cliente) {
+        Integer count = null;
         try {
 
             PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_EM_ABERTO);
             stmt.setInt(1, cliente.getId());
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 count = rs.getInt("total_aberto");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -56,43 +56,39 @@ public class DaoProtocolo {
         stmt.setInt(4, protocolo.getArea().getId());
         stmt.setInt(5, protocolo.getCategoria().getId());
         stmt.setInt(6, protocolo.getCliente().getId());
-        if(protocolo.getResponsavel()!=null){
+        if (protocolo.getResponsavel() != null) {
             stmt.setInt(7, protocolo.getResponsavel().getId());
-        } else{
+        } else {
             stmt.setNull(7, 1);
         }
 
         stmt.executeUpdate();
 
         ResultSet generatedKeys = stmt.getGeneratedKeys();
-        if(generatedKeys.next()){
+        if (generatedKeys.next()) {
             protocolo.setId(generatedKeys.getInt(1));
-        } else{
+        } else {
             throw new Exception("Falha ao salvar interação");
         }
         return protocolo;
     }
 
     public Integer findSemelhantes(Protocolo protocolo) {
-        Integer count =null;
+        Integer count = null;
         try {
             PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_SEMELHANTES);
-            stmt.setInt(1 , protocolo.getCliente().getId());
-            stmt.setInt(2 , protocolo.getCategoria().getId());
-            stmt.setInt(3 , protocolo.getArea().getId());
+            stmt.setInt(1, protocolo.getCliente().getId());
+            stmt.setInt(2, protocolo.getCategoria().getId());
+            stmt.setInt(3, protocolo.getArea().getId());
 
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 count = rs.getInt("semelhantes");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return count;
     }
 
-    public void atualizar(Protocolo protocolo) {
-        //TODO: implementar
-    }
 }

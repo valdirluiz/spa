@@ -99,8 +99,7 @@ public class ControllerFuncionario {
     }
 
     public Pessoa findOperadorDisponivel() {
-        //TODO: implementar
-        return null;
+        return daoFuncionario.findOperadorDisponivel();
     }
 }
 
