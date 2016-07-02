@@ -2,7 +2,7 @@ package br.ufsc.ine.aps.controllers.notificacao;
 
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Interacao;
-import br.ufsc.ine.aps.models.Notificacoes;
+import br.ufsc.ine.aps.models.Notificacao;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ControllerNotificacao {
-
 
     private DaoNotificacao daoNotificacao;
 
@@ -38,7 +37,7 @@ public class ControllerNotificacao {
 
     public void geraNotificacao(Interacao interacao, Autenticavel usuarioNotificado){
         try {
-            Notificacoes notificaao = new Notificacoes();
+            Notificacao notificaao = new Notificacao();
             notificaao.setUsuario(usuarioNotificado);
             notificaao.setVisualizado(false);
             notificaao.setInteracao(interacao);
@@ -46,6 +45,10 @@ public class ControllerNotificacao {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public List<Notificacao> findByUsuario(Autenticavel usuario){
+        return this.daoNotificacao.findByUsuario(usuario.getId());
     }
 
 }

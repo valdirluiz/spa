@@ -54,18 +54,19 @@ public class ControllerProtocolo {
         protocolo.setStatus(Status.AGUARDANDO_ATENDIMENTO);
         protocolo.setDataCriacao(new Date());
         protocolo.setMensagemLivre(descricao);
+        this.defineResponsavel(protocolo);
         this.daoProtocolo.salvar(protocolo);
-        //this.defineResponsavel(protocolo);
-        //this.daoProtocolo.atualizar(protocolo);
+        GeradorDeIdentificador.getInstance().geraIdentificador(protocolo);
+        this.daoProtocolo.savarIdentificador(protocolo);
         controllerInteracao.addInteracao(protocolo, TipoInteracao.CRIACAO);
     }
 
     private void defineResponsavel(Protocolo protocolo) {
         Pessoa responsavel = null;
         Integer qtSemelhantes = this.daoProtocolo.findSemelhantes(protocolo);
-        if(qtSemelhantes>=3){
-            responsavel = this.controllerFuncionario.findGerenteDisponivel();
-            //TODO: setar flag para protocolo só ser visivel para atendimento de gerente caso nao tenha gerente disponivel
+        //igual a 2 para o terceiro ir para o gerente conforme RN03
+        if(qtSemelhantes>=2){
+            responsavel = this.controllerFuncionario.findGerente();
         } else{
             responsavel = this.controllerFuncionario.findOperadorDisponivel();
         }

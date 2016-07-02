@@ -61,6 +61,7 @@ public class ViewProtocolo extends AnchorPane implements Initializable {
         } catch (LimiteProtocoloExedido e){
             this.mensagem("Cliente já possui 3 protocolos em aberto", Alert.AlertType.ERROR);
         } catch (Exception e){
+            e.printStackTrace();
             this.mensagem("Falha ao cadastrar protocolo", Alert.AlertType.CONFIRMATION);
         }
 

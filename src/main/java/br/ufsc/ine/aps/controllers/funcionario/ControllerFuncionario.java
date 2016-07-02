@@ -94,14 +94,12 @@ public class ControllerFuncionario {
     }
 
 
-    public Pessoa findGerenteDisponivel() {
-        //TODO: implementar
-        return null;
+    public Pessoa findGerente() {
+        return this.daoFuncionario.findGerente();
     }
 
     public Pessoa findOperadorDisponivel() {
-        //TODO: implementar
-        return null;
+        return daoFuncionario.findOperadorDisponivel();
     }
 }
 
