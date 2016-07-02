@@ -61,4 +61,6 @@ public class Interacao {
     public void setProtocolo(Protocolo protocolo) {
         this.protocolo = protocolo;
     }
+
+
 }

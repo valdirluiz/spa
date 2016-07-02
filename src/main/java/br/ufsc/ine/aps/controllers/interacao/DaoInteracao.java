@@ -1,6 +1,8 @@
 package br.ufsc.ine.aps.controllers.interacao;
 
+import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.models.Interacao;
+import br.ufsc.ine.aps.models.Notificacao;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.sql.ResultSet;
 public class DaoInteracao {
 
     private static final String SQL_INSERT = "insert into interacoes(data, mensagem, id_usuario, tipo, id_protocolo) values(?, ?, ?, ?, ?);";
+
 
     private Connection bdConnection;
 
@@ -43,4 +46,6 @@ public class DaoInteracao {
         }
         return interacao;
     }
+
+
 }

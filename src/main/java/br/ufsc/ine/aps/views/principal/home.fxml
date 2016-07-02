@@ -97,7 +97,7 @@
                      <right>
                         <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER_RIGHT">
                            <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: #e0f2f1; -fx-text-fill: #333333;" styleClass="button-flat" text="Notificações" />
+                              <Button mnemonicParsing="false" onAction="#handleNotificacoesListarAction" style="-fx-background-color: #e0f2f1; -fx-text-fill: #333333;" styleClass="button-flat" text="Notificações" />
                            </children>
                         </HBox>
                      </right>

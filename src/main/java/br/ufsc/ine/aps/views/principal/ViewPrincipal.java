@@ -7,6 +7,7 @@ import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList;
+import br.ufsc.ine.aps.views.notificacao.ViewNotificacoes;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 
 import javafx.event.ActionEvent;
@@ -147,6 +148,23 @@ public class ViewPrincipal implements Initializable {
 
             AnchorPane title = new AnchorPane();
             Parent titleWrapper = FXMLLoader.load(ViewFuncionario.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleNotificacoesListarAction(ActionEvent ev) {
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewNotificacoes.class.getResource("listar.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewNotificacoes.class.getResource("_titulo.fxml"));
             title.getChildren().setAll(titleWrapper);
 
             this.atualizaConteudo(title, content);
