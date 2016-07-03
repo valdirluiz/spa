@@ -23,9 +23,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by Valdir Luiz on 02/07/2016.
- */
 public class ViewNotificacoes implements Initializable{
 
     private Autenticador autenticador;
@@ -45,9 +42,14 @@ public class ViewNotificacoes implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         this.autenticador = Autenticador.getInstance();
         this.controllerNotificacao = ControllerNotificacao.getInstance();
+        this.updateTable();
+        this.insereBotaoDetalhes();
+    }
+
+    private void updateTable(){
         this.notificacoes = controllerNotificacao.findByUsuario(this.autenticador.getUsuarioLogado());
         this.notificacaoTableView.setItems(FXCollections.observableArrayList(this.notificacoes));
-        this.insereBotaoDetalhes();
+        this.notificacaoTableView.refresh();;
     }
 
     public void exibirDetalhes(Notificacao notificacao) {
@@ -56,17 +58,16 @@ public class ViewNotificacoes implements Initializable{
             Parent root = (Parent)fxmlLoader.load();
             ViewDetalhes controller = fxmlLoader.<ViewDetalhes>getController();
             controller.setNotificacao(notificacao);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 500, 500));
             stage.setTitle("Detalhes");
-            //stage.initOwner(pane.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
+            controllerNotificacao.marcaComoVisualizada(notificacao);
+            this.updateTable();
             stage.show();
         } catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void insereBotaoDetalhes(){
@@ -75,7 +76,6 @@ public class ViewNotificacoes implements Initializable{
                     @Override
                     public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
                         return new BotaoVisualizar(ViewNotificacoes.this);
-                    }
-                });
+                    }});
     }
 }
