@@ -12,6 +12,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.Date;
+import java.util.List;
 
 public class ControllerProtocolo {
 
@@ -74,6 +75,10 @@ public class ControllerProtocolo {
         if(responsavel!=null){
             protocolo.setResponsavel(responsavel);
         }
+    }
+
+    public List<Protocolo> buscaProtocolos(){
+        return this.daoProtocolo.buscaProtocolos();
     }
 
 }
