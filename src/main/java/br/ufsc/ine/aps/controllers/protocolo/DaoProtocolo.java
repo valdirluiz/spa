@@ -148,18 +148,18 @@ public class DaoProtocolo {
                 protocolo.setFeedback(rs.getString(5));
                 protocolo.setIdentificador(rs.getString(6));
                 protocolo.setMensagemLivre(rs.getString(7));
-                protocolo.setMovivoCancelamento(rs.getString(8));
-                protocolo.setResposta(rs.getString(9));
-                protocolo.setStatus(Status.getById(rs.getInt(10)));
-                protocolo.setArea(Area.getById(rs.getInt(11)));
-                protocolo.setCategoria(Categoria.getById(rs.getInt(12)));
+
+                protocolo.setResposta(rs.getString(8));
+                protocolo.setStatus(Status.getById(rs.getInt(9)));
+                protocolo.setArea(Area.getById(rs.getInt(10)));
+                protocolo.setCategoria(Categoria.getById(rs.getInt(11)));
 
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt(13));
+                cliente.setId(rs.getInt(12));
                 protocolo.setCliente(cliente);
 
                 Pessoa atendente = new Atendente();
-                atendente.setId(rs.getInt(14));
+                atendente.setId(rs.getInt(13));
                 protocolo.setResponsavel(atendente);
 
                 protocolos.add(protocolo);

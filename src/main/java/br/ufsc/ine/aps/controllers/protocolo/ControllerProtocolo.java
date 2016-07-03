@@ -88,7 +88,7 @@ public class ControllerProtocolo {
     }
 
     public void cancelarProtocolo(Protocolo protocolo) throws StatusEmAndamento, ProtocoloJaCancelado {
-
+        //TODO: não te mais a coluna motivoCancelamento
         if(protocolo.getStatus().equals(Status.CANCELADO)){
             throw new ProtocoloJaCancelado();
         }

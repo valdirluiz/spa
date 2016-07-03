@@ -4,8 +4,7 @@ import br.ufsc.ine.aps.controllers.protocolo.ControllerProtocolo;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Protocolo;
-import br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList;
-import br.ufsc.ine.aps.views.pessoa.BotaoEditar;
+
 import com.sun.prism.impl.Disposer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

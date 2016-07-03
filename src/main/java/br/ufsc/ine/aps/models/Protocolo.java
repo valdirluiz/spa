@@ -17,7 +17,6 @@ public class Protocolo {
     private String feedback;
     private String identificador;
     private String mensagemLivre;
-    private String movivoCancelamento;
     private String resposta;
     private Status status;
     private Categoria categoria;
@@ -82,13 +81,6 @@ public class Protocolo {
         this.mensagemLivre = mensagemLivre;
     }
 
-    public String getMovivoCancelamento() {
-        return movivoCancelamento;
-    }
-
-    public void setMovivoCancelamento(String movivoCancelamento) {
-        this.movivoCancelamento = movivoCancelamento;
-    }
 
     public String getResposta() {
         return resposta;
