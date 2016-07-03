@@ -5,13 +5,18 @@ import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Protocolo;
 
+import br.ufsc.ine.aps.views.cliente.ViewCliente;
+import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 import com.sun.prism.impl.Disposer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 
@@ -31,6 +36,8 @@ public class ViewProtocoloList implements Initializable {
     @FXML
     private TableView<Protocolo> tabelaProtocolos;
 
+    private ViewPrincipal viewPrincipal;
+
     private List<Protocolo> protocolos;
     private ControllerProtocolo controllerProtocolo;
     private ObservableList rows;
@@ -39,8 +46,7 @@ public class ViewProtocoloList implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.controllerProtocolo = ControllerProtocolo.getInstance();
         this.geraDadosParaTabela();
-        this.insereBotaoCancelar();
-
+        this.insereBotaoAtender();
     }
 
     private void geraDadosParaTabela() {
@@ -52,15 +58,6 @@ public class ViewProtocoloList implements Initializable {
 
     }
 
-    private void insereBotaoCancelar(){
-        columnCancelar.setCellFactory(
-                new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
-                    @Override
-                    public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                        return new BotaoCancelarProtocolo(ViewProtocoloList.this);
-                    }
-                });
-    }
 
     private void insereBotaoAtender(){
         columnAtender.setCellFactory(
@@ -89,7 +86,17 @@ public class ViewProtocoloList implements Initializable {
     }
 
     public void abrirTelaDeAtendimento(Protocolo protocolo){
-
+        try{
+            AnchorPane content = new AnchorPane();
+            FXMLLoader loader = new FXMLLoader();
+            Parent page =  loader.load(ViewAtendimento.class.getResourceAsStream("atender.fxml"));
+            ViewAtendimento controller =  loader.getController();
+            controller.setProtocolo(protocolo);
+            content.getChildren().setAll(page);
+            this.viewPrincipal.atualizaConteudo(content);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void mensagem(String mensagem, Alert.AlertType type) {
@@ -97,5 +104,10 @@ public class ViewProtocoloList implements Initializable {
         alert.setTitle("Remoção de Funcionários");
         if (!mensagem.isEmpty()) alert.setContentText(mensagem);
         alert.showAndWait();
+    }
+
+
+    public void setViewPrincipal(ViewPrincipal viewPrincipal) {
+        this.viewPrincipal = viewPrincipal;
     }
 }
