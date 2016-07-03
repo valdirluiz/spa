@@ -16,6 +16,7 @@ import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ControllerProtocolo {
@@ -116,8 +117,19 @@ public class ControllerProtocolo {
     public void iniciarAtendimento(Protocolo protocolo) {
         if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
             protocolo.setStatus(Status.EM_ATENDIMENTO);
+            protocolo.setDataInicioExecucao(new Date());
             this.controllerInteracao.addInteracao(protocolo, TipoInteracao.ATENDIMENTO);
-            this.daoProtocolo.updateStatus(protocolo);
+            this.daoProtocolo.iniciarAtendimento(protocolo);
         }
+    }
+
+    public void finalizarProtocolo(Protocolo protocolo) throws Exception {
+        if(protocolo.getResposta()==null || protocolo.getResposta().isEmpty()){
+            throw new Exception("Protocolo sem resposta preenchida");
+        }
+
+        protocolo.setDataFimExecucao(new Date());
+        protocolo.setStatus(Status.AGUARDANDO_FEEDBACK);
+
     }
 }

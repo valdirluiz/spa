@@ -11,6 +11,7 @@ import br.ufsc.ine.aps.utils.Data;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -30,6 +31,7 @@ public class DaoProtocolo {
     private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
     private static final String SQL_UPDATE_STATUS = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
+    private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, dataInicioExecucao = ? where id = ?";
 
     private Connection bdConnection;
 
@@ -132,6 +134,20 @@ public class DaoProtocolo {
         }
     }
 
+
+    public void iniciarAtendimento(Protocolo protocolo) {
+        try{
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INICIAR_ATENDIMENTO);
+            stmt.setInt(1, protocolo.getStatus().getId());
+            stmt.setDate(2, new Date(protocolo.getDataInicioExecucao().getTime()));
+            stmt.setInt(3, protocolo.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public List<Protocolo> list(){
         List<Protocolo> protocolos = new ArrayList<>();
         try {
@@ -143,8 +159,8 @@ public class DaoProtocolo {
 
                 protocolo.setId(rs.getInt(1));
                 protocolo.setDataCriacao(Data.dateToCalendar(rs.getDate(2)));
-                protocolo.setDataFimExecucao(Data.dateToCalendar(rs.getDate(3)));
-                protocolo.setDataInicioExecucao(Data.dateToCalendar(rs.getDate(4)));
+                protocolo.setDataFimExecucao(rs.getDate(3));
+                protocolo.setDataInicioExecucao(rs.getDate(4));
                 protocolo.setFeedback(rs.getString(5));
                 protocolo.setIdentificador(rs.getString(6));
                 protocolo.setMensagemLivre(rs.getString(7));

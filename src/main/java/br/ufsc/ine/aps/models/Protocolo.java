@@ -12,8 +12,8 @@ public class Protocolo {
 
     private Integer id;
     private Calendar dataCriacao;
-    private Calendar dataFimExecucao;
-    private Calendar dataInicioExecucao;
+    private Date dataFimExecucao;
+    private Date dataInicioExecucao;
     private String feedback;
     private String identificador;
     private String mensagemLivre;
@@ -41,19 +41,19 @@ public class Protocolo {
         this.dataCriacao = dataCriacao;
     }
 
-    public Calendar getDataFimExecucao() {
+    public Date getDataFimExecucao() {
         return dataFimExecucao;
     }
 
-    public void setDataFimExecucao(Calendar dataFimExecucao) {
+    public void setDataFimExecucao(Date dataFimExecucao) {
         this.dataFimExecucao = dataFimExecucao;
     }
 
-    public Calendar getDataInicioExecucao() {
+    public Date getDataInicioExecucao() {
         return dataInicioExecucao;
     }
 
-    public void setDataInicioExecucao(Calendar dataInicioExecucao) {
+    public void setDataInicioExecucao(Date dataInicioExecucao) {
         this.dataInicioExecucao = dataInicioExecucao;
     }
 
