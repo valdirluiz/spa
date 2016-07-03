@@ -113,11 +113,11 @@ public class ControllerProtocolo {
             protocolo.setCliente(cliente);
         }
 
-       /*if(filtros==null || filtros.isEmpty()){
+       if(filtros==null || filtros.isEmpty()){
             return all;
         } else {
             if(filtros.containsKey("idOperador")){
-                return all.stream().filter(p -> p.getResponsavel().getId().equals(filtros.get("idOperador"))).collect(Collectors.toList());
+                return all.stream().filter(p -> p.getResponsavel()==null || p.getResponsavel().getId().equals(filtros.get("idOperador"))).collect(Collectors.toList());
             }
 
             if(filtros.containsKey("idCliente")){
@@ -125,9 +125,9 @@ public class ControllerProtocolo {
             }
 
             if(filtros.containsKey("idGerente")){
-                return all.stream().filter(p -> p.getResponsavel().getId().equals(filtros.get("idGerente"))).collect(Collectors.toList());
+                return all.stream().filter(p -> p.getResponsavel()!= null && p.getResponsavel().getId().equals(filtros.get("idGerente"))).collect(Collectors.toList());
             }
-        }*/
+        }
 
          return  all;
     }
