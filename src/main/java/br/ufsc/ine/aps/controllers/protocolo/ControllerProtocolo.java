@@ -10,14 +10,14 @@ import br.ufsc.ine.aps.enuns.Status;
 import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
+import br.ufsc.ine.aps.exceptions.SemRespostaPreenchida;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControllerProtocolo {
 
@@ -102,19 +102,38 @@ public class ControllerProtocolo {
         return this.daoProtocolo.buscaProtocolos();
     }
 
-    public List<Protocolo> listarProtocolos(){
-        List<Protocolo> protocolos = daoProtocolo.list();
-        for(Protocolo protocolo : protocolos){
+
+
+    public List<Protocolo> listarProtocolos(Map<String, Object> filtros){
+        List<Protocolo> all = daoProtocolo.list();
+        for(Protocolo protocolo : all){
             Pessoa pessoa = this.controllerUsuario.findUsuarioById(protocolo.getResponsavel().getId());
             Cliente cliente = this.controllerCliente.findById(protocolo.getCliente().getId());
             protocolo.setResponsavel(pessoa);
             protocolo.setCliente(cliente);
         }
-        return protocolos;
+
+       if(filtros==null || filtros.isEmpty()){
+            return all;
+        } else {
+            if(filtros.containsKey("idOperador")){
+                return all.stream().filter(p -> p.getResponsavel()==null || p.getResponsavel().getId().equals(filtros.get("idOperador"))).collect(Collectors.toList());
+            }
+
+            if(filtros.containsKey("idCliente")){
+                return all.stream().filter(p -> p.getCliente().getId().equals(filtros.get("idCliente"))).collect(Collectors.toList());
+            }
+
+            if(filtros.containsKey("idGerente")){
+                return all.stream().filter(p -> p.getResponsavel()!= null && p.getResponsavel().getId().equals(filtros.get("idGerente"))).collect(Collectors.toList());
+            }
+        }
+
+         return  all;
     }
 
 
-    public void iniciarAtendimento(Protocolo protocolo) {
+    public void iniciarAtendimento(Protocolo protocolo) throws Exception {
         if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
             protocolo.setStatus(Status.EM_ATENDIMENTO);
             protocolo.setDataInicioExecucao(new Date());
@@ -125,11 +144,15 @@ public class ControllerProtocolo {
 
     public void finalizarProtocolo(Protocolo protocolo) throws Exception {
         if(protocolo.getResposta()==null || protocolo.getResposta().isEmpty()){
-            throw new Exception("Protocolo sem resposta preenchida");
+            throw new SemRespostaPreenchida();
         }
-
         protocolo.setDataFimExecucao(new Date());
         protocolo.setStatus(Status.AGUARDANDO_FEEDBACK);
+        this.daoProtocolo.finalizarAtendimento(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CONCLUSAO);
+    }
 
+    public Optional<Protocolo> findById(Integer id) {
+        return daoProtocolo.list().stream().filter(p -> p.getId().equals(id)).findFirst();
     }
 }

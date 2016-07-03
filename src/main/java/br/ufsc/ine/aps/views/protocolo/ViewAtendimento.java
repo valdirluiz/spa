@@ -2,6 +2,7 @@ package br.ufsc.ine.aps.views.protocolo;
 
 import br.ufsc.ine.aps.controllers.protocolo.ControllerProtocolo;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
+import br.ufsc.ine.aps.exceptions.SemRespostaPreenchida;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Protocolo;
 import javafx.event.Event;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -52,12 +54,36 @@ public class ViewAtendimento  implements Initializable {
 
     @FXML
     public void finalizar(Event event){
+        try {
+            protocolo.setResposta(this.resposta.getText());
+            this.controllerProtocolo.finalizarProtocolo(protocolo);
+            atualizaView();
+            this.mensagem("Atendimento finalizado com sucesso!", Alert.AlertType.CONFIRMATION);
+        } catch (SemRespostaPreenchida e){
+            mensagem("Preencha uma resposta!", Alert.AlertType.ERROR);
+        } catch (Exception e){
+            e.printStackTrace();
+            this.mensagem(e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
+    private void atualizaView() {
+        Optional<Protocolo> protocoloAtualizado = this.controllerProtocolo.findById(protocolo.getId());
+        if(protocoloAtualizado.isPresent()){
+            this.setProtocolo(protocoloAtualizado.get());
+        }
     }
 
     @FXML
     public void iniciarAtendimento(Event event){
-        this.controllerProtocolo.iniciarAtendimento(protocolo);
+        try {
+            this.controllerProtocolo.iniciarAtendimento(protocolo);
+            atualizaView();
+            mensagem("Atendimento iniciado com sucesso!", Alert.AlertType.CONFIRMATION);
+        }
+        catch (Exception e){
+            mensagem("Falha ao iniciar atendimento!", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
