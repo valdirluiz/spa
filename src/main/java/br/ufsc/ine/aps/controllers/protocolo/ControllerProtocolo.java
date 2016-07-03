@@ -2,6 +2,7 @@ package br.ufsc.ine.aps.controllers.protocolo;
 
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.controllers.interacao.ControllerInteracao;
+import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.enuns.Area;
 import br.ufsc.ine.aps.enuns.Categoria;
 import br.ufsc.ine.aps.enuns.Status;
@@ -84,6 +85,7 @@ public class ControllerProtocolo {
         }
         protocolo.setStatus(Status.CANCELADO);
         this.daoProtocolo.cancelar(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CANCELAR);
     }
 
     public List<Protocolo> buscaProtocolos(){
