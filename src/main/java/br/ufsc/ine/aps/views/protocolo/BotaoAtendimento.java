@@ -13,7 +13,7 @@ import javafx.scene.control.TableCell;
 public class BotaoAtendimento  extends TableCell<Disposer.Record, Boolean> {
 
     private ViewProtocoloList view;
-    final Button cellButton = new Button("Atender");
+    final Button cellButton = new Button("Ver");
 
     public BotaoAtendimento(ViewProtocoloList view){
         this.view = view;
