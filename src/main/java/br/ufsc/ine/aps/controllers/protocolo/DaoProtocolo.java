@@ -10,10 +10,7 @@ import br.ufsc.ine.aps.models.Protocolo;
 import br.ufsc.ine.aps.utils.Data;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +29,7 @@ public class DaoProtocolo {
     private static final String SQL_UPDATE_STATUS = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
     private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, dataInicioExecucao = ? where id = ?";
+    private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?, dataFimExecucao = ? where id = ?";
 
     private Connection bdConnection;
 
@@ -135,17 +133,22 @@ public class DaoProtocolo {
     }
 
 
-    public void iniciarAtendimento(Protocolo protocolo) {
-        try{
-            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INICIAR_ATENDIMENTO);
-            stmt.setInt(1, protocolo.getStatus().getId());
-            stmt.setDate(2, new Date(protocolo.getDataInicioExecucao().getTime()));
-            stmt.setInt(3, protocolo.getId());
-            stmt.executeUpdate();
-            stmt.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public void iniciarAtendimento(Protocolo protocolo) throws Exception {
+        PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INICIAR_ATENDIMENTO);
+        stmt.setInt(1, protocolo.getStatus().getId());
+        stmt.setDate(2, new Date(protocolo.getDataInicioExecucao().getTime()));
+        stmt.setInt(3, protocolo.getId());
+        stmt.executeUpdate();
+        stmt.close();
+    }
+
+    public void finalizarAtendimento(Protocolo protocolo) throws SQLException {
+        PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_FINALIZAR_ATENDIMENTO);
+        stmt.setInt(1, protocolo.getStatus().getId());
+        stmt.setDate(2, new Date(protocolo.getDataFimExecucao().getTime()));
+        stmt.setInt(3, protocolo.getId());
+        stmt.executeUpdate();
+        stmt.close();
     }
 
     public List<Protocolo> list(){
@@ -187,6 +190,7 @@ public class DaoProtocolo {
 
         return protocolos;
     }
+
 
 
 }

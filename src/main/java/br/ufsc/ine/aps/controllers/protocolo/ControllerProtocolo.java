@@ -10,6 +10,7 @@ import br.ufsc.ine.aps.enuns.Status;
 import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
+import br.ufsc.ine.aps.exceptions.SemRespostaPreenchida;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
@@ -18,6 +19,7 @@ import br.ufsc.ine.aps.models.Protocolo;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class ControllerProtocolo {
 
@@ -114,7 +116,7 @@ public class ControllerProtocolo {
     }
 
 
-    public void iniciarAtendimento(Protocolo protocolo) {
+    public void iniciarAtendimento(Protocolo protocolo) throws Exception {
         if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
             protocolo.setStatus(Status.EM_ATENDIMENTO);
             protocolo.setDataInicioExecucao(new Date());
@@ -125,11 +127,15 @@ public class ControllerProtocolo {
 
     public void finalizarProtocolo(Protocolo protocolo) throws Exception {
         if(protocolo.getResposta()==null || protocolo.getResposta().isEmpty()){
-            throw new Exception("Protocolo sem resposta preenchida");
+            throw new SemRespostaPreenchida();
         }
-
         protocolo.setDataFimExecucao(new Date());
         protocolo.setStatus(Status.AGUARDANDO_FEEDBACK);
+        this.daoProtocolo.finalizarAtendimento(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CONCLUSAO);
+    }
 
+    public Optional<Protocolo> findById(Integer id) {
+        return daoProtocolo.list().stream().filter(p -> p.getId().equals(id)).findFirst();
     }
 }
