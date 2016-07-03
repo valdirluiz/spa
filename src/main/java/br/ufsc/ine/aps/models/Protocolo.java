@@ -11,7 +11,7 @@ import java.util.Date;
 public class Protocolo {
 
     private Integer id;
-    private Date dataCriacao;
+    private Calendar dataCriacao;
     private Calendar dataFimExecucao;
     private Calendar dataInicioExecucao;
     private String feedback;
@@ -34,11 +34,11 @@ public class Protocolo {
         this.id = id;
     }
 
-    public Date getDataCriacao() {
+    public Calendar getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(Calendar dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -144,5 +144,26 @@ public class Protocolo {
 
     public void setResponsavel(Pessoa responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public String getStatusDescricao(){
+        return status != null ? status.getDescricao() : "";
+    }
+
+    public String getClienteNome(){
+        return cliente != null ? cliente.getNome() : "";
+    }
+
+    public String getResponsavelNome(){
+        return responsavel != null ? responsavel.getNome() : "";
+    }
+
+    public String getDataCriacaoFormat(){
+        if(dataCriacao != null){
+            return dataCriacao.get(Calendar.MONTH) + "/" +
+                    dataCriacao.get(Calendar.DAY_OF_MONTH) + "/" +
+                    dataCriacao.get(Calendar.YEAR);
+        }
+        return "";
     }
 }

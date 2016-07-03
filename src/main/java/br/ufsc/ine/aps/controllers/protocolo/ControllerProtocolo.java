@@ -1,36 +1,39 @@
 package br.ufsc.ine.aps.controllers.protocolo;
 
+import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.controllers.interacao.ControllerInteracao;
-import br.ufsc.ine.aps.enuns.Area;
-import br.ufsc.ine.aps.enuns.Categoria;
-import br.ufsc.ine.aps.enuns.Status;
-import br.ufsc.ine.aps.enuns.TipoInteracao;
+import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
+import br.ufsc.ine.aps.controllers.usuario.DaoUsuario;
+import br.ufsc.ine.aps.enuns.*;
 import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
 public class ControllerProtocolo {
 
     private DaoProtocolo daoProtocolo;
-
     private ControllerFuncionario controllerFuncionario;
-
     private ControllerInteracao controllerInteracao;
-
-    private static ControllerProtocolo ourInstance = new ControllerProtocolo();
+    private ControllerUsuario controllerUsuario;
+    private ControllerCliente controllerCliente;
 
     public static ControllerProtocolo getInstance() {
         return ourInstance;
     }
+    private static ControllerProtocolo ourInstance = new ControllerProtocolo();
 
     private  ControllerProtocolo(){
         this.daoProtocolo = DaoProtocolo.getInstance();
         this.controllerFuncionario = ControllerFuncionario.getInstance();
         this.controllerInteracao = ControllerInteracao.getInstance();
+        this.controllerUsuario = ControllerUsuario.getInstance();
+        this.controllerCliente = ControllerCliente.getInstance();
+
     }
 
     public String adicionar(Cliente cliente, String categoria, String area, String descricao) throws Exception {
@@ -52,7 +55,7 @@ public class ControllerProtocolo {
         protocolo.setCategoria(Categoria.findByDescricao(categoria));
         protocolo.setCliente(cliente);
         protocolo.setStatus(Status.AGUARDANDO_ATENDIMENTO);
-        protocolo.setDataCriacao(new Date());
+        protocolo.setDataCriacao(Calendar.getInstance());
         protocolo.setMensagemLivre(descricao);
         this.defineResponsavel(protocolo);
         this.daoProtocolo.salvar(protocolo);
@@ -75,5 +78,18 @@ public class ControllerProtocolo {
             protocolo.setResponsavel(responsavel);
         }
     }
+
+    public List<Protocolo> listarProtocolos(){
+        List<Protocolo> protocolos = daoProtocolo.list();
+        for(Protocolo protocolo : protocolos){
+            Pessoa pessoa = this.controllerUsuario.findUsuarioById(protocolo.getResponsavel().getId());
+            Cliente cliente = this.controllerCliente.findById(protocolo.getCliente().getId());
+            protocolo.setResponsavel(pessoa);
+            protocolo.setCliente(cliente);
+        }
+        return protocolos;
+    }
+
+
 
 }

@@ -8,8 +8,6 @@ import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.views.principal.ViewPrincipal;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

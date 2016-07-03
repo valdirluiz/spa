@@ -9,7 +9,15 @@ import java.sql.*;
 
 public class DaoUsuario {
 
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM pessoas WHERE id = ?";
+
     private Connection bdConnection;
+
+    private static DaoUsuario ourInstance = new DaoUsuario();
+
+    public static DaoUsuario getInstance() {
+        return ourInstance;
+    }
 
     public DaoUsuario(){
         this.bdConnection = SQLiteConnection.getInstance().getConnection();
@@ -69,5 +77,37 @@ public class DaoUsuario {
 
         return autenticavel;
 
+    }
+
+
+    public Pessoa findPessoaById(int id){
+        Pessoa pessoa =  null;
+
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_SELECT_BY_ID);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+
+                if(rs.getInt(7) == TipoUsuario.ATENDENTE.getId()) {
+                    pessoa = new Atendente();
+                }else if(rs.getInt(7) == TipoUsuario.GERENTE.getId()){
+                    pessoa = new Gerente();
+                }
+
+                pessoa.setId(rs.getInt(1));
+                pessoa.setCpf(rs.getString(2));
+                pessoa.setEmail(rs.getString(3));
+                pessoa.setNome(rs.getString(4));
+                pessoa.setSenha(rs.getString(5));
+                pessoa.setTelefone(rs.getString(6));
+                pessoa.setCliente(rs.getInt(8) == 1 ? true : false);
+
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pessoa;
     }
 }

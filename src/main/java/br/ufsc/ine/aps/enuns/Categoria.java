@@ -35,4 +35,17 @@ public enum Categoria {
                 return null;
         }
     }
+
+    public static Categoria getById(int id) {
+        switch (id) {
+            case 1:
+                return SUGESTAO;
+            case 2:
+                return RECLAMACAO;
+            case 3:
+                return DUVIDA;
+            default:
+                return null;
+        }
+    }
 }

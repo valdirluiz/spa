@@ -1,12 +1,20 @@
 package br.ufsc.ine.aps.controllers.protocolo;
 
+import br.ufsc.ine.aps.enuns.Area;
+import br.ufsc.ine.aps.enuns.Categoria;
+import br.ufsc.ine.aps.enuns.Status;
+import br.ufsc.ine.aps.models.Atendente;
 import br.ufsc.ine.aps.models.Cliente;
+import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
+import br.ufsc.ine.aps.utils.Data;
 import br.ufsc.ine.aps.utils.SQLiteConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -19,6 +27,7 @@ public class DaoProtocolo {
     private static final String SQL_UPDATE_IDENTIFICADOR = "update protocolos set identificador = ? where id = ? ;";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
     private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
+    private static final String SQL_LIST = "SELECT * FROM protocolos";
 
     private Connection bdConnection;
 
@@ -51,7 +60,7 @@ public class DaoProtocolo {
 
     public Protocolo salvar(Protocolo protocolo) throws Exception {
         PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INSERT);
-        stmt.setDate(1, new java.sql.Date(protocolo.getDataCriacao().getTime()));
+        stmt.setDate(1, new java.sql.Date(protocolo.getDataCriacao().getTimeInMillis()));
         stmt.setString(2, protocolo.getMensagemLivre());
         stmt.setInt(3, protocolo.getStatus().getId());
         stmt.setInt(4, protocolo.getArea().getId());
@@ -59,10 +68,7 @@ public class DaoProtocolo {
         stmt.setInt(6, protocolo.getCliente().getId());
         if (protocolo.getResponsavel() != null) {
             stmt.setInt(7, protocolo.getResponsavel().getId());
-        } else {
-            stmt.setNull(7, 1);
         }
-
         stmt.executeUpdate();
 
         ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -103,6 +109,47 @@ public class DaoProtocolo {
             e.printStackTrace();
         }
         return count;
+    }
+
+
+    public List<Protocolo> list(){
+        List<Protocolo> protocolos = new ArrayList<>();
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_LIST);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                Protocolo protocolo = new Protocolo();
+
+                protocolo.setId(rs.getInt(1));
+                protocolo.setDataCriacao(Data.dateToCalendar(rs.getDate(2)));
+                protocolo.setDataFimExecucao(Data.dateToCalendar(rs.getDate(3)));
+                protocolo.setDataInicioExecucao(Data.dateToCalendar(rs.getDate(4)));
+                protocolo.setFeedback(rs.getString(5));
+                protocolo.setIdentificador(rs.getString(6));
+                protocolo.setMensagemLivre(rs.getString(7));
+                protocolo.setMovivoCancelamento(rs.getString(8));
+                protocolo.setResposta(rs.getString(9));
+                protocolo.setStatus(Status.getById(rs.getInt(10)));
+                protocolo.setArea(Area.getById(rs.getInt(11)));
+                protocolo.setCategoria(Categoria.getById(rs.getInt(12)));
+
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt(13));
+                protocolo.setCliente(cliente);
+
+                Pessoa atendente = new Atendente();
+                atendente.setId(rs.getInt(14));
+                protocolo.setResponsavel(atendente);
+
+                protocolos.add(protocolo);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return protocolos;
     }
 
 }
