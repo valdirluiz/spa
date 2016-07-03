@@ -93,6 +93,8 @@ public class DaoUsuario {
                     pessoa = new Atendente();
                 }else if(rs.getInt(7) == TipoUsuario.GERENTE.getId()){
                     pessoa = new Gerente();
+                } else{
+                    pessoa = new Operador();
                 }
 
                 pessoa.setId(rs.getInt(1));

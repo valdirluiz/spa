@@ -124,7 +124,7 @@ public class DaoProtocolo {
         try{
             PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_CANCELAR);
             stmt.setInt(1, protocolo.getStatus().getId());
-            stmt.setInt(1, protocolo.getId());
+            stmt.setInt(2, protocolo.getId());
             stmt.executeUpdate();
             stmt.close();
         }catch (Exception e){

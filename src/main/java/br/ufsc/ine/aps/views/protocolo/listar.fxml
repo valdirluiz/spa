@@ -46,9 +46,9 @@
                                     </cellValueFactory>
                                 </TableColumn>
 
-                                <TableColumn fx:id="columnExcluir" editable="false" sortable="false" text="Excluir" />
+                                <TableColumn fx:id="columnCancelar"  editable="false" sortable="false" text="Cancelar" />
 
-                                <TableColumn fx:id="colunaEditar" editable="false" sortable="false" text="Editar" />
+
 
 
                             </columns>

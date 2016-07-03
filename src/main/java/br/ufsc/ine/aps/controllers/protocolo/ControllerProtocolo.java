@@ -12,6 +12,7 @@ import br.ufsc.ine.aps.enuns.Categoria;
 import br.ufsc.ine.aps.enuns.Status;
 import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
+import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
@@ -86,7 +87,12 @@ public class ControllerProtocolo {
         }
     }
 
-    public void cancelarProtocolo(Protocolo protocolo) throws StatusEmAndamento {
+    public void cancelarProtocolo(Protocolo protocolo) throws StatusEmAndamento, ProtocoloJaCancelado {
+
+        if(protocolo.getStatus().equals(Status.CANCELADO)){
+            throw new ProtocoloJaCancelado();
+        }
+
         if(!protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
             throw new StatusEmAndamento();
         }
