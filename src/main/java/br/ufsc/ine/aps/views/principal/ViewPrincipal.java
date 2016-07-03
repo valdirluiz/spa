@@ -191,6 +191,23 @@ public class ViewPrincipal implements Initializable {
         }
     }
 
+    @FXML
+    private void handleProtocolosListarAction(ActionEvent ev) {
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewProtocoloList.class.getResource("listar.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewProtocoloList.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void atualizaConteudo(AnchorPane title, AnchorPane conteudo) {
         pageContent.getChildren().clear();
         pageContent.getChildren().add(conteudo);

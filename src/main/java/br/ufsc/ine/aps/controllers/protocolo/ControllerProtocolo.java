@@ -6,13 +6,20 @@ import br.ufsc.ine.aps.controllers.interacao.ControllerInteracao;
 import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
 import br.ufsc.ine.aps.controllers.usuario.DaoUsuario;
 import br.ufsc.ine.aps.enuns.*;
+import br.ufsc.ine.aps.controllers.login.Autenticador;
+import br.ufsc.ine.aps.enuns.Area;
+import br.ufsc.ine.aps.enuns.Categoria;
+import br.ufsc.ine.aps.enuns.Status;
+import br.ufsc.ine.aps.enuns.TipoInteracao;
 import br.ufsc.ine.aps.exceptions.LimiteProtocoloExedido;
+import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 
 public class ControllerProtocolo {
 
@@ -77,6 +84,19 @@ public class ControllerProtocolo {
         if(responsavel!=null){
             protocolo.setResponsavel(responsavel);
         }
+    }
+
+    public void cancelarProtocolo(Protocolo protocolo) throws StatusEmAndamento {
+        if(!protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
+            throw new StatusEmAndamento();
+        }
+        protocolo.setStatus(Status.CANCELADO);
+        this.daoProtocolo.cancelar(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CANCELAR);
+    }
+
+    public List<Protocolo> buscaProtocolos(){
+        return this.daoProtocolo.buscaProtocolos();
     }
 
     public List<Protocolo> listarProtocolos(){

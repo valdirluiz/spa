@@ -13,6 +13,7 @@ import br.ufsc.ine.aps.utils.SQLiteConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class DaoProtocolo {
     private static final String SQL_UPDATE_IDENTIFICADOR = "update protocolos set identificador = ? where id = ? ;";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
     private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
+    private static final String SQL_CANCELAR = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
 
     private Connection bdConnection;
@@ -68,7 +70,10 @@ public class DaoProtocolo {
         stmt.setInt(6, protocolo.getCliente().getId());
         if (protocolo.getResponsavel() != null) {
             stmt.setInt(7, protocolo.getResponsavel().getId());
+        } else {
+            stmt.setNull(7, 1);
         }
+
         stmt.executeUpdate();
 
         ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -111,6 +116,21 @@ public class DaoProtocolo {
         return count;
     }
 
+    public List<Protocolo> buscaProtocolos() {
+        return null;
+    }
+
+    public void cancelar(Protocolo protocolo) {
+        try{
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_CANCELAR);
+            stmt.setInt(1, protocolo.getStatus().getId());
+            stmt.setInt(1, protocolo.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public List<Protocolo> list(){
         List<Protocolo> protocolos = new ArrayList<>();
