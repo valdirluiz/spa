@@ -29,6 +29,8 @@ public class DaoNotificacao {
             "  join protocolos  on interacoes.id_protocolo = protocolos.id" +
             "  where notificacoes.id_usuario = ?";
 
+    private static final String SQL_VISUALIZADA = "update notificacoes set visualizado = ? where id = ?";
+
     private static final String SQL_INSERT = "insert into notificacoes(visualizado, id_usuario, id_interacao) values (?, ?, ?);";
 
     private static DaoNotificacao ourInstance = new DaoNotificacao();
@@ -61,10 +63,12 @@ public class DaoNotificacao {
 
             while ( rs.next() ) {
                 notificacao = new Notificacao();
+                notificacao.setId(rs.getInt(1));
                 notificacao.setVisualizado(rs.getBoolean("visualizado"));
                 Interacao interacao = new Interacao();
                 interacao.setTipo(TipoInteracao.findById(rs.getInt("tipo")));
                 interacao.setData(rs.getDate("data"));
+                interacao.setMensagem(rs.getString("mensagem"));
                 Protocolo protocolo = new Protocolo();
                 protocolo.setIdentificador(rs.getString("identificador"));
                 interacao.setProtocolo(protocolo);
@@ -80,5 +84,17 @@ public class DaoNotificacao {
         }
 
         return notificacaos;
+    }
+
+    public void update(Notificacao notificacao) {
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_VISUALIZADA);
+            stmt.setBoolean(1, notificacao.isVisualizado());
+            stmt.setInt(2, notificacao.getId());
+            stmt.executeUpdate();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

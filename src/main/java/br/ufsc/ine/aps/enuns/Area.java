@@ -32,4 +32,15 @@ public enum Area {
                 return null;
         }
     }
+
+    public static Area getById(int id) {
+        switch (id) {
+            case 1:
+                return SOFTWARE;
+            case 2:
+                return HARDWARE;
+            default:
+                return null;
+        }
+    }
 }

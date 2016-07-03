@@ -5,6 +5,7 @@ import br.ufsc.ine.aps.models.Atendente;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
+import br.ufsc.ine.aps.utils.Md5Utils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public abstract class PessoaDao {
 
     public void save(Pessoa pessoa) throws Exception{
         PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO pessoas (cpf, email, nome, senha, telefone, tipo_usuario, is_cliente, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        setDadosPessoa(pessoa, stmt);
+        this.setDadosPessoa(pessoa, stmt);
         this.setDadosCliente(pessoa, stmt);
         stmt.executeUpdate();
         stmt.close();
@@ -33,7 +34,7 @@ public abstract class PessoaDao {
         stmt.setString(1, pessoa.getCpf());
         stmt.setString(2, pessoa.getEmail());
         stmt.setString(3, pessoa.getNome());
-        stmt.setString(4, pessoa.getSenha());
+        stmt.setString(4, Md5Utils.convertStringToMd5(pessoa.getSenha()));
         stmt.setString(5, pessoa.getTelefone());
         stmt.setInt(6, pessoa.getTipoUsuario().getId());
         stmt.setBoolean(7, pessoa.isCliente());

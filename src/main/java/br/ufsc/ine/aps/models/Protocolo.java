@@ -11,13 +11,12 @@ import java.util.Date;
 public class Protocolo {
 
     private Integer id;
-    private Date dataCriacao;
-    private Calendar dataFimExecucao;
-    private Calendar dataInicioExecucao;
+    private Calendar dataCriacao;
+    private Date dataFimExecucao;
+    private Date dataInicioExecucao;
     private String feedback;
     private String identificador;
     private String mensagemLivre;
-    private String movivoCancelamento;
     private String resposta;
     private Status status;
     private Categoria categoria;
@@ -34,27 +33,27 @@ public class Protocolo {
         this.id = id;
     }
 
-    public Date getDataCriacao() {
+    public Calendar getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(Calendar dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Calendar getDataFimExecucao() {
+    public Date getDataFimExecucao() {
         return dataFimExecucao;
     }
 
-    public void setDataFimExecucao(Calendar dataFimExecucao) {
+    public void setDataFimExecucao(Date dataFimExecucao) {
         this.dataFimExecucao = dataFimExecucao;
     }
 
-    public Calendar getDataInicioExecucao() {
+    public Date getDataInicioExecucao() {
         return dataInicioExecucao;
     }
 
-    public void setDataInicioExecucao(Calendar dataInicioExecucao) {
+    public void setDataInicioExecucao(Date dataInicioExecucao) {
         this.dataInicioExecucao = dataInicioExecucao;
     }
 
@@ -82,13 +81,6 @@ public class Protocolo {
         this.mensagemLivre = mensagemLivre;
     }
 
-    public String getMovivoCancelamento() {
-        return movivoCancelamento;
-    }
-
-    public void setMovivoCancelamento(String movivoCancelamento) {
-        this.movivoCancelamento = movivoCancelamento;
-    }
 
     public String getResposta() {
         return resposta;
@@ -144,5 +136,26 @@ public class Protocolo {
 
     public void setResponsavel(Pessoa responsavel) {
         this.responsavel = responsavel;
+    }
+
+    public String getStatusDescricao(){
+        return status != null ? status.getDescricao() : "";
+    }
+
+    public String getClienteNome(){
+        return cliente != null ? cliente.getNome() : "";
+    }
+
+    public String getResponsavelNome(){
+        return responsavel != null ? responsavel.getNome() : "";
+    }
+
+    public String getDataCriacaoFormat(){
+        if(dataCriacao != null){
+            return dataCriacao.get(Calendar.MONTH) + "/" +
+                    dataCriacao.get(Calendar.DAY_OF_MONTH) + "/" +
+                    dataCriacao.get(Calendar.YEAR);
+        }
+        return "";
     }
 }

@@ -65,7 +65,7 @@ public class ControllerCliente {
         if (id.isEmpty()) {
             return "Ocorreu um problema na identificação do Id do cliente, favor tentar novamente.";
         } else {
-            Cliente cliente = dao.buscarId(Integer.parseInt(id));
+            Cliente cliente = findById(Integer.valueOf(id));
             if (cliente != null) {
                 cliente.setCpf(cpf);
                 cliente.setNome(nome);
@@ -117,5 +117,9 @@ public class ControllerCliente {
 
     public Cliente findByCpf(String cpf){
         return dao.buscarCPF(cpf);
+    }
+
+    public Cliente findById(Integer id){
+        return dao.buscarId(id);
     }
 }

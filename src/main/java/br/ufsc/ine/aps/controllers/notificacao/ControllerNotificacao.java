@@ -51,4 +51,8 @@ public class ControllerNotificacao {
         return this.daoNotificacao.findByUsuario(usuario.getId());
     }
 
+    public void marcaComoVisualizada(Notificacao notificacao) {
+        notificacao.setVisualizado(true);
+        daoNotificacao.update(notificacao);
+    }
 }

@@ -4,6 +4,7 @@ package br.ufsc.ine.aps.controllers.login;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
 import br.ufsc.ine.aps.models.Autenticavel;
+import br.ufsc.ine.aps.utils.Md5Utils;
 
 import java.util.Optional;
 
@@ -59,7 +60,7 @@ public class Autenticador {
     }
 
     private boolean verificaSenha(String senha, Autenticavel usuario){
-        return senha.equals(usuario.getSenha());
+        return Md5Utils.convertStringToMd5(senha).equals(usuario.getSenha());
     }
 
     public Autenticavel getUsuarioLogado() {

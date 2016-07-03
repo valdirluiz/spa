@@ -24,4 +24,21 @@ public enum Status {
     public String getDescricao() {
         return descricao;
     }
+
+    public static Status getById(Integer id){
+        switch (id){
+            case 1:
+                return AGUARDANDO_ATENDIMENTO;
+            case 2:
+                return EM_ATENDIMENTO;
+            case 3:
+                return AGUARDANDO_FEEDBACK;
+            case 4:
+                return CANCELADO;
+            case 5:
+                return FINALIZADO;
+            default:
+                return null;
+        }
+    }
 }

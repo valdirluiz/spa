@@ -3,9 +3,7 @@ package br.ufsc.ine.aps.views.notificacao;
 import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.controllers.notificacao.ControllerNotificacao;
 import br.ufsc.ine.aps.models.Notificacao;
-import br.ufsc.ine.aps.views.cliente.ViewClienteList;
-import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
-import br.ufsc.ine.aps.views.pessoa.BotaoDeletar;
+
 import com.sun.prism.impl.Disposer;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -16,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -24,9 +23,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by Valdir Luiz on 02/07/2016.
- */
 public class ViewNotificacoes implements Initializable{
 
     private Autenticador autenticador;
@@ -39,18 +35,39 @@ public class ViewNotificacoes implements Initializable{
     @FXML
     private TableColumn columnVer;
 
+    @FXML
+    private Pane pane;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.autenticador = Autenticador.getInstance();
         this.controllerNotificacao = ControllerNotificacao.getInstance();
-        this.notificacoes = controllerNotificacao.findByUsuario(this.autenticador.getUsuarioLogado());
-        this.notificacaoTableView.setItems(FXCollections.observableArrayList(this.notificacoes));
+        this.updateTable();
         this.insereBotaoDetalhes();
     }
 
-    public void exibirDetalhes(Notificacao notificacao) {
-      
+    private void updateTable(){
+        this.notificacoes = controllerNotificacao.findByUsuario(this.autenticador.getUsuarioLogado());
+        this.notificacaoTableView.setItems(FXCollections.observableArrayList(this.notificacoes));
+        this.notificacaoTableView.refresh();;
+    }
 
+    public void exibirDetalhes(Notificacao notificacao) {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detalhes.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            ViewDetalhes controller = fxmlLoader.<ViewDetalhes>getController();
+            controller.setNotificacao(notificacao);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 500, 500));
+            stage.setTitle("Detalhes");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            controllerNotificacao.marcaComoVisualizada(notificacao);
+            this.updateTable();
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void insereBotaoDetalhes(){
@@ -59,7 +76,6 @@ public class ViewNotificacoes implements Initializable{
                     @Override
                     public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
                         return new BotaoVisualizar(ViewNotificacoes.this);
-                    }
-                });
+                    }});
     }
 }
