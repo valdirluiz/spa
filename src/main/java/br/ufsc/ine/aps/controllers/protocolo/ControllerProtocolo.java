@@ -16,10 +16,8 @@ import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControllerProtocolo {
 
@@ -104,15 +102,34 @@ public class ControllerProtocolo {
         return this.daoProtocolo.buscaProtocolos();
     }
 
-    public List<Protocolo> listarProtocolos(){
-        List<Protocolo> protocolos = daoProtocolo.list();
-        for(Protocolo protocolo : protocolos){
+
+
+    public List<Protocolo> listarProtocolos(Map<String, Object> filtros){
+        List<Protocolo> all = daoProtocolo.list();
+        for(Protocolo protocolo : all){
             Pessoa pessoa = this.controllerUsuario.findUsuarioById(protocolo.getResponsavel().getId());
             Cliente cliente = this.controllerCliente.findById(protocolo.getCliente().getId());
             protocolo.setResponsavel(pessoa);
             protocolo.setCliente(cliente);
         }
-        return protocolos;
+
+       /*if(filtros==null || filtros.isEmpty()){
+            return all;
+        } else {
+            if(filtros.containsKey("idOperador")){
+                return all.stream().filter(p -> p.getResponsavel().getId().equals(filtros.get("idOperador"))).collect(Collectors.toList());
+            }
+
+            if(filtros.containsKey("idCliente")){
+                return all.stream().filter(p -> p.getCliente().getId().equals(filtros.get("idCliente"))).collect(Collectors.toList());
+            }
+
+            if(filtros.containsKey("idGerente")){
+                return all.stream().filter(p -> p.getResponsavel().getId().equals(filtros.get("idGerente"))).collect(Collectors.toList());
+            }
+        }*/
+
+         return  all;
     }
 
 

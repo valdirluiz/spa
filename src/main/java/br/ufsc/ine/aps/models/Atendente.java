@@ -6,6 +6,6 @@ import br.ufsc.ine.aps.enuns.TipoUsuario;
 public class Atendente extends Pessoa {
 
     public Atendente(){
-        super.setTipoUsuario(TipoUsuario.GERENTE);
+        super.setTipoUsuario(TipoUsuario.ATENDENTE);
     }
 }

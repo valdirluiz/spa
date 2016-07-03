@@ -1,8 +1,11 @@
 package br.ufsc.ine.aps.views.protocolo;
 
+import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.controllers.protocolo.ControllerProtocolo;
+import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
+import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.models.Protocolo;
 
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
@@ -21,14 +24,12 @@ import javafx.util.Callback;
 
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ViewProtocoloList implements Initializable {
-
-
-    @FXML
-    private TableColumn columnCancelar;
 
     @FXML
     private TableColumn columnAtender;
@@ -42,15 +43,31 @@ public class ViewProtocoloList implements Initializable {
     private ControllerProtocolo controllerProtocolo;
     private ObservableList rows;
 
+    private Autenticador autenticador;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.autenticador = Autenticador.getInstance();
         this.controllerProtocolo = ControllerProtocolo.getInstance();
         this.geraDadosParaTabela();
         this.insereBotaoAtender();
     }
 
     private void geraDadosParaTabela() {
-        this.protocolos = controllerProtocolo.listarProtocolos();
+
+        Map<String, Object> filtros = new HashMap<>();
+        Autenticavel usuario = this.autenticador.getUsuarioLogado();
+        TipoUsuario tipoUsuario = usuario.getTipoUsuario();
+
+        if(tipoUsuario.equals(TipoUsuario.OPERADOR_SUPORTE)){
+            filtros.put("idOperador", usuario.getId());
+        } else if(tipoUsuario.equals(TipoUsuario.GERENTE)) {
+            filtros.put("idGerente", usuario.getId());
+        } else if(tipoUsuario.equals(TipoUsuario.CLIENTE)){
+            filtros.put("idCliente", usuario.getId());
+        }
+
+        this.protocolos = controllerProtocolo.listarProtocolos(filtros);
         tabelaProtocolos.getItems().clear();
         rows = FXCollections.observableArrayList(protocolos);
         tabelaProtocolos.setItems(rows);
