@@ -4,9 +4,6 @@ import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.controllers.interacao.ControllerInteracao;
 import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
-import br.ufsc.ine.aps.controllers.usuario.DaoUsuario;
-import br.ufsc.ine.aps.enuns.*;
-import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.enuns.Area;
 import br.ufsc.ine.aps.enuns.Categoria;
 import br.ufsc.ine.aps.enuns.Status;
@@ -20,7 +17,6 @@ import br.ufsc.ine.aps.models.Protocolo;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Date;
 
 public class ControllerProtocolo {
 
@@ -97,7 +93,7 @@ public class ControllerProtocolo {
             throw new StatusEmAndamento();
         }
         protocolo.setStatus(Status.CANCELADO);
-        this.daoProtocolo.cancelar(protocolo);
+        this.daoProtocolo.updateStatus(protocolo);
         this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CANCELAR);
     }
 
@@ -117,5 +113,11 @@ public class ControllerProtocolo {
     }
 
 
-
+    public void iniciarAtendimento(Protocolo protocolo) {
+        if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
+            protocolo.setStatus(Status.EM_ATENDIMENTO);
+            this.controllerInteracao.addInteracao(protocolo, TipoInteracao.ATENDIMENTO);
+            this.daoProtocolo.updateStatus(protocolo);
+        }
+    }
 }

@@ -26,6 +26,9 @@ public class ViewProtocoloList implements Initializable {
     private TableColumn columnCancelar;
 
     @FXML
+    private TableColumn columnAtender;
+
+    @FXML
     private TableView<Protocolo> tabelaProtocolos;
 
     private List<Protocolo> protocolos;
@@ -59,6 +62,16 @@ public class ViewProtocoloList implements Initializable {
                 });
     }
 
+    private void insereBotaoAtender(){
+        columnAtender.setCellFactory(
+                new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
+                    @Override
+                    public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
+                        return new BotaoAtendimento(ViewProtocoloList.this);
+                    }
+                });
+    }
+
     public void cancelarProtocolo(Protocolo protocolo) {
         try {
             this.controllerProtocolo.cancelarProtocolo(protocolo);
@@ -67,11 +80,15 @@ public class ViewProtocoloList implements Initializable {
         } catch (ProtocoloJaCancelado e){
             this.mensagem("Protocolo já cancelado.",Alert.AlertType.ERROR );
         } catch (StatusEmAndamento e){
-            this.mensagem("Não é possível cancelar, protocolo já esta em execução.",Alert.AlertType.ERROR );
+            this.mensagem("Não é possível updateStatus, protocolo já esta em execução.",Alert.AlertType.ERROR );
         } catch (Exception e){
-            this.mensagem("Falha ao cancelar o protocolo.",Alert.AlertType.ERROR );
+            this.mensagem("Falha ao updateStatus o protocolo.",Alert.AlertType.ERROR );
             e.printStackTrace();
         }
+
+    }
+
+    public void abrirTelaDeAtendimento(Protocolo protocolo){
 
     }
 

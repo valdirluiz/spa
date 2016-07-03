@@ -28,7 +28,7 @@ public class DaoProtocolo {
     private static final String SQL_UPDATE_IDENTIFICADOR = "update protocolos set identificador = ? where id = ? ;";
     private static final String SQL_COUNT_EM_ABERTO = "SELECT COUNT(*) AS total_aberto FROM  protocolos where status not in (4, 5) and idCliente = ?";
     private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
-    private static final String SQL_CANCELAR = "update protocolos set status = ? where id = ?";
+    private static final String SQL_UPDATE_STATUS = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
 
     private Connection bdConnection;
@@ -120,9 +120,9 @@ public class DaoProtocolo {
         return null;
     }
 
-    public void cancelar(Protocolo protocolo) {
+    public void updateStatus(Protocolo protocolo) {
         try{
-            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_CANCELAR);
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_UPDATE_STATUS);
             stmt.setInt(1, protocolo.getStatus().getId());
             stmt.setInt(2, protocolo.getId());
             stmt.executeUpdate();
@@ -171,5 +171,6 @@ public class DaoProtocolo {
 
         return protocolos;
     }
+
 
 }
