@@ -19,14 +19,15 @@ public class ViewDetalhes implements Initializable {
     @FXML
     private TextArea mensagem;
 
-    private Notificacao notificacao;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.tipo.setText(this.notificacao.getInteracao().getTipo().getDescricao());
+
     }
 
     public void setNotificacao(Notificacao notificacao) {
-        this.notificacao = notificacao;
+        this.tipo.setText(notificacao.getInteracao().getTipo().getDescricao());
+        this.mensagem.setText(notificacao.getInteracao().getMensagem());
     }
 }

@@ -65,6 +65,7 @@ public class DaoNotificacao {
                 Interacao interacao = new Interacao();
                 interacao.setTipo(TipoInteracao.findById(rs.getInt("tipo")));
                 interacao.setData(rs.getDate("data"));
+                interacao.setMensagem(rs.getString("mensagem"));
                 Protocolo protocolo = new Protocolo();
                 protocolo.setIdentificador(rs.getString("identificador"));
                 interacao.setProtocolo(protocolo);
