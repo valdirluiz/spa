@@ -1,6 +1,8 @@
 package br.ufsc.ine.aps.views.protocolo;
 
+import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.controllers.protocolo.ControllerProtocolo;
+import br.ufsc.ine.aps.enuns.Status;
 import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.SemRespostaPreenchida;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
@@ -22,6 +24,7 @@ public class ViewAtendimento  implements Initializable {
     private Protocolo protocolo;
 
     private ControllerProtocolo controllerProtocolo;
+    private Autenticador autenticador;
 
     @FXML
     private TextField cliente;
@@ -35,10 +38,13 @@ public class ViewAtendimento  implements Initializable {
     private TextArea descricao;
     @FXML
     private TextArea resposta;
+    @FXML
+    private Button btnAtendimento;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controllerProtocolo = ControllerProtocolo.getInstance();
+        this.controllerProtocolo = ControllerProtocolo.getInstance();
+        this.autenticador = Autenticador.getInstance();
     }
 
 
@@ -49,6 +55,8 @@ public class ViewAtendimento  implements Initializable {
         this.area.setText(protocolo.getArea().getDescricao());
         this.categoria.setText(protocolo.getCategoria().getDescricao());
         this.descricao.setText(protocolo.getMensagemLivre());
+        this.btnAtendimento.setDisable(this.controllerProtocolo.desabilitarInicializar(autenticador.getUsuarioLogado().getId())
+                || protocolo.getStatus().equals(Status.EM_ATENDIMENTO));
 
     }
 

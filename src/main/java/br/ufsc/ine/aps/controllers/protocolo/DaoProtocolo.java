@@ -28,8 +28,10 @@ public class DaoProtocolo {
     private static final String SQL_COUNT_SEMELHANTES = "SELECT COUNT(*) AS semelhantes FROM  protocolos  where idCliente = ? and categoria = ? and area = ?";
     private static final String SQL_UPDATE_STATUS = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
-    private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, dataInicioExecucao = ? where id = ?";
-    private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?, dataFimExecucao = ? where id = ?";
+    private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, idResponsavel =?, dataInicioExecucao = ? where id = ?";
+    private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?,  dataFimExecucao = ? where id = ?";
+    private static final String SQL_BUSCA_PROTOCOLOS_OPERADOR = "select count(*) from protocolos where idResponsavel = ? and (status = 1 or status=2)";
+
 
     private Connection bdConnection;
 
@@ -134,12 +136,18 @@ public class DaoProtocolo {
 
 
     public void iniciarAtendimento(Protocolo protocolo) throws Exception {
-        PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INICIAR_ATENDIMENTO);
-        stmt.setInt(1, protocolo.getStatus().getId());
-        stmt.setDate(2, new Date(protocolo.getDataInicioExecucao().getTime()));
-        stmt.setInt(3, protocolo.getId());
-        stmt.executeUpdate();
-        stmt.close();
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INICIAR_ATENDIMENTO);
+            stmt.setInt(1, protocolo.getStatus().getId());
+            stmt.setInt(2, protocolo.getResponsavel().getId());
+            stmt.setDate(3, new Date(protocolo.getDataInicioExecucao().getTime()));
+            stmt.setInt(4, protocolo.getId());
+            stmt.executeUpdate();
+            stmt.close();
+        }  catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void finalizarAtendimento(Protocolo protocolo) throws SQLException {
@@ -192,5 +200,18 @@ public class DaoProtocolo {
     }
 
 
-
+    public Integer buscaProtocolosDoOperador(Integer idOperador) {
+        Integer count = null;
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_BUSCA_PROTOCOLOS_OPERADOR);
+            stmt.setInt(1,idOperador);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

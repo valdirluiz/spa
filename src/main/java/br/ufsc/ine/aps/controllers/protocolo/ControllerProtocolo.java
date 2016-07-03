@@ -3,6 +3,7 @@ package br.ufsc.ine.aps.controllers.protocolo;
 import br.ufsc.ine.aps.controllers.cliente.ControllerCliente;
 import br.ufsc.ine.aps.controllers.funcionario.ControllerFuncionario;
 import br.ufsc.ine.aps.controllers.interacao.ControllerInteracao;
+import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.controllers.usuario.ControllerUsuario;
 import br.ufsc.ine.aps.enuns.Area;
 import br.ufsc.ine.aps.enuns.Categoria;
@@ -27,6 +28,8 @@ public class ControllerProtocolo {
     private ControllerUsuario controllerUsuario;
     private ControllerCliente controllerCliente;
 
+    private Autenticador autenticador;
+
     public static ControllerProtocolo getInstance() {
         return ourInstance;
     }
@@ -38,7 +41,7 @@ public class ControllerProtocolo {
         this.controllerInteracao = ControllerInteracao.getInstance();
         this.controllerUsuario = ControllerUsuario.getInstance();
         this.controllerCliente = ControllerCliente.getInstance();
-
+        this.autenticador = Autenticador.getInstance();
     }
 
     public String adicionar(Cliente cliente, String categoria, String area, String descricao) throws Exception {
@@ -98,6 +101,11 @@ public class ControllerProtocolo {
         this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CANCELAR);
     }
 
+    public boolean desabilitarInicializar(Integer idOperador){
+        Integer total = this.daoProtocolo.buscaProtocolosDoOperador(idOperador);
+        return total>1;
+    }
+
     public List<Protocolo> buscaProtocolos(){
         return this.daoProtocolo.buscaProtocolos();
     }
@@ -137,6 +145,10 @@ public class ControllerProtocolo {
         if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO)){
             protocolo.setStatus(Status.EM_ATENDIMENTO);
             protocolo.setDataInicioExecucao(new Date());
+            if (protocolo.getResponsavel()==null){
+                Pessoa responsavel = this.controllerUsuario.findUsuarioById(this.autenticador.getUsuarioLogado().getId());
+                protocolo.setResponsavel(responsavel);
+            }
             this.controllerInteracao.addInteracao(protocolo, TipoInteracao.ATENDIMENTO);
             this.daoProtocolo.iniciarAtendimento(protocolo);
         }

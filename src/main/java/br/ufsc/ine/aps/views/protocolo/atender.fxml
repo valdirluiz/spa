@@ -30,7 +30,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                                 </Button>
-                        <Button mnemonicParsing="false" onAction="#iniciarAtendimento" prefHeight="40.0" prefWidth="165.0" text="Iniciar Atendimento" textAlignment="CENTER">
+                        <Button mnemonicParsing="false" fx:id="btnAtendimento" onAction="#iniciarAtendimento" prefHeight="40.0" prefWidth="165.0" text="Iniciar Atendimento" textAlignment="CENTER">
                            <styleClass>
                               <String fx:value="button-flat" />
                               <String fx:value="button-success" />
