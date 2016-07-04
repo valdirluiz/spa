@@ -34,7 +34,7 @@
                   </HBox>
                   <HBox alignment="TOP_RIGHT">
                      <children>
-                        <Button fx:id="salvarClienteButton" mnemonicParsing="false" onAction="#salvarCliente" prefHeight="34.0" prefWidth="100.0" text="Salvar" textAlignment="CENTER">
+                        <Button fx:id="salvarClienteButton" mnemonicParsing="false" onAction="#adicionarCliente" prefHeight="34.0" prefWidth="100.0" text="Salvar" textAlignment="CENTER">
                            <styleClass>
                               <String fx:value="button-flat" />
                               <String fx:value="button-success" />

@@ -80,16 +80,10 @@ public class ControllerFuncionario {
     public void atualizar(Integer id, String cpf, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {
         Pessoa pessoa = null;
         if(tipo.equals(TipoUsuario.ATENDENTE)){
-            pessoa = new Atendente();
+            pessoa = new Atendente(id, nome, cpf, email, telefone);
         } else{
-            pessoa = new Operador();
+            pessoa = new Operador(id, nome, cpf, email, telefone);
         }
-        pessoa.setId(id);
-        pessoa.setNome(nome);
-        pessoa.setCpf(cpf);
-        pessoa.setEmail(email);
-        pessoa.setTelefone(telefone);
-        pessoa.setTipoUsuario(tipo);
         this.daoFuncionario.update(pessoa);
     }
 
@@ -102,7 +96,3 @@ public class ControllerFuncionario {
         return daoFuncionario.findOperadorDisponivel();
     }
 }
-
-
-
-
