@@ -1,7 +1,7 @@
 package br.ufsc.ine.aps.enuns;
 
 public enum TipoInteracao {
-    CRIACAO(1, "Criação"), FEEDBACK(2, "Feedback"), ATENDIMENTO(3,"Atendimento"), CONCLUSAO(4, "Conclusão"), CANCELAR(5, "Cancelar");
+    CRIACAO(1, "Criação"), FEEDBACK(2, "Feedback"), ATENDIMENTO(3,"Atendimento"), CONCLUSAO(4, "Conclusão"), CANCELAR(5, "Cancelar"), DIRECIONAR(6, "Direcionar");
 
 
     private TipoInteracao(Integer id, String descricao){
@@ -21,6 +21,8 @@ public enum TipoInteracao {
                 return CONCLUSAO;
             case 5:
                 return CANCELAR;
+            case  6:
+                return DIRECIONAR;
             default:
                 return null;
         }

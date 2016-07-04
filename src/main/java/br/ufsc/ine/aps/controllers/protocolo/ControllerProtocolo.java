@@ -173,11 +173,13 @@ public class ControllerProtocolo {
 
     public void inserirFeedback(Protocolo protocolo) throws Exception {
         this.daoProtocolo.inserirFeedback(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.FEEDBACK);
     }
 
     public void direcionarParaGerente(Protocolo protocolo) throws Exception {
         Pessoa gerente = this.controllerFuncionario.findGerente();
         protocolo.setResponsavel(gerente);
         this.daoProtocolo.atualizarResponsavel(protocolo);
+        this.controllerInteracao.addInteracao(protocolo, TipoInteracao.DIRECIONAR);
     }
 }
