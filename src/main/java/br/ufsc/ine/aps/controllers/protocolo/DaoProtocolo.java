@@ -178,17 +178,17 @@ public class DaoProtocolo {
                 protocolo.setIdentificador(rs.getString(6));
                 protocolo.setMensagemLivre(rs.getString(7));
 
-                protocolo.setResposta(rs.getString(8));
-                protocolo.setStatus(Status.getById(rs.getInt(9)));
-                protocolo.setArea(Area.getById(rs.getInt(10)));
-                protocolo.setCategoria(Categoria.getById(rs.getInt(11)));
+                protocolo.setResposta(rs.getString(9));
+                protocolo.setStatus(Status.getById(rs.getInt(10)));
+                protocolo.setArea(Area.getById(rs.getInt(11)));
+                protocolo.setCategoria(Categoria.getById(rs.getInt(12)));
 
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt(12));
+                cliente.setId(rs.getInt(13));
                 protocolo.setCliente(cliente);
 
                 Pessoa atendente = new Atendente();
-                atendente.setId(rs.getInt(13));
+                atendente.setId(rs.getInt(14));
                 protocolo.setResponsavel(atendente);
 
                 protocolos.add(protocolo);
