@@ -26,7 +26,7 @@ public class Protocolo {
     private Pessoa responsavel;
 
     public Protocolo(){
-        
+
     }
 
     public Protocolo(Area area, Categoria categoria, Cliente cliente, Status status, Calendar dataCriacao, String descricao) {

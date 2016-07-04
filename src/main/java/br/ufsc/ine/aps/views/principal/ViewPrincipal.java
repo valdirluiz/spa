@@ -1,5 +1,6 @@
 package br.ufsc.ine.aps.views.principal;
 
+import br.ufsc.ine.aps.app.Main;
 import br.ufsc.ine.aps.controllers.login.Autenticador;
 import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.Autenticavel;
@@ -7,23 +8,27 @@ import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList;
+import br.ufsc.ine.aps.views.login.ViewLogin;
 import br.ufsc.ine.aps.views.notificacao.ViewNotificacoes;
 import br.ufsc.ine.aps.views.protocolo.ViewProtocolo;
 
 import br.ufsc.ine.aps.views.protocolo.ViewProtocoloList;
 import javafx.event.ActionEvent;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 import javafx.scene.Parent;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -49,6 +54,8 @@ public class ViewPrincipal implements Initializable {
     private Label infoUsuarioNome;
     @FXML
     private Label infoUsuarioTipo;
+    @FXML
+    private AnchorPane telaHome;
 
     private Autenticavel usuarioLogado;
 
@@ -101,6 +108,26 @@ public class ViewPrincipal implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void logout(Event event){
+        try {
+            Autenticador.getInstance().logout();
+            Stage closeStage = (Stage) this.telaHome.getScene().getWindow();
+            closeStage.close();
+
+            Scene scene = this.telaHome.getScene();
+            Parent root = FXMLLoader.load(ViewLogin.class.getResource("login.fxml"));
+            Stage stage = new Stage();
+            scene.setRoot(root);
+            stage.setTitle("Login");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @FXML

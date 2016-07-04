@@ -20,7 +20,7 @@
 
                               <HBox alignment="TOP_RIGHT">
                             <children>
-                        <Button fx:id="btnFeedback"  mnemonicParsing="false" text="Inserir Feedback">
+                        <Button fx:id="btnFeedback"  onAction="#inserirFeedback" mnemonicParsing="false" text="Inserir Feedback">
                             <styleClass>
                                 <String fx:value="button-flat" />
                                 <String fx:value="button-success" />

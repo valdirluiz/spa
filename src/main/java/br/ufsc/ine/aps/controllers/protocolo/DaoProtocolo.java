@@ -31,7 +31,7 @@ public class DaoProtocolo {
     private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, idResponsavel =?, dataInicioExecucao = ? where id = ?";
     private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?,  dataFimExecucao = ?, respota=? where id = ?";
     private static final String SQL_BUSCA_PROTOCOLOS_OPERADOR = "select count(*) from protocolos where idResponsavel = ? and (status = 1 or status=2)";
-
+    private static final String SQL_INSERIR_FEEDBACK = "update protocolos set status = 5, feedback = ? where id = ?";
 
     private Connection bdConnection;
 
@@ -177,17 +177,17 @@ public class DaoProtocolo {
                 protocolo.setIdentificador(rs.getString(6));
                 protocolo.setMensagemLivre(rs.getString(7));
 
-                protocolo.setResposta(rs.getString(8));
-                protocolo.setStatus(Status.getById(rs.getInt(9)));
-                protocolo.setArea(Area.getById(rs.getInt(10)));
-                protocolo.setCategoria(Categoria.getById(rs.getInt(11)));
+                protocolo.setResposta(rs.getString(9));
+                protocolo.setStatus(Status.getById(rs.getInt(10)));
+                protocolo.setArea(Area.getById(rs.getInt(11)));
+                protocolo.setCategoria(Categoria.getById(rs.getInt(12)));
 
                 Cliente cliente = new Cliente();
-                cliente.setId(rs.getInt(12));
+                cliente.setId(rs.getInt(13));
                 protocolo.setCliente(cliente);
 
                 Pessoa atendente = new Atendente();
-                atendente.setId(rs.getInt(13));
+                atendente.setId(rs.getInt(14));
                 protocolo.setResponsavel(atendente);
 
                 protocolos.add(protocolo);
@@ -214,5 +214,13 @@ public class DaoProtocolo {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public void inserirFeedback(Protocolo protocolo) throws Exception {
+        PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_INSERIR_FEEDBACK);
+        stmt.setString(1, protocolo.getFeedback());
+        stmt.setInt(2, protocolo.getId());
+        stmt.executeUpdate();
+        stmt.close();
     }
 }
