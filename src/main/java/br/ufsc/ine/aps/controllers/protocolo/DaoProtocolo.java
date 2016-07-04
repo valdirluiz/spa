@@ -32,6 +32,7 @@ public class DaoProtocolo {
     private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?,  dataFimExecucao = ?, respota=? where id = ?";
     private static final String SQL_BUSCA_PROTOCOLOS_OPERADOR = "select count(*) from protocolos where idResponsavel = ? and (status = 1 or status=2)";
     private static final String SQL_INSERIR_FEEDBACK = "update protocolos set status = 5, feedback = ? where id = ?";
+    private static final String SQL_UPDATE_RESPONSAVEL = "update protocolos set idResponsavel = ?  where id = ?";
 
     private Connection bdConnection;
 
@@ -222,5 +223,16 @@ public class DaoProtocolo {
         stmt.setInt(2, protocolo.getId());
         stmt.executeUpdate();
         stmt.close();
+    }
+
+    public void atualizarResponsavel(Protocolo protocolo) throws Exception {
+
+                PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_UPDATE_RESPONSAVEL);
+                stmt.setInt(1, protocolo.getResponsavel().getId());
+                stmt.setInt(2, protocolo.getId());
+                stmt.executeUpdate();
+                stmt.close();
+
+
     }
 }

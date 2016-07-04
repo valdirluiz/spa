@@ -50,6 +50,8 @@ public class ViewAtendimento  implements Initializable {
     private Label feedbackLabel;
     @FXML
     private TextArea feedback;
+    @FXML
+    private Button btnDirecionar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +69,16 @@ public class ViewAtendimento  implements Initializable {
         this.resposta.setText(protocolo.getResposta());
         this.descricao.setText(protocolo.getMensagemLivre());
         this.feedback.setText(protocolo.getFeedback());
+        this.btnDirecionar.setVisible(false);
+
+        if(this.protocolo.getResponsavel()!=null && !this.protocolo.getResponsavel().getId().equals(autenticador.getUsuarioLogado().getId())){
+            this.btnAtendimento.setVisible(false);
+            this.btnFinalizar.setVisible(false);
+        } else{
+            if(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO))
+            this.btnDirecionar.setVisible(true);
+        }
+
         this.btnAtendimento.setDisable(this.controllerProtocolo.desabilitarInicializar(autenticador.getUsuarioLogado().getId())
                 || !protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO));
 
@@ -82,6 +94,19 @@ public class ViewAtendimento  implements Initializable {
 
     private boolean exibeFeedback(Protocolo protocolo) {
         return protocolo.getStatus().equals(Status.AGUARDANDO_FEEDBACK) && autenticador.getUsuarioLogado().getId().equals(protocolo.getCliente().getId());
+    }
+
+    @FXML
+    public void direcionarProtocolo(){
+        try {
+            this.controllerProtocolo.direcionarParaGerente(protocolo);
+            this.mensagem("Protocolo direcionado para o gerente.", Alert.AlertType.CONFIRMATION);
+            this.atualizaView();
+        } catch (Exception e){
+            this.mensagem("Falha ao direcionar protocolo", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
