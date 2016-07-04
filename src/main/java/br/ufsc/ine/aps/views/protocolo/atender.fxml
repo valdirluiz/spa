@@ -20,8 +20,24 @@
 
                               <HBox alignment="TOP_RIGHT">
                             <children>
-                        <Button mnemonicParsing="false" onAction="#cancelarProtocolo" text="Cancelar" />
-                                <Button mnemonicParsing="false" onAction="#finalizar" prefHeight="40.0" prefWidth="165.0" text="Finalizar" textAlignment="CENTER">
+                        <Button fx:id="btnFeedback"  mnemonicParsing="false" text="Inserir Feedback">
+                            <styleClass>
+                                <String fx:value="button-flat" />
+                                <String fx:value="button-success" />
+                            </styleClass>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" fx:id="btnCancelar" onAction="#cancelarProtocolo" text="Cancelar">
+                           <styleClass>
+                              <String fx:value="button-flat" />
+                              <String fx:value="button-success" />
+                           </styleClass>
+                           <HBox.margin>
+                              <Insets right="8.0" />
+                           </HBox.margin></Button>
+                                <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="40.0" prefWidth="165.0" text="Finalizar" textAlignment="CENTER">
                                     <styleClass>
                                         <String fx:value="button-flat" />
                                         <String fx:value="button-success" />
@@ -30,7 +46,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                                 </Button>
-                        <Button mnemonicParsing="false" fx:id="btnAtendimento" onAction="#iniciarAtendimento" prefHeight="40.0" prefWidth="165.0" text="Iniciar Atendimento" textAlignment="CENTER">
+                        <Button fx:id="btnAtendimento" mnemonicParsing="false" onAction="#iniciarAtendimento" prefHeight="40.0" prefWidth="165.0" text="Iniciar Atendimento" textAlignment="CENTER">
                            <styleClass>
                               <String fx:value="button-flat" />
                               <String fx:value="button-success" />
@@ -38,7 +54,7 @@
                         </Button>
                             </children>
                             <VBox.margin>
-                                <Insets />
+                                <Insets top="5.0" />
                             </VBox.margin>
                         </HBox>
                   <Label text="Cliente:" />
@@ -68,6 +84,8 @@
                   <TextArea fx:id="descricao" prefHeight="38.0" prefWidth="580.0" />
                   <Label text="Resposta" />
                   <TextArea fx:id="resposta" prefHeight="100.0" prefWidth="470.0" />
+                  <Label fx:id="feedbackLabel" text="Feedback" />
+                  <TextArea fx:id="feedback" prefHeight="200.0" prefWidth="200.0" />
                </children>
             </VBox>
             </children>

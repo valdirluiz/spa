@@ -29,7 +29,7 @@ public class DaoProtocolo {
     private static final String SQL_UPDATE_STATUS = "update protocolos set status = ? where id = ?";
     private static final String SQL_LIST = "SELECT * FROM protocolos";
     private static final String SQL_INICIAR_ATENDIMENTO = "update protocolos set status = ?, idResponsavel =?, dataInicioExecucao = ? where id = ?";
-    private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?,  dataFimExecucao = ? where id = ?";
+    private static final String SQL_FINALIZAR_ATENDIMENTO = "update protocolos set status = ?,  dataFimExecucao = ?, respota=? where id = ?";
     private static final String SQL_BUSCA_PROTOCOLOS_OPERADOR = "select count(*) from protocolos where idResponsavel = ? and (status = 1 or status=2)";
 
 
@@ -154,7 +154,8 @@ public class DaoProtocolo {
         PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_FINALIZAR_ATENDIMENTO);
         stmt.setInt(1, protocolo.getStatus().getId());
         stmt.setDate(2, new Date(protocolo.getDataFimExecucao().getTime()));
-        stmt.setInt(3, protocolo.getId());
+        stmt.setString(3, protocolo.getResposta());
+        stmt.setInt(4, protocolo.getId());
         stmt.executeUpdate();
         stmt.close();
     }
