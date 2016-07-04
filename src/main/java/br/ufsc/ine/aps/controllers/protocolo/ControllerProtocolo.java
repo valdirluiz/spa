@@ -14,6 +14,7 @@ import br.ufsc.ine.aps.exceptions.ProtocoloJaCancelado;
 import br.ufsc.ine.aps.exceptions.SemRespostaPreenchida;
 import br.ufsc.ine.aps.exceptions.StatusEmAndamento;
 import br.ufsc.ine.aps.models.Cliente;
+import br.ufsc.ine.aps.models.Gerente;
 import br.ufsc.ine.aps.models.Pessoa;
 import br.ufsc.ine.aps.models.Protocolo;
 
@@ -172,5 +173,11 @@ public class ControllerProtocolo {
 
     public void inserirFeedback(Protocolo protocolo) throws Exception {
         this.daoProtocolo.inserirFeedback(protocolo);
+    }
+
+    public void direcionarParaGerente(Protocolo protocolo) throws Exception {
+        Pessoa gerente = this.controllerFuncionario.findGerente();
+        protocolo.setResponsavel(gerente);
+        this.daoProtocolo.atualizarResponsavel(protocolo);
     }
 }

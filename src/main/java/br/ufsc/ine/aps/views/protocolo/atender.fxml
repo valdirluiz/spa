@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.protocolo.ViewAtendimento">
+<AnchorPane prefHeight="484.0" prefWidth="788.0" stylesheets="@../../assets/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.protocolo.ViewAtendimento">
     <children>
         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -20,7 +20,16 @@
 
                               <HBox alignment="TOP_RIGHT">
                             <children>
-                        <Button fx:id="btnFeedback"  onAction="#inserirFeedback" mnemonicParsing="false" text="Inserir Feedback">
+                        <Button mnemonicParsing="false" fx:id="btnDirecionar" onAction="#direcionarProtocolo" text="Direcionar">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="button-flat" />
+                              <String fx:value="button-success" />
+                           </styleClass>
+                        </Button>
+                        <Button fx:id="btnFeedback" mnemonicParsing="false" onAction="#inserirFeedback" text="Inserir Feedback">
                             <styleClass>
                                 <String fx:value="button-flat" />
                                 <String fx:value="button-success" />
@@ -29,7 +38,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" fx:id="btnCancelar" onAction="#cancelarProtocolo" text="Cancelar">
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelarProtocolo" text="Cancelar">
                            <styleClass>
                               <String fx:value="button-flat" />
                               <String fx:value="button-success" />
@@ -37,7 +46,7 @@
                            <HBox.margin>
                               <Insets right="8.0" />
                            </HBox.margin></Button>
-                                <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="40.0" prefWidth="165.0" text="Finalizar" textAlignment="CENTER">
+                                <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefHeight="40.0" prefWidth="134.0" text="Finalizar" textAlignment="CENTER">
                                     <styleClass>
                                         <String fx:value="button-flat" />
                                         <String fx:value="button-success" />
