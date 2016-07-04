@@ -169,4 +169,8 @@ public class ControllerProtocolo {
 
         return null;
     }
+
+    public void inserirFeedback(Protocolo protocolo) throws Exception {
+        this.daoProtocolo.inserirFeedback(protocolo);
+    }
 }

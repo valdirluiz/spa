@@ -66,4 +66,8 @@ public class Autenticador {
     public Autenticavel getUsuarioLogado() {
         return usuarioLogado;
     }
+
+    public void logout() {
+        this.usuarioLogado = null;
+    }
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.principal.ViewPrincipal">
+<AnchorPane fx:id="telaHome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufsc.ine.aps.views.principal.ViewPrincipal">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -29,7 +29,7 @@
                            <menus>
                               <Menu fx:id="menuProtocolos" mnemonicParsing="false" text="Protocolos">
                                  <items>
-                                    <MenuItem fx:id="menuConProtocolo" mnemonicParsing="false" text="Consultar" onAction="#handleConsultaProtocoloButtonAction" />
+                                    <MenuItem fx:id="menuConProtocolo" mnemonicParsing="false" onAction="#handleConsultaProtocoloButtonAction" text="Consultar" />
                                     <MenuItem fx:id="menuCadProtocolo" mnemonicParsing="false" onAction="#handleCadastroProtocoloButtonAction" text="Cadastrar" />
                                  </items>
                               </Menu>
@@ -104,6 +104,9 @@
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
+                     <center>
+                        <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #e0f2f1; -fx-text-fill: #333333;" styleClass="button-flat" text="Sair" BorderPane.alignment="CENTER" />
+                     </center>
                   </BorderPane>
                </children>
             </AnchorPane>

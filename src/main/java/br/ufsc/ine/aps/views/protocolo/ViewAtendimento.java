@@ -66,14 +66,15 @@ public class ViewAtendimento  implements Initializable {
         this.categoria.setText(protocolo.getCategoria().getDescricao());
         this.resposta.setText(protocolo.getResposta());
         this.descricao.setText(protocolo.getMensagemLivre());
+        this.feedback.setText(protocolo.getFeedback());
         this.btnAtendimento.setDisable(this.controllerProtocolo.desabilitarInicializar(autenticador.getUsuarioLogado().getId())
                 || !protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO));
 
         this.btnFinalizar.setDisable(!protocolo.getStatus().equals(Status.EM_ATENDIMENTO));
 
         this.btnFeedback.setVisible(exibeFeedback(protocolo));
-        this.feedbackLabel.setVisible(exibeFeedback(protocolo));
-        this.feedback.setVisible(exibeFeedback(protocolo));
+        this.feedbackLabel.setVisible(exibeFeedback(protocolo) || protocolo.getFeedback()!=null);
+        this.feedback.setVisible(exibeFeedback(protocolo) || protocolo.getFeedback()!=null);
         this.btnCancelar.setVisible(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO));
 
 
@@ -81,6 +82,24 @@ public class ViewAtendimento  implements Initializable {
 
     private boolean exibeFeedback(Protocolo protocolo) {
         return protocolo.getStatus().equals(Status.AGUARDANDO_FEEDBACK) && autenticador.getUsuarioLogado().getId().equals(protocolo.getCliente().getId());
+    }
+
+    @FXML
+    public void inserirFeedback(Event event){
+        if(feedback.getText()==null  || feedback.getText().isEmpty()){
+            this.mensagem("Campo Feedback é obrigatório", Alert.AlertType.ERROR);
+        } else {
+            try {
+                this.protocolo.setFeedback(feedback.getText());
+                this.controllerProtocolo.inserirFeedback(protocolo);
+                this.atualizaView();
+                this.mensagem("Feedback inserido com sucesso", Alert.AlertType.CONFIRMATION);
+            } catch (Exception e){
+                this.mensagem("Falha a inserir", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @FXML
