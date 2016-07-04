@@ -58,13 +58,7 @@ public class ControllerProtocolo {
     }
 
     private void cadastrar(Cliente cliente, String categoria, String area, String descricao) throws Exception {
-        Protocolo protocolo = new Protocolo();
-        protocolo.setArea(Area.findByDescricao(area));
-        protocolo.setCategoria(Categoria.findByDescricao(categoria));
-        protocolo.setCliente(cliente);
-        protocolo.setStatus(Status.AGUARDANDO_ATENDIMENTO);
-        protocolo.setDataCriacao(Calendar.getInstance());
-        protocolo.setMensagemLivre(descricao);
+        Protocolo protocolo = new Protocolo(Area.findByDescricao(area), Categoria.findByDescricao(categoria), cliente, Status.AGUARDANDO_ATENDIMENTO, Calendar.getInstance(), descricao);
         this.defineResponsavel(protocolo);
         this.daoProtocolo.salvar(protocolo);
         GeradorDeIdentificador.getInstance().geraIdentificador(protocolo);

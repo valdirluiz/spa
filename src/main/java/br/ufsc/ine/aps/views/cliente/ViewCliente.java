@@ -38,24 +38,33 @@ public class ViewCliente extends ViewPessoa implements Initializable{
     }
 
     @FXML
-    public void salvarCliente() {
+    public void adicionarCliente() {
         String retorno = null;
-        String[] tipoRetorno = {null, null};
-        if(toEdit == null){
-            tipoRetorno[0] = "Cadastro de Clientes";
-            tipoRetorno[1] = "Cliente cadastrado com sucesso!";
-            retorno = this.ctrl.adicionar(cpf.getText(), senha.getText(), nome.getText(), email.getText(), telefone.getText());
-            if (retorno == null) resetForm();
-        } else{
-            tipoRetorno[0] = "Alteração de Clientes";
-            tipoRetorno[1] = "Cliente alterado com sucesso!";
-            retorno = this.ctrl.atualizar(toEdit.getId().toString(), cpf.getText(), nome.getText(), email.getText(), telefone.getText());
-        }
+
+        retorno = this.ctrl.adicionar(cpf.getText(), senha.getText(), nome.getText(), email.getText(), telefone.getText());
+        if (retorno == null) resetForm();
 
         if (retorno == null) {
-            this.mensagem(tipoRetorno[0], tipoRetorno[1]);
+            this.mensagem("Cadastro de Clientes", "Cliente cadastrado com sucesso!");
         } else {
-            this.mensagem(tipoRetorno[0], "", retorno, Alert.AlertType.ERROR);
+            this.mensagem("Cadastro de Clientes", "", retorno, Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    public void salvarCliente() {
+        String retorno = null;
+
+        if(toEdit == null){
+            this.mensagem("Alteração de Clientes", "", "Operação inválida", Alert.AlertType.ERROR);
+        } else {
+            retorno = this.ctrl.atualizar(toEdit.getId().toString(), cpf.getText(), nome.getText(), email.getText(), telefone.getText());
+
+            if (retorno == null) {
+                this.mensagem("Alteração de Clientes", "Cliente alterado com sucesso!");
+            } else {
+                this.mensagem("Alteração de Clientes", "", retorno, Alert.AlertType.ERROR);
+            }
         }
     }
 
