@@ -25,6 +25,10 @@ public class Protocolo {
     private Atendente atendente;
     private Pessoa responsavel;
 
+    public Protocolo(){
+        
+    }
+
     public Protocolo(Area area, Categoria categoria, Cliente cliente, Status status, Calendar dataCriacao, String descricao) {
         this.area = area;
         this.categoria = categoria;
