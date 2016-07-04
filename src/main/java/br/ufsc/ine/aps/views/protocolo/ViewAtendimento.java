@@ -40,6 +40,16 @@ public class ViewAtendimento  implements Initializable {
     private TextArea resposta;
     @FXML
     private Button btnAtendimento;
+    @FXML
+    private Button btnFinalizar;
+    @FXML
+    private Button btnCancelar;
+    @FXML
+    private Button btnFeedback;
+    @FXML
+    private Label feedbackLabel;
+    @FXML
+    private TextArea feedback;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,10 +64,23 @@ public class ViewAtendimento  implements Initializable {
         this.status.setText(protocolo.getStatusDescricao());
         this.area.setText(protocolo.getArea().getDescricao());
         this.categoria.setText(protocolo.getCategoria().getDescricao());
+        this.resposta.setText(protocolo.getResposta());
         this.descricao.setText(protocolo.getMensagemLivre());
         this.btnAtendimento.setDisable(this.controllerProtocolo.desabilitarInicializar(autenticador.getUsuarioLogado().getId())
-                || protocolo.getStatus().equals(Status.EM_ATENDIMENTO));
+                || !protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO));
 
+        this.btnFinalizar.setDisable(!protocolo.getStatus().equals(Status.EM_ATENDIMENTO));
+
+        this.btnFeedback.setVisible(exibeFeedback(protocolo));
+        this.feedbackLabel.setVisible(exibeFeedback(protocolo));
+        this.feedback.setVisible(exibeFeedback(protocolo));
+        this.btnCancelar.setVisible(protocolo.getStatus().equals(Status.AGUARDANDO_ATENDIMENTO));
+
+
+    }
+
+    private boolean exibeFeedback(Protocolo protocolo) {
+        return protocolo.getStatus().equals(Status.AGUARDANDO_FEEDBACK) && autenticador.getUsuarioLogado().getId().equals(protocolo.getCliente().getId());
     }
 
     @FXML
@@ -76,9 +99,9 @@ public class ViewAtendimento  implements Initializable {
     }
 
     private void atualizaView() {
-        Optional<Protocolo> protocoloAtualizado = this.controllerProtocolo.findById(protocolo.getId());
-        if(protocoloAtualizado.isPresent()){
-            this.setProtocolo(protocoloAtualizado.get());
+        Protocolo protocoloAtualizado = this.controllerProtocolo.findById(protocolo.getId());
+        if(protocoloAtualizado!=null){
+            this.setProtocolo(protocoloAtualizado);
         }
     }
 
@@ -86,6 +109,8 @@ public class ViewAtendimento  implements Initializable {
     public void iniciarAtendimento(Event event){
         try {
             this.controllerProtocolo.iniciarAtendimento(protocolo);
+            this.btnCancelar.setVisible(false);
+            this.btnAtendimento.setDisable(false);
             atualizaView();
             mensagem("Atendimento iniciado com sucesso!", Alert.AlertType.CONFIRMATION);
         }

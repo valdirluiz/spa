@@ -158,7 +158,15 @@ public class ControllerProtocolo {
         this.controllerInteracao.addInteracao(protocolo, TipoInteracao.CONCLUSAO);
     }
 
-    public Optional<Protocolo> findById(Integer id) {
-        return daoProtocolo.list().stream().filter(p -> p.getId().equals(id)).findFirst();
+    public Protocolo findById(Integer id) {
+        Optional<Protocolo> optional = daoProtocolo.list().stream().filter(p -> p.getId().equals(id)).findFirst();
+        if (optional.isPresent()){
+            Protocolo protocolo = optional.get();
+
+            protocolo.setCliente(this.controllerCliente.findById(protocolo.getCliente().getId()));
+            return  protocolo;
+        }
+
+        return null;
     }
 }
