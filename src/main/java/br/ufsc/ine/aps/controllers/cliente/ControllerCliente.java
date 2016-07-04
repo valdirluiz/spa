@@ -38,24 +38,27 @@ public class ControllerCliente {
 
     public String adicionar(String cpf, String senha, String nome, String email, String telefone) {
         Cliente cliente = new Cliente(cpf, senha, email, telefone, nome);
+        String mensagem = null;
 
         if (validaAtributos(cliente)) {
             if (validaCPF(cliente.getCpf())) {
                 if (clienteExiste(cliente.getCpf())) {
-                    return "Este CPF já esta cadastrado.";
+                    mensagem = "Este CPF já esta cadastrado.";
                 } else {
                     if (dao.salvar(cliente)) {
                         return null;
                     } else {
-                        return "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.";
+                        mensagem = "Ocorreu um erro ao salvar o cliente, entre em contato com o suporte.";
                     }
                 }
             } else {
-                return "CPF inválido.";
+                mensagem = "CPF inválido.";
             }
         } else {
-            return "Todos campos são obrigatórios.";
+            mensagem = "Todos campos são obrigatórios.";
         }
+
+        return mensagem;
 
     }
 
