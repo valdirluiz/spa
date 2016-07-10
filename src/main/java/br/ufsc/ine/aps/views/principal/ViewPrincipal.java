@@ -242,18 +242,21 @@ public class ViewPrincipal implements Initializable {
 
     private void showMenuClientes(){
         this.menuClientes.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
-                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE) || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE) );
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE));
     }
 
     private void showMenuCadastrarProtocolo() {
         this.menuCadProtocolo.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
-                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE));
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE));
     }
 
     private void showMenuProtocolos() {
         this.menuProtocolos.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE)
                 || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE)
-                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.CLIENTE));
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.CLIENTE)
+                || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE));
     }
 
 }
