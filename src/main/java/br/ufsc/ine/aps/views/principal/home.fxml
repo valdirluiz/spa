@@ -45,6 +45,11 @@
                                     <MenuItem mnemonicParsing="false" onAction="#handleFuncionariosCadastrarAction" text="Cadastrar" />
                                  </items>
                               </Menu>
+                              <Menu fx:id="menuEstatisca" mnemonicParsing="false" text="Estatisticas" >
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#handleEstaticicaAction" text="Dashboard"/>
+                                 </items>
+                              </Menu>
                            </menus>
                         </MenuBar>
                      </children>

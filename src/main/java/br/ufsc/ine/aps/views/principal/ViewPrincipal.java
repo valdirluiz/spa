@@ -6,6 +6,7 @@ import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.models.Autenticavel;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
+import br.ufsc.ine.aps.views.estatisticas.ViewEstatistica;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionario;
 import br.ufsc.ine.aps.views.funcionario.ViewFuncionarioList;
 import br.ufsc.ine.aps.views.login.ViewLogin;
@@ -56,6 +57,8 @@ public class ViewPrincipal implements Initializable {
     private Label infoUsuarioTipo;
     @FXML
     private AnchorPane telaHome;
+    @FXML
+    private Menu menuEstatisca;
 
     private Autenticavel usuarioLogado;
 
@@ -66,6 +69,7 @@ public class ViewPrincipal implements Initializable {
         this.showMenuClientes();
         this.showMenuProtocolos();
         this.showMenuCadastrarProtocolo();
+        this.showMenuEstatisticas();
         this.infoUsuarioNome.setText("Usuário: " + usuarioLogado.getNome());
         this.infoUsuarioTipo.setText("Tipo de Acesso: " + usuarioLogado.getTipoUsuario().getDescricao());
     }
@@ -221,6 +225,23 @@ public class ViewPrincipal implements Initializable {
         }
     }
 
+    @FXML
+    private void handleEstaticicaAction(ActionEvent ev){
+        try {
+            AnchorPane content = new AnchorPane();
+            Parent page =  FXMLLoader.load(ViewEstatistica.class.getResource("estatisticas.fxml"));
+            content.getChildren().setAll(page);
+
+            AnchorPane title = new AnchorPane();
+            Parent titleWrapper = FXMLLoader.load(ViewEstatistica.class.getResource("_titulo.fxml"));
+            title.getChildren().setAll(titleWrapper);
+
+            this.atualizaConteudo(title, content);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     public void atualizaConteudo(AnchorPane title, AnchorPane conteudo) {
         pageContent.getChildren().clear();
@@ -257,6 +278,10 @@ public class ViewPrincipal implements Initializable {
                 || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.OPERADOR_SUPORTE)
                 || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.CLIENTE)
                 || this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.ATENDENTE));
+    }
+
+    private void showMenuEstatisticas(){
+        this.menuEstatisca.setVisible(this.usuarioLogado.getTipoUsuario().equals(TipoUsuario.GERENTE));
     }
 
 }

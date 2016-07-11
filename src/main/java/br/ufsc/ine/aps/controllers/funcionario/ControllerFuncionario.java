@@ -4,7 +4,6 @@ import br.ufsc.ine.aps.enuns.TipoUsuario;
 import br.ufsc.ine.aps.exceptions.CpfJaCadastrado;
 import br.ufsc.ine.aps.models.Atendente;
 
-import br.ufsc.ine.aps.models.Gerente;
 import br.ufsc.ine.aps.models.Operador;
 import br.ufsc.ine.aps.models.Pessoa;
 
@@ -19,10 +18,10 @@ public class ControllerFuncionario {
         return ourInstance;
     }
 
-    private DaoFuncionario daoFuncionario;
+    private DaoPessoaFuncionario daoFuncionario;
 
     private ControllerFuncionario() {
-        this.daoFuncionario = DaoFuncionario.getInstance();
+        this.daoFuncionario = DaoPessoaFuncionario.getInstance();
     }
 
     public void salvar(String cpf, String senha, String nome, String email, String telefone, TipoUsuario tipo) throws Exception {

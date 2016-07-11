@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Separator?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.ufsc.ine.aps.views.estatisticas.ViewEstatistica">
+    <children>
+        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox styleClass="card">
+                    <children>
+                        <VBox minWidth="600.0" spacing="5.0">
+                            <Group>
+                                <Label text="Total Protocolos: " style="-fx-font-size: 20px"/>
+                                <Label style="-fx-padding: 0px 0px 0px 165px; -fx-font-size: 20px" fx:id="totalProtocolos" text="0"/>
+                            </Group>
+                            <Group>
+                                <Label style="-fx-text-fill: #a47e3c;" text="Total Aguardando Atendimento: " />
+                                <Label style="-fx-padding: 0px 0px 0px 220px; -fx-text-fill: #a47e3c;" fx:id="totalAguardandoAtendimento" text="0"/>
+                            </Group>
+                            <Group>
+                                <Label style="-fx-text-fill: #a47e3c;" text="Total Em Atendimento: " />
+                                <Label style="-fx-padding: 0px 0px 0px 155px; -fx-text-fill: #a47e3c;" fx:id="totalAtendimento" text="0"/>
+                            </Group>
+                            <Group>
+                                <Label style="-fx-text-fill: #a47e3c" text="Total Aguardando Feedback: " />
+                                <Label style="-fx-padding: 0px 0px 0px 205px; -fx-text-fill: #a47e3c;" fx:id="totalAguardandoFeedback" text="0"/>
+                            </Group>
+                            <Group>
+                                <Label style="-fx-text-fill: darkred;" text="Total Cancelado: " />
+                                <Label style="-fx-padding: 0px 0px 0px 120px; -fx-text-fill: darkred;" fx:id="totalCancelado" text="0"/>
+                            </Group>
+                            <Group>
+                                <Label style="-fx-text-fill: darkgreen;" text="Total Finalizado: " />
+                                <Label style="-fx-padding: 0px 0px 0px 120px; -fx-text-fill: darkgreen;" fx:id="totalFinalizado" text="0"/>
+                            </Group>
+                            <Separator orientation="HORIZONTAL"/>
+                            <Group>
+
+                            </Group>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>

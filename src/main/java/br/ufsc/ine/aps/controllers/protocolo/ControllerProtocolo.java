@@ -182,4 +182,34 @@ public class ControllerProtocolo {
         this.daoProtocolo.atualizarResponsavel(protocolo);
         this.controllerInteracao.addInteracao(protocolo, TipoInteracao.DIRECIONAR);
     }
+
+    public Integer countProtocolos(){
+        Integer qtProtocolos = daoProtocolo.countProtocolos();
+        return qtProtocolos == null ? 0 : qtProtocolos;
+    }
+
+    public Integer countAguardandoAtendimento(){
+        Integer qtAguardandoAtendimento = daoProtocolo.countAguardandoAtendimento();
+        return qtAguardandoAtendimento == null ? 0 : qtAguardandoAtendimento;
+    }
+
+    public Integer countAtendimento(){
+        Integer qtAtendimento = daoProtocolo.countAtentimento();
+        return qtAtendimento == null ? 0 : qtAtendimento;
+    }
+
+    public Integer countAguardandoFeedback(){
+        Integer qtaguardandoFeedback = daoProtocolo.countAguardandoFeedback();
+        return qtaguardandoFeedback == null ? 0 : qtaguardandoFeedback;
+    }
+
+    public Integer countCancelado(){
+        Integer qtCancelado = daoProtocolo.countCancelado();
+        return qtCancelado == null ? 0 : qtCancelado;
+    }
+
+    public Integer countFizalizado(){
+        Integer qtFinalizado = daoProtocolo.countFinalizado();
+        return qtFinalizado == null ? 0 : qtFinalizado;
+    }
 }

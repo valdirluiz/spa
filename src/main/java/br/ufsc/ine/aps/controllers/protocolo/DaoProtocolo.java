@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -33,6 +34,13 @@ public class DaoProtocolo {
     private static final String SQL_BUSCA_PROTOCOLOS_OPERADOR = "select count(*) from protocolos where idResponsavel = ? and (status = 1 or status=2)";
     private static final String SQL_INSERIR_FEEDBACK = "update protocolos set status = 5, feedback = ? where id = ?";
     private static final String SQL_UPDATE_RESPONSAVEL = "update protocolos set idResponsavel = ?  where id = ?";
+
+    private static final String SQL_COUNT_PROTOCOLOS = "SELECT count(*) total_protocolos FROM protocolos";
+    private static final String SQL_COUNT_AGUARDANDO_ATENDIMENTO = "SELECT count(*) total_protocolos_aguardando_atendimento FROM protocolos WHERE status = 1";
+    private static final String SQL_COUNT_ATENDIMENTO = "SELECT count(*) total_protocolos_atendimento FROM protocolos WHERE status = 2";
+    private static final String SQL_COUNT_AGUARDANDO_FEEDBACK = "SELECT count(*) total_protocolos_aguardando_feedback FROM protocolos WHERE status = 3";
+    private static final String SQL_COUNT_CANCELADO = "SELECT count(*) total_protocolos_cancelado FROM protocolos WHERE status = 4";
+    private static final String SQL_COUNT_FINALIZADO = "SELECT count(*) total_protocolos_finalizado FROM protocolos WHERE status = 5";
 
     private Connection bdConnection;
 
@@ -226,13 +234,90 @@ public class DaoProtocolo {
     }
 
     public void atualizarResponsavel(Protocolo protocolo) throws Exception {
-
-                PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_UPDATE_RESPONSAVEL);
-                stmt.setInt(1, protocolo.getResponsavel().getId());
-                stmt.setInt(2, protocolo.getId());
-                stmt.executeUpdate();
-                stmt.close();
-
-
+        PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_UPDATE_RESPONSAVEL);
+        stmt.setInt(1, protocolo.getResponsavel().getId());
+        stmt.setInt(2, protocolo.getId());
+        stmt.executeUpdate();
+        stmt.close();
     }
+
+    public Integer countProtocolos(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_PROTOCOLOS);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("total_protocolos");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Integer countAguardandoAtendimento(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_AGUARDANDO_ATENDIMENTO);
+            ResultSet rs =stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total_protocolos_aguardando_atendimento");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public Integer countAtentimento(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_ATENDIMENTO);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return rs.getInt("total_protocolos_atendimento");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Integer countAguardandoFeedback(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_AGUARDANDO_FEEDBACK);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                return rs.getInt("total_protocolos_aguardando_feedback");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Integer countCancelado(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_CANCELADO);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("total_protocolos_cancelado");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Integer countFinalizado(){
+        try {
+            PreparedStatement stmt = this.bdConnection.prepareStatement(SQL_COUNT_FINALIZADO);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt("total_protocolos_finalizado");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

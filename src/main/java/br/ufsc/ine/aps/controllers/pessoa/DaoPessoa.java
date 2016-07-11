@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public abstract class PessoaDao {
+public abstract class DaoPessoa {
 
     public void delete(Integer id) throws Exception {
         PreparedStatement stmt   = this.getConnection().prepareStatement("DELETE FROM pessoas WHERE id = ?");

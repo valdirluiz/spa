@@ -4,13 +4,12 @@ import br.com.caelum.stella.validation.CPFValidator;
 import br.ufsc.ine.aps.models.Cliente;
 import br.ufsc.ine.aps.views.cliente.ViewCliente;
 import br.ufsc.ine.aps.views.cliente.ViewClienteList;
-import javafx.scene.control.Alert;
 
 import java.util.List;
 
 public class ControllerCliente {
 
-    private DaoCliente dao = new DaoCliente();
+    private DaoPessoaCliente dao = new DaoPessoaCliente();
    // private ViewCliente view;
     private ViewClienteList viewList;
 
