@@ -33,7 +33,7 @@
 
     <build>
 
-        <finalName>release-${project.version}</finalName>
+        <finalName>spa-release-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
