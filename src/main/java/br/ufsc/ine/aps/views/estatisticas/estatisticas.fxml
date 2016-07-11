@@ -44,10 +44,6 @@
                                 <Label style="-fx-text-fill: darkgreen;" text="Total Finalizado: " />
                                 <Label style="-fx-padding: 0px 0px 0px 120px; -fx-text-fill: darkgreen;" fx:id="totalFinalizado" text="0"/>
                             </Group>
-                            <Separator orientation="HORIZONTAL"/>
-                            <Group>
-
-                            </Group>
                         </VBox>
                     </children>
                     <padding>
